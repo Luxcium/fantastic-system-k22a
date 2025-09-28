@@ -1,0 +1,27 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "chat.instructionsFilesLocations": {
+    "memory-bank/instructions": true
+  },
+  "chat.promptFiles": true,
+  "chat.promptFilesLocations": {
+    "memory-bank/prompts": true
+  },
+  "chat.modeFilesLocations": {
+    "memory-bank/chatmodes": true
+  },
+  "genesis.nodeBaseline": "Node.js 22+",
+  "github.copilot.chat.commitMessageGeneration.instructions": [
+    {
+      "file": "memory-bank/instructions/conventional-commits-must-be-used.instructions.md"
+    }
+  ],
+  "chat.agent.enabled": true,
+  "chat.agent.thinkingStyle": "expanded",
+  "chat.math.enabled": true,
+  "chatgpt.openOnStartup": true
+}

@@ -1,0 +1,3 @@
+# Preserve strict formatting for prompt and chat mode cards
+*.prompt.md
+*.chatmode.md

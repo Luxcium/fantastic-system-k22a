@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Validate 3A Instructions",
+      "type": "shell",
+      "command": "./scripts/validate-memory-bank.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Validate 3B Chatmodes",
+      "type": "shell",
+      "command": "./scripts/validate-chatmodes.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Validate 3C Prompts",
+      "type": "shell",
+      "command": "./scripts/validate-prompts.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Triad Health Check",
+      "type": "shell",
+      "command": "./scripts/triad-health.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "List Slash Commands",
+      "type": "shell",
+      "command": "./scripts/list-slash-commands.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

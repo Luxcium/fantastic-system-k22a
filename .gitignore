@@ -1,0 +1,33 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environments
+.env
+.env.*
+.venv/
+
+# Build outputs
+build/
+dist/
+out/
+coverage/
+
+# Misc caches
+.cache/
+.mypy_cache/
+.next/
+
+# Keep workspace customizations tracked
+!.vscode/
