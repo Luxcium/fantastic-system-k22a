@@ -13,12 +13,14 @@ This log captures each AI agent session across the Genesis layered bootstrap. Up
 | 2025-09-27T08:54:34-04:00 | Codex (GPT-5) | L1 — Foundation prep | Ran `init-genesis-22.sh` to download layered instructions; audited repository and noted missing foundation artifacts. | Finish Layer 1 by creating baseline files and verifying `scripts/init.sh` idempotence. |
 
 ## Usage Guidance
-- Log entries in reverse chronological order (newest at top).
+- Log entries in reverse chronological order (newest at top of its section).
 - Capture what changed, why it matters, and what remains.
 - Reference related `memory-bank/*` updates or commits where helpful.
+- The `web/` directory is the Next.js app workspace, avoid confusion.
+- Ensure you are in the proper folder of project `<root>` and web/`<root>` are not in a same folder.
 
 ## 🤖 Known Limitations
-
+  - The system may not always accurately interpret complex queries or commands.
 - In any `.prompt.md` or `.chatmode.md` file, the `tools:` front-matter key **must** have its value on the same line (e.g. `tools: [ ... ]`).
   Splitting the array onto the next line currently breaks VS Code's parser and Copilot's tool-detection logic.
 

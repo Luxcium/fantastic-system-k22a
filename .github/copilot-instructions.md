@@ -11,6 +11,14 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 - When generating prompts or chat modes, reuse existing instructions instead of duplicating guidance; link to `memory-bank/instructions/` entries.
 - Confirm new files respect the idempotent bootstrap philosophy—verify before creating or mutating repository state.
 
+## Usage Guidance
+
+- Log entries in reverse chronological order (newest at top of its section).
+- Capture what changed, why it matters, and what remains.
+- Reference related `memory-bank/*` updates or commits where helpful.
+- The `web/` directory is the Next.js app workspace, avoid confusion.
+- Ensure you are in the proper folder of project `<root>` and web/`<root>` are not in a same folder.
+
 ## Collaboration Expectations
 
 - Summarize assumptions and highlight open questions so humans can respond quickly.
@@ -25,8 +33,6 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 
 **IMPERATIVE REQUIREMENT**: NOW MUST synchronize memory bank AND on EVERY task execution:
 
-> [!IMPORTANT] > [Imperative Instructions Git Hub Copilot MUST ALWAYS Follow](../memory-bank/instructions/copilot-memory-bank.instructions.md)
-
 1. **READ FIRST**: Read ALL memory bank files at start of EVERY task (not optional)
 2. **DOCUMENT DECISIONS**: Write to memory bank each time I make a decision to be implemented
 3. **WRITE BEFORE END**: Update memory bank just before completing any task
@@ -35,6 +41,8 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 ### Core Files (Required)
 
 Before to mark a task as completed you MUST imperatively update memory bank files with current state of task, including any changes made, decisions taken, and dependencies updated. why and thought process behind to be kept in mind for future reference.
+
+> [!IMPORTANT] > [Imperative Instructions Git Hub Copilot MUST ALWAYS Follow](../memory-bank/instructions/copilot-memory-bank.instructions.md)
 
 - 'memory-bank/projectbrief.md'
 - 'memory-bank/productContext.md'
