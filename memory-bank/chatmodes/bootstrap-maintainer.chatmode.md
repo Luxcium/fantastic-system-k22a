@@ -1,6 +1,6 @@
 ---
 description: Guarded mode for maintaining Genesis bootstrap layers.
-model: GPT-5 (Preview)
+model: GPT-5
 tools: ['codebase', 'editFiles', 'fetch']
 ---
 
