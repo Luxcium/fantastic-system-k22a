@@ -36,12 +36,18 @@
 
 ## Implementation Checklist
 - [ ] Stack confirmed and documented in `memory-bank/techContext.md`.
-- [ ] Decision log entry created for baseline architecture.
+- [x] Decision log entry created for baseline architecture.
 - [ ] Navigation registry pattern agreed.
+- [x] Next.js scaffold generated in `web/`.
 - [ ] Template module blueprint drafted (folder structure, tests, docs).
 - [ ] CI/lint/test commands runnable locally.
 - [ ] Health + telemetry scripts stubbed.
 - [ ] Documentation linked from repo root README.
+
+## Bootstrap Procedure
+1. Set local pnpm paths when generating scaffolds to stay inside the repo sandbox, e.g. `PNPM_HOME=$(pwd)/.pnpm-home` and `PNPM_STORE_PATH=$(pwd)/.pnpm-store`.
+2. Run `pnpm dlx create-next-app@latest web --use-pnpm --ts --tailwind --app --src-dir --yes`.
+3. Configure build approvals by setting `pnpm.onlyBuiltDependencies` to include `@tailwindcss/oxide` and `sharp`, then execute `pnpm rebuild`.
 
 ## Traceability Practices
 - Update `memory-bank/activeContext.md` with each significant milestone.
@@ -55,3 +61,8 @@
 - Observability stack (self-hosted vs. external services).
 - Deployment target for GitHub-hosted builds (Vercel, Docker, static export?).
 - Auth provider requirements (local-only, OAuth, passkeys?).
+
+## Recent Milestones
+- 2025-09-27: Generated Next.js workspace under `web/` with `pnpm dlx create-next-app@latest web --use-pnpm --ts --tailwind --app --src-dir --yes`.
+  - Recorded build approvals via `pnpm.onlyBuiltDependencies` (`@tailwindcss/oxide`, `sharp`) and executed `pnpm rebuild`.
+

@@ -31,3 +31,7 @@ coverage/
 
 # Keep workspace customizations tracked
 !.vscode/
+
+# Local pnpm cache for sandboxed runs
+.pnpm-home/
+.pnpm-store/
