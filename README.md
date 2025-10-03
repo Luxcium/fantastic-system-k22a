@@ -6,18 +6,21 @@ This repository provides the baseline artifacts required to bootstrap a new Gene
 ## Features
 - Canonical repository scaffolding that is safe to re-run.
 - Standardized editor, tooling, and documentation expectations.
+- Modern Biome linting and formatting (10-100x faster than ESLint).
 - Memory-bank structure for durable AI instructions and prompts.
 - Scripts for repeatable initialization and verification workflows.
 
 ## Quick Start
 1. Run `scripts/init.sh` to verify the foundation and initialize missing pieces.
 2. Review the contents of `memory-bank/` to understand the layered instructions.
-3. Update `AGENTS.md` with session context before beginning any significant changes.
+3. For the Next.js app: `cd web && pnpm install && pnpm dev` (see `BIOME.md` for linting/formatting).
+4. Update `AGENTS.md` with session context before beginning any significant changes.
 
 ## Documentation
 - `memory-bank/instructions/` contains layered bootstrap guides for agents.
 - `memory-bank/prompts/` and `memory-bank/chatmodes/` will house reusable prompts and chat modes as they are created.
 - `AGENTS.md` tracks agent sessions and context hand-offs.
+- `BIOME.md` provides quick reference for the modern linter and formatter.
 
 ## Contributing
 Pull requests should maintain idempotent scripts and respect the layered instruction model. Document decisions and update `memory-bank/progress.md` as milestones advance.

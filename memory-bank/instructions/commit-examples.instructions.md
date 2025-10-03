@@ -153,7 +153,7 @@ style(components): :art: apply consistent indentation and spacing
 **Linting fixes:**
 
 ```
-style(eslint): :rotating_light: resolve linter warnings in utility functions
+style(biome): :rotating_light: resolve linter warnings in utility functions
 ```
 
 ## Maintenance Commits

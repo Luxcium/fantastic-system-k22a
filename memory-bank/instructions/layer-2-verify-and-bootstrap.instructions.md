@@ -43,7 +43,7 @@ Brief: Constrain Copilot with explicit standards and valid chat mode metadata so
   - IF missing → create with project guardrails:
     - TypeScript focus, TSDoc usage.
     - Node.js 22+ baseline.
-    - ESLint flat config with `eslint-config-prettier` integration.
+    - Biome for linting, formatting, and import organization.
     - Instruction to treat memory-bank as canonical context.
 - Chat modes (`memory-bank/chatmodes/…*.chatmode.md`):
   - IF introducing chat modes, enforce:
@@ -74,15 +74,16 @@ Brief: Create the triad folders and six persistent context files to anchor proje
 
 ---
 
-## D. ESLint + Prettier Posture (Workspace Level)
+## D. Biome Linting and Formatting Posture (Workspace Level)
 
 Brief: Make the baseline expectations explicit without altering repo code.
 
 ### Procedure
 - Document in `copilot-instructions.md` or a workspace note:
-  - ESLint flat config is expected.
-  - All fixable ESLint rules set to **warnings**.
-  - Prettier integrated via `eslint-config-prettier` (no `eslint-plugin-prettier`).
+  - Biome is the modern all-in-one toolchain for linting, formatting, and import organization.
+  - Configuration is in `web/biome.json` with recommended rules enabled.
+  - Use `pnpm biome check` for linting, `pnpm biome format --write` for formatting.
+  - Biome provides faster performance and simpler configuration than ESLint+Prettier combination.
 - Do not write config files unless explicitly requested; this layer only signals expectations.
 
 ---
