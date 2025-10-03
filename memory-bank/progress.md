@@ -1,5 +1,8 @@
 # Progress Log
 
+## 2025-10-03
+- Audited Phase 0–6 backlog for `web/` and confirmed only baseline Next.js/Tailwind scaffold is live; drafted challenge cards (Intent/Inputs/Steps/Output) to stage remaining phases with ESLint/Prettier + layout + Prisma work queued first.
+
 ## 2025-09-27
 - Next.js workspace generated in `web/` via pnpm dlx create-next-app; build approvals fixed through `pnpm.onlyBuiltDependencies` and `pnpm rebuild`.
 - Documented web utility baseline roadmap and decision log; awaiting stack preference confirmation before scaffolding Next.js workspace.
