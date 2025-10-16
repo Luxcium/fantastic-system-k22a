@@ -16,22 +16,46 @@ Thumbs.db
 # Environments
 .env
 .env.*
+!.env.example
+!.env.local.example
 .venv/
+
+# Dependencies
+node_modules/
+.pnpm-home/
+.pnpm-store/
 
 # Build outputs
 build/
 dist/
 out/
 coverage/
+.next/
+
+# Testing
+playwright-report/
+test-results/
+.vitest/
 
 # Misc caches
 .cache/
 .mypy_cache/
-.next/
+
+# Prisma
+prisma/generated/
+.prisma/
+prisma/migrations/.migration_lock
+
+# Database
+*.db
+*.db-journal
+postgres_data/
+pgadmin_data/
+
+# Docker volumes (if local)
+docker/postgres/data/
+docker/pgadmin/data/
 
 # Keep workspace customizations tracked
 !.vscode/
-
-# Local pnpm cache for sandboxed runs
-.pnpm-home/
-.pnpm-store/
+web/prisma/generated
