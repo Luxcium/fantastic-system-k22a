@@ -45,6 +45,12 @@
 - **Dependencies**: Installed `framer-motion`, `lucide-react`, and `recharts` via `pnpm add` to support animations, iconography, and charting.
 - **Next Steps**: Integrate NextAuth-backed sign-in flow, hydrate UI from Prisma queries once endpoints exist, and align component tokens with the global design system when available.
 
+## 2025-10-19
+- **Build/Test Stabilization**: Updated `postcss.config.mjs` to import `@tailwindcss/postcss` and `autoprefixer` explicitly, resolving Vitest's PostCSS plugin resolution failure.
+- **Deterministic Utilities**: `formatDate` now formats in UTC so helper tests are timezone-agnostic; `debounce`, `throttle`, and `isEmpty` were tightened to avoid `any` usage and comply with Biome linting.
+- **Validation**: `pnpm test --run` passes (62 specs) confirming the dashboard utilities and UI components remain healthy after the fixes.
+- **Follow-up**: Still need automated mobile/desktop screenshot capture once Playwright browsers install successfully; revisit NextAuth + Prisma integration next.
+
 ## 2025-10-12
 - **Foundation System Completed**: Implemented comprehensive Next.js application foundation with all core building blocks:
   - ✅ Docker Compose + Postgres database with health checks, pgAdmin, and volume persistence

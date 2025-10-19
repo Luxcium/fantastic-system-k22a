@@ -132,7 +132,10 @@ describe("CardHeader", () => {
 
   it("should render action when provided", () => {
     render(
-      <CardHeader title="Title" action={<button type="button">Action</button>} />,
+      <CardHeader
+        title="Title"
+        action={<button type="button">Action</button>}
+      />,
     );
     expect(screen.getByRole("button", { name: /action/i })).toBeInTheDocument();
   });
