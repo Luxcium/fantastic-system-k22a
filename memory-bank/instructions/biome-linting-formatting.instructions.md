@@ -14,7 +14,7 @@ Biome is a fast, modern toolchain that combines linting, formatting, and import 
 ## Why Biome?
 
 - **Single tool** replaces ESLint, Prettier, and import organizers
-- **10-100x faster** than ESLint due to Rust implementation
+- **10-100x faster** than ESLint (in typical benchmarks; actual performance may vary) due to Rust implementation
 - **Zero configuration** required for most projects (though we customize for Next.js/React)
 - **Better error messages** with contextual suggestions
 - **Built-in import sorting** and organization
