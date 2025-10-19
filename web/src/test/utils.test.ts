@@ -145,9 +145,26 @@ describe('randomString', () => {
   });
 
   it('should generate different strings', () => {
-    const str1 = randomString(20);
-    const str2 = randomString(20);
-    expect(str1).not.toBe(str2);
+    const originalRandom = Math.random;
+    let callCount = 0;
+    const randomValues = [
+      ...Array.from({ length: 20 }, (_, index) =>
+        index % 2 === 0 ? 0.1 : 0.9,
+      ),
+      ...Array.from({ length: 20 }, (_, index) =>
+        index % 2 === 0 ? 0.2 : 0.8,
+      ),
+    ];
+    Math.random = () => randomValues[callCount++] ?? 0.5;
+
+    try {
+      const str1 = randomString(20);
+      const str2 = randomString(20);
+
+      expect(str1).not.toBe(str2);
+    } finally {
+      Math.random = originalRandom;
+    }
   });
 
   it('should use default length of 10', () => {

@@ -5,13 +5,14 @@
 
 import { type RenderOptions, render } from "@testing-library/react";
 import { SessionProvider } from "next-auth/react";
+import type { Session } from "next-auth";
 import { ThemeProvider } from "next-themes";
 import type { ReactElement, ReactNode } from "react";
 
 // Custom providers wrapper for testing
 interface ProvidersProps {
   children: ReactNode;
-  session?: any;
+  session?: Session | null;
 }
 
 function Providers({ children, session = null }: ProvidersProps) {
@@ -24,7 +25,7 @@ function Providers({ children, session = null }: ProvidersProps) {
 
 // Custom render function with providers
 interface CustomRenderOptions extends Omit<RenderOptions, "wrapper"> {
-  session?: any;
+  session?: Session | null;
 }
 
 export function renderWithProviders(
@@ -40,7 +41,10 @@ export function renderWithProviders(
 }
 
 // Mock data generators
-export const mockUser = (overrides = {}) => ({
+type MockUser = NonNullable<Session["user"]> & Record<string, unknown>;
+type MockSession = Session & Record<string, unknown>;
+
+export const mockUser = (overrides: Partial<MockUser> = {}): MockUser => ({
   id: "1",
   email: "test@example.com",
   name: "Test User",
@@ -49,7 +53,9 @@ export const mockUser = (overrides = {}) => ({
   ...overrides,
 });
 
-export const mockSession = (overrides = {}) => ({
+export const mockSession = (
+  overrides: Partial<MockSession> = {},
+): MockSession => ({
   user: mockUser(),
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
   ...overrides,

@@ -3,7 +3,7 @@
  * Provides system health status for monitoring
  */
 
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { checkDatabaseHealth, getDatabaseInfo } from "@/lib/db/prisma";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ interface HealthStatus {
   };
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const startTime = Date.now();
 
   try {

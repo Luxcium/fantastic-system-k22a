@@ -25,7 +25,7 @@ jobs:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
       # NextAuth configuration for tests
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: test-secret-key-for-ci
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
     
     # Setup PostgreSQL for tests
     services:
@@ -57,7 +57,13 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      
+
+      - name: Ensure NEXTAUTH_SECRET is set
+        run: |
+          if [ -z "${NEXTAUTH_SECRET}" ]; then
+            echo "NEXTAUTH_SECRET=local-test-secret" >> "$GITHUB_ENV"
+          fi
+
       - name: Install dependencies
         working-directory: web
         run: pnpm install --frozen-lockfile
@@ -117,7 +123,7 @@ jobs:
       NEXT_TELEMETRY_DISABLED: 1
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: test-secret-key-for-ci
+      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
     
     services:
       postgres:
@@ -148,7 +154,13 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 8
-      
+
+      - name: Ensure NEXTAUTH_SECRET is set
+        run: |
+          if [ -z "${NEXTAUTH_SECRET}" ]; then
+            echo "NEXTAUTH_SECRET=local-test-secret" >> "$GITHUB_ENV"
+          fi
+
       - name: Install dependencies
         working-directory: web
         run: pnpm install --frozen-lockfile

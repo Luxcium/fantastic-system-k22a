@@ -37,8 +37,18 @@ export async function checkDatabaseHealth(): Promise<boolean> {
   }
 }
 
-// Database connection info
-export async function getDatabaseInfo() {
+/**
+ * Retrieves database connection information such as version, database name, user, host, and port.
+ *
+ * @returns A promise that resolves to an object containing database metadata or `null` if the query fails.
+ */
+export async function getDatabaseInfo(): Promise<{
+  version: string;
+  database: string;
+  user: string;
+  host: string;
+  port: number;
+} | null> {
   try {
     const result = (await prisma.$queryRaw`
       SELECT

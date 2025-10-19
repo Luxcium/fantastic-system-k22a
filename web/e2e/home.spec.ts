@@ -42,13 +42,13 @@ test.describe("Home Page", () => {
     await expect(signInButton).toBeVisible();
   });
 
-  test("should navigate to utilities page", async ({ page }) => {
-    const utilitiesLink = page
-      .getByRole("link", { name: /utilities/i })
+  test("should navigate to projects page", async ({ page }) => {
+    const projectsLink = page
+      .getByRole("link", { name: /projects/i })
       .first();
-    await utilitiesLink.click();
+    await projectsLink.click();
 
-    await expect(page).toHaveURL(/\/utilities/);
+    await expect(page).toHaveURL(/\/projects/);
   });
 
   test("should be responsive", async ({ page }) => {
