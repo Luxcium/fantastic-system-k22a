@@ -10,6 +10,12 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 - Consider files in `memory-bank/` as the authoritative context. Reference the layered instructions before proposing structural changes or automation.
 - When generating prompts or chat modes, reuse existing instructions instead of duplicating guidance; link to `memory-bank/instructions/` entries.
 - Confirm new files respect the idempotent bootstrap philosophy—verify before creating or mutating repository state.
+- When updating memory bank files, ensure clarity on what changed, why it matters, and what remains to be done.
+- Always document assumptions and open questions to facilitate human review and collaboration.
+
+> [!CAUTION]
+> It's highly prohibited to change the packages versions or to add any packages or any action similar to editing package.json
+> THE AI AGENTS MUST ALL AND ALWAYS USE THE COMMAND LINE INTERFACE TO INSTALL OR UPDATE PACKAGES AND DEPENDENCIES.
 
 ## Usage Guidance
 
