@@ -16,7 +16,7 @@
 ## Rationale
 - **Performance**: Biome is 10-100x faster than ESLint due to Rust implementation
 - **Simplicity**: Single tool replaces ESLint + Prettier + import organizers
-- **Modern**: Biome represents the state-of-art (October 2025) for JavaScript/TypeScript tooling
+- **Modern**: Biome represents the state-of-the-art (October 2025) for JavaScript/TypeScript tooling
 - **Already installed**: The Next.js scaffold included Biome 2.2.0, reducing migration effort
 - **Better DX**: Biome provides better error messages with contextual suggestions
 - **Native TypeScript**: Built-in TypeScript support without requiring plugins
