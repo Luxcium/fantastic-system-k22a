@@ -3,9 +3,9 @@
  * Global test configuration and environment setup
  */
 
-import * as matchers from '@testing-library/jest-dom/matchers';
-import { cleanup } from '@testing-library/react';
-import { afterAll, afterEach, beforeAll, expect, vi } from 'vitest';
+import * as matchers from "@testing-library/jest-dom/matchers";
+import { cleanup } from "@testing-library/react";
+import { afterAll, afterEach, beforeAll, expect, vi } from "vitest";
 
 // Extend Vitest's expect with jest-dom matchers
 expect.extend(matchers);
@@ -16,12 +16,12 @@ afterEach(() => {
 });
 
 // Mock environment variables
-process.env.NEXTAUTH_URL = 'http://localhost:3000';
-process.env.NEXTAUTH_SECRET = 'test-secret-key';
-process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test';
+process.env.NEXTAUTH_URL = "http://localhost:3000";
+process.env.NEXTAUTH_SECRET = "test-secret-key";
+process.env.DATABASE_URL = "postgresql://test:test@localhost:5432/test";
 
 // Mock next/navigation
-vi.mock('next/navigation', () => ({
+vi.mock("next/navigation", () => ({
   useRouter() {
     return {
       push: vi.fn(),
@@ -30,11 +30,11 @@ vi.mock('next/navigation', () => ({
       back: vi.fn(),
       forward: vi.fn(),
       refresh: vi.fn(),
-      pathname: '/',
+      pathname: "/",
     };
   },
   usePathname() {
-    return '/';
+    return "/";
   },
   useSearchParams() {
     return new URLSearchParams();
@@ -47,10 +47,10 @@ vi.mock('next/navigation', () => ({
 }));
 
 // Mock next-auth
-vi.mock('next-auth/react', () => ({
+vi.mock("next-auth/react", () => ({
   useSession: vi.fn(() => ({
     data: null,
-    status: 'unauthenticated',
+    status: "unauthenticated",
   })),
   signIn: vi.fn(),
   signOut: vi.fn(),
@@ -58,12 +58,12 @@ vi.mock('next-auth/react', () => ({
 }));
 
 // Mock next-themes
-vi.mock('next-themes', () => ({
+vi.mock("next-themes", () => ({
   useTheme: () => ({
-    theme: 'light',
+    theme: "light",
     setTheme: vi.fn(),
-    systemTheme: 'light',
-    themes: ['light', 'dark'],
+    systemTheme: "light",
+    themes: ["light", "dark"],
   }),
   ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
 }));
@@ -72,7 +72,7 @@ vi.mock('next-themes', () => ({
 global.fetch = vi.fn();
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
@@ -105,9 +105,9 @@ const originalError = console.error;
 beforeAll(() => {
   console.error = (...args: any[]) => {
     if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Warning: ReactDOM.render') ||
-        args[0].includes('Not implemented: HTMLFormElement.prototype.submit'))
+      typeof args[0] === "string" &&
+      (args[0].includes("Warning: ReactDOM.render") ||
+        args[0].includes("Not implemented: HTMLFormElement.prototype.submit"))
     ) {
       return;
     }

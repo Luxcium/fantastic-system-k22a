@@ -3,7 +3,7 @@
  * Singleton pattern for database connection management
  */
 
-import { PrismaClient } from '../../../prisma/generated/client';
+import { PrismaClient } from "../../../prisma/generated/client";
 
 // Global variable to prevent multiple instances in development
 const globalForPrisma = globalThis as unknown as {
@@ -11,15 +11,18 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 // Prisma client configuration
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({
-  log: process.env.NODE_ENV === 'development'
-    ? ['query', 'error', 'warn']
-    : ['error'],
-  errorFormat: 'pretty',
-});
+export const prisma =
+  globalForPrisma.prisma ??
+  new PrismaClient({
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
+    errorFormat: "pretty",
+  });
 
 // Prevent multiple instances in development
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
 
@@ -29,7 +32,7 @@ export async function checkDatabaseHealth(): Promise<boolean> {
     await prisma.$queryRaw`SELECT 1`;
     return true;
   } catch (error) {
-    console.error('Database health check failed:', error);
+    console.error("Database health check failed:", error);
     return false;
   }
 }
@@ -37,14 +40,14 @@ export async function checkDatabaseHealth(): Promise<boolean> {
 // Database connection info
 export async function getDatabaseInfo() {
   try {
-    const result = await prisma.$queryRaw`
+    const result = (await prisma.$queryRaw`
       SELECT
         version() as version,
         current_database() as database,
         current_user as user,
         inet_server_addr() as host,
         inet_server_port() as port
-    ` as Array<{
+    `) as Array<{
       version: string;
       database: string;
       user: string;
@@ -54,7 +57,7 @@ export async function getDatabaseInfo() {
 
     return result[0];
   } catch (error) {
-    console.error('Failed to get database info:', error);
+    console.error("Failed to get database info:", error);
     return null;
   }
 }
@@ -66,7 +69,12 @@ export async function disconnectDatabase() {
 
 // Export types for convenience
 export type {
-    Account, AuditLog, Session, User, UserRole,
-    UserStatus, UserUtility, Utility
-} from '../../../prisma/generated/client';
-
+  Account,
+  AuditLog,
+  Session,
+  User,
+  UserRole,
+  UserStatus,
+  UserUtility,
+  Utility,
+} from "../../../prisma/generated/client";
