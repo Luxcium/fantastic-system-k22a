@@ -3,19 +3,19 @@
  * Provides system health status for monitoring
  */
 
-import { checkDatabaseHealth, getDatabaseInfo } from '@/lib/db/prisma';
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from "next/server";
+import { checkDatabaseHealth, getDatabaseInfo } from "@/lib/db/prisma";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 interface HealthStatus {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   timestamp: string;
   uptime: number;
   version: string;
   checks: {
     database: {
-      status: 'up' | 'down';
+      status: "up" | "down";
       responseTime?: number;
       info?: any;
     };
@@ -52,54 +52,54 @@ export async function GET(request: NextRequest) {
 
     // Construct health status
     const healthStatus: HealthStatus = {
-      status: isDatabaseHealthy ? 'healthy' : 'degraded',
+      status: isDatabaseHealthy ? "healthy" : "degraded",
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-      version: process.env.npm_package_version || '1.0.0',
+      version: process.env.npm_package_version || "1.0.0",
       checks: {
         database: {
-          status: isDatabaseHealthy ? 'up' : 'down',
+          status: isDatabaseHealthy ? "up" : "down",
           responseTime: dbResponseTime,
-          info: dbInfo
+          info: dbInfo,
         },
         memory: {
           used: Math.round(usedMemory / 1024 / 1024), // MB
           total: Math.round(totalMemory / 1024 / 1024), // MB
-          percentage: Math.round((usedMemory / totalMemory) * 100)
+          percentage: Math.round((usedMemory / totalMemory) * 100),
         },
         environment: {
-          nodeEnv: process.env.NODE_ENV || 'development',
-          nodeVersion: process.version
-        }
-      }
+          nodeEnv: process.env.NODE_ENV || "development",
+          nodeVersion: process.version,
+        },
+      },
     };
 
-    const statusCode = healthStatus.status === 'healthy' ? 200 : 503;
+    const statusCode = healthStatus.status === "healthy" ? 200 : 503;
 
     return NextResponse.json(healthStatus, {
       status: statusCode,
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'X-Response-Time': `${Date.now() - startTime}ms`
-      }
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "X-Response-Time": `${Date.now() - startTime}ms`,
+      },
     });
   } catch (error) {
-    console.error('Health check error:', error);
+    console.error("Health check error:", error);
 
     return NextResponse.json(
       {
-        status: 'unhealthy',
+        status: "unhealthy",
         timestamp: new Date().toISOString(),
-        error: 'Health check failed',
-        uptime: process.uptime()
+        error: "Health check failed",
+        uptime: process.uptime(),
       },
       {
         status: 503,
         headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'X-Response-Time': `${Date.now() - startTime}ms`
-        }
-      }
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          "X-Response-Time": `${Date.now() - startTime}ms`,
+        },
+      },
     );
   }
 }

@@ -3,10 +3,10 @@
  * Helpers and custom render functions for component testing
  */
 
-import { render, RenderOptions } from '@testing-library/react';
-import { SessionProvider } from 'next-auth/react';
-import { ThemeProvider } from 'next-themes';
-import { ReactElement, ReactNode } from 'react';
+import { type RenderOptions, render } from "@testing-library/react";
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "next-themes";
+import type { ReactElement, ReactNode } from "react";
 
 // Custom providers wrapper for testing
 interface ProvidersProps {
@@ -17,21 +17,19 @@ interface ProvidersProps {
 function Providers({ children, session = null }: ProvidersProps) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
-      <SessionProvider session={session}>
-        {children}
-      </SessionProvider>
+      <SessionProvider session={session}>{children}</SessionProvider>
     </ThemeProvider>
   );
 }
 
 // Custom render function with providers
-interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+interface CustomRenderOptions extends Omit<RenderOptions, "wrapper"> {
   session?: any;
 }
 
 export function renderWithProviders(
   ui: ReactElement,
-  { session, ...options }: CustomRenderOptions = {}
+  { session, ...options }: CustomRenderOptions = {},
 ) {
   return render(ui, {
     wrapper: ({ children }) => (
@@ -43,10 +41,10 @@ export function renderWithProviders(
 
 // Mock data generators
 export const mockUser = (overrides = {}) => ({
-  id: '1',
-  email: 'test@example.com',
-  name: 'Test User',
-  role: 'USER',
+  id: "1",
+  email: "test@example.com",
+  name: "Test User",
+  role: "USER",
   image: null,
   ...overrides,
 });
@@ -58,14 +56,14 @@ export const mockSession = (overrides = {}) => ({
 });
 
 export const mockUtility = (overrides = {}) => ({
-  id: '1',
-  name: 'test-utility',
-  title: 'Test Utility',
-  description: 'A test utility',
-  category: 'test',
-  path: '/utilities/test',
+  id: "1",
+  name: "test-utility",
+  title: "Test Utility",
+  description: "A test utility",
+  category: "test",
+  path: "/utilities/test",
   isActive: true,
-  icon: 'test',
+  icon: "test",
   metadata: {},
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -80,7 +78,7 @@ export function mockApiResponse<T>(data: T, status = 200) {
     json: async () => data,
     text: async () => JSON.stringify(data),
     headers: new Headers(),
-    statusText: status === 200 ? 'OK' : 'Error',
+    statusText: status === 200 ? "OK" : "Error",
   } as Response);
 }
 
@@ -91,13 +89,13 @@ export function mockApiError(message: string, status = 500) {
     json: async () => ({ error: message }),
     text: async () => message,
     headers: new Headers(),
-    statusText: 'Error',
+    statusText: "Error",
   } as Response);
 }
 
 // Wait utilities
 export const wait = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 // Local storage mock
 export const mockLocalStorage = () => {
@@ -112,12 +110,11 @@ export const mockLocalStorage = () => {
       delete store[key];
     },
     clear: () => {
-      Object.keys(store).forEach(key => delete store[key]);
+      Object.keys(store).forEach((key) => delete store[key]);
     },
   };
 };
 
 // Re-export testing library utilities
-export * from '@testing-library/react';
-export { default as userEvent } from '@testing-library/user-event';
-
+export * from "@testing-library/react";
+export { default as userEvent } from "@testing-library/user-event";
