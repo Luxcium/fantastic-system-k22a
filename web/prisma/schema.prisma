@@ -1,0 +1,213 @@
+// Genesis 22 Prisma Schema
+// Database schema for the Next.js application
+
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// User Management
+model User {
+    id            String     @id @default(cuid())
+    email         String     @unique
+    emailVerified DateTime?
+    name          String?
+    image         String?
+    role          UserRole   @default(USER)
+    status        UserStatus @default(ACTIVE)
+    preferences   Json? // Store user preferences as JSON
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+    lastLoginAt   DateTime?
+
+    // Relations
+    accounts           Account[]
+    sessions           Session[]
+    passwords          Password[]
+    verificationTokens VerificationToken[]
+    auditLogs          AuditLog[]
+    utilities          UserUtility[]
+
+    @@map("users")
+}
+
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    ipAddress    String?
+    userAgent    String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model Password {
+    id        String    @id @default(cuid())
+    userId    String
+    hash      String
+    salt      String
+    createdAt DateTime  @default(now())
+    expiresAt DateTime?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("passwords")
+}
+
+model VerificationToken {
+    id         String    @id @default(cuid())
+    identifier String // Email or phone number
+    token      String    @unique
+    type       TokenType @default(EMAIL_VERIFICATION)
+    expires    DateTime
+    createdAt  DateTime  @default(now())
+    userId     String?
+
+    user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([identifier, token])
+    @@map("verification_tokens")
+}
+
+// Utility Management
+model Utility {
+    id          String   @id @default(cuid())
+    name        String   @unique
+    title       String
+    description String?
+    category    String
+    icon        String?
+    path        String   @unique
+    isActive    Boolean  @default(true)
+    metadata    Json? // Store utility-specific metadata
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    // Relations
+    userUtilities UserUtility[]
+    usageLogs     UtilityUsageLog[]
+
+    @@map("utilities")
+}
+
+model UserUtility {
+    id         String    @id @default(cuid())
+    userId     String
+    utilityId  String
+    isFavorite Boolean   @default(false)
+    usageCount Int       @default(0)
+    lastUsedAt DateTime?
+    settings   Json? // User-specific settings for this utility
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    utility Utility @relation(fields: [utilityId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, utilityId])
+    @@map("user_utilities")
+}
+
+model UtilityUsageLog {
+    id        String   @id @default(cuid())
+    utilityId String
+    userId    String?
+    sessionId String?
+    metadata  Json? // Store usage-specific data
+    createdAt DateTime @default(now())
+
+    utility Utility @relation(fields: [utilityId], references: [id], onDelete: Cascade)
+
+    @@map("utility_usage_logs")
+}
+
+// Audit & Logging
+model AuditLog {
+    id         String   @id @default(cuid())
+    userId     String?
+    action     String // CREATE, UPDATE, DELETE, LOGIN, etc.
+    resource   String // user, utility, etc.
+    resourceId String?
+    oldValues  Json?
+    newValues  Json?
+    metadata   Json? // Additional context
+    ipAddress  String?
+    userAgent  String?
+    createdAt  DateTime @default(now())
+
+    user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+    @@map("audit_logs")
+}
+
+// Configuration & Settings
+model AppConfig {
+    id        String     @id @default(cuid())
+    key       String     @unique
+    value     Json
+    type      ConfigType @default(STRING)
+    isPublic  Boolean    @default(false)
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+
+    @@map("app_config")
+}
+
+// Enums
+enum UserRole {
+    USER
+    ADMIN
+    SUPER_ADMIN
+}
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+    PENDING_VERIFICATION
+}
+
+enum TokenType {
+    EMAIL_VERIFICATION
+    PASSWORD_RESET
+    MAGIC_LINK
+    TWO_FACTOR
+}
+
+enum ConfigType {
+    STRING
+    NUMBER
+    BOOLEAN
+    JSON
+    ARRAY
+}

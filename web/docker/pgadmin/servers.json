@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Genesis Development",
+      "Group": "Servers",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "genesis_dev",
+      "Username": "genesis",
+      "Password": "dev_password_change_in_production",
+      "SSLMode": "prefer",
+      "Favorite": true
+    }
+  }
+}
