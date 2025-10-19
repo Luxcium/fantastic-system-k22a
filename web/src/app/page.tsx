@@ -1,5 +1,12 @@
 "use client";
 
+/**
+ * Dashboard Shell
+ * Main dashboard application with authentication, routing, and role-based access control
+ */
+
+import { Avatar, Badge, Button, Card, CardHeader } from "@/components/ui";
+import { cn, formatDate } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Bell,
@@ -39,11 +46,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { cn, formatDate } from "@/lib/utils";
 
+/** User role types for access control */
 type Role = "admin" | "editor" | "viewer";
+
+/** Available application routes */
 type Route = "dashboard" | "projects" | "users" | "profile" | "settings";
 
+/** User model with profile information */
 type UserModel = {
   name: string;
   email: string;
@@ -51,12 +61,16 @@ type UserModel = {
   avatarUrl?: string;
 };
 
+/** Authentication context shape */
 type AuthContextShape = {
   user: UserModel | null;
   signIn: (payload: Partial<UserModel>) => void;
   signOut: () => void;
   updateUser: (patch: Partial<UserModel>) => void;
 };
+
+/** Theme mode options */
+type ThemeMode = "light" | "dark";
 
 const AuthContext = createContext<AuthContextShape | null>(null);
 
@@ -132,131 +146,9 @@ const pageMotion = {
   transition: { duration: 0.16, ease: [0.42, 0, 0.58, 1] as const },
 };
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
-
-const buttonStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:ring-indigo-500",
-  secondary:
-    "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700 focus-visible:ring-neutral-500",
-  ghost:
-    "bg-transparent text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus-visible:ring-neutral-500",
-  danger:
-    "bg-rose-600 text-white hover:bg-rose-500 focus-visible:ring-rose-500",
-};
-
-function Button({
-  children,
-  variant = "primary",
-  className,
-  ...props
-}: {
-  children: ReactNode;
-  variant?: ButtonVariant;
-  className?: string;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    <button
-      className={cn(
-        "inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60",
-        buttonStyles[variant],
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
-
-function Card({
-  className,
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <div
-      className={cn(
-        "rounded-2xl border border-neutral-200/70 bg-white/90 p-4 shadow-sm backdrop-blur dark:border-neutral-800/70 dark:bg-neutral-900/80",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({
-  title,
-  hint,
-  action,
-  className,
-}: {
-  title: ReactNode;
-  hint?: ReactNode;
-  action?: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={cn("mb-3 flex items-center justify-between gap-4", className)}
-    >
-      <div>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
-          {title}
-        </h3>
-        {hint ? (
-          <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            {hint}
-          </p>
-        ) : null}
-      </div>
-      {action}
-    </div>
-  );
-}
-
-function Badge({
-  children,
-  variant = "outline",
-  className,
-}: {
-  children: ReactNode;
-  variant?: "outline" | "solid";
-  className?: string;
-}) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-semibold",
-        variant === "solid"
-          ? "bg-indigo-600/90 text-white"
-          : "border border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-300",
-        className,
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-function Avatar({ name }: { name: string }) {
-  const initials = name
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("")
-    .slice(0, 2);
-
-  return (
-    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600/90 text-sm font-semibold text-white">
-      {initials || "—"}
-    </div>
-  );
-}
-
+/**
+ * Navigation bar component with user menu and theme toggle
+ */
 function Navbar({
   route,
   onNavigate,
@@ -425,6 +317,13 @@ function Navbar({
   );
 }
 
+/**
+ * Sidebar navigation component
+ * Displays navigation items with role-based filtering
+ *
+ * @param route - Current active route
+ * @param onNavigate - Navigation handler function
+ */
 function Sidebar({
   route,
   onNavigate,
@@ -508,6 +407,13 @@ function Sidebar({
   );
 }
 
+/**
+ * Statistic card component displaying a metric with optional hint
+ *
+ * @param title - Metric name
+ * @param value - Current metric value
+ * @param hint - Optional hint or comparison text
+ */
 function StatCard({
   title,
   value,
@@ -527,6 +433,10 @@ function StatCard({
   );
 }
 
+/**
+ * Dashboard route component
+ * Displays analytics, charts, and quick actions
+ */
 function DashboardRoute() {
   const trafficGradientId = useId();
   return (
@@ -652,6 +562,10 @@ function DashboardRoute() {
   );
 }
 
+/**
+ * Projects route component
+ * Displays and filters project list with search and status filtering
+ */
 function ProjectsRoute() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<
@@ -753,6 +667,10 @@ function ProjectsRoute() {
   );
 }
 
+/**
+ * Users route component (Admin only)
+ * Manages users with role filtering, search, and CRUD operations
+ */
 function UsersRoute() {
   const [query, setQuery] = useState("");
   const [role, setRole] = useState<Role | "All">("All");
@@ -879,6 +797,10 @@ function UsersRoute() {
   );
 }
 
+/**
+ * Profile route component
+ * Allows users to view and edit their profile information
+ */
 function ProfileRoute() {
   const { user, updateUser } = useAuth();
   const [name, setName] = useState(user?.name ?? "");
@@ -950,6 +872,10 @@ function ProfileRoute() {
   );
 }
 
+/**
+ * Settings route component
+ * Application settings including theme toggle and database reset
+ */
 function SettingsRoute({
   theme,
   onThemeChange,
@@ -1020,6 +946,10 @@ function SettingsRoute({
   );
 }
 
+/**
+ * Forbidden route component
+ * Displays when user attempts to access restricted content
+ */
 function ForbiddenRoute() {
   return (
     <div className="flex h-[60vh] items-center justify-center">
@@ -1035,6 +965,10 @@ function ForbiddenRoute() {
   );
 }
 
+/**
+ * Sign-in screen component
+ * Mock authentication screen for demo purposes
+ */
 function SignInScreen({
   onContinue,
 }: {
@@ -1100,8 +1034,22 @@ function SignInScreen({
   );
 }
 
-type ThemeMode = "light" | "dark";
-
+/**
+ * Dashboard Shell - Main Application Component
+ *
+ * Interactive dashboard with authentication, role-based access control,
+ * and multiple routes including dashboard, projects, users, profile, and settings.
+ *
+ * Features:
+ * - Mock authentication with role management (admin, editor, viewer)
+ * - Dark/light theme support
+ * - Responsive design for mobile and desktop
+ * - Protected routes with role-based access
+ * - Animated route transitions
+ * - Real-time data visualization with charts
+ *
+ * @returns Dashboard shell application
+ */
 export default function DashboardShell() {
   const [route, setRoute] = useState<Route>("dashboard");
   const [theme, setTheme] = useState<ThemeMode>("dark");
