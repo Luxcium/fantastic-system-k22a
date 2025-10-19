@@ -54,7 +54,7 @@ Edit `.env.local` and update the following **required** fields:
 DATABASE_URL="postgresql://genesis:dev_password_change_in_production@localhost:5432/genesis_dev"
 
 # NextAuth - IMPORTANT: Generate a secure secret!
-NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_URL="http://localhost:3022"
 NEXTAUTH_SECRET="your-secret-key-minimum-32-characters-long-change-this"
 AUTH_TRUST_HOST=true
 ```
@@ -156,19 +156,19 @@ This generates the type-safe Prisma client based on your schema.
 pnpm dev
 ```
 
-The application should start on [http://localhost:3000](http://localhost:3000)
+The application should start on [http://localhost:3022](http://localhost:3022)
 
 **Expected output**:
 ```
 ▲ Next.js 15.x.x
-- Local:        http://localhost:3000
+- Local:        http://localhost:3022
 - Ready in X.Xs
 ```
 
 ## ✅ Step 9: Verify the Installation
 
 ### Check the Homepage
-Visit [http://localhost:3000](http://localhost:3000)
+Visit [http://localhost:3022](http://localhost:3022)
 - You should see the Genesis Utilities homepage
 - Header with navigation
 - Theme toggle button
@@ -182,7 +182,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 3. You should be redirected to the dashboard
 
 ### Check the Health Endpoint
-Visit [http://localhost:3000/api/health](http://localhost:3000/api/health)
+Visit [http://localhost:3022/api/health](http://localhost:3022/api/health)
 
 You should see:
 ```json
@@ -268,8 +268,8 @@ pnpm test:e2e:ui       # Run E2E tests with Playwright UI
 
 ### Port 3000 already in use
 ```bash
-# Kill the process using port 3000
-lsof -ti:3000 | xargs kill -9
+# Kill the process using port 3022
+lsof -ti:3022 | xargs kill -9
 
 # Or use a different port
 PORT=3001 pnpm dev
