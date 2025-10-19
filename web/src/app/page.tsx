@@ -22,6 +22,7 @@ import {
   type ReactNode,
   useContext,
   useEffect,
+  useId,
   useMemo,
   useState,
 } from "react";
@@ -128,7 +129,7 @@ const pageMotion = {
   initial: { opacity: 0, y: 8 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.16, ease: "easeInOut" },
+  transition: { duration: 0.16, ease: [0.42, 0, 0.58, 1] as const },
 };
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
@@ -220,9 +221,11 @@ function CardHeader({
 function Badge({
   children,
   variant = "outline",
+  className,
 }: {
   children: ReactNode;
   variant?: "outline" | "solid";
+  className?: string;
 }) {
   return (
     <span
@@ -231,6 +234,7 @@ function Badge({
         variant === "solid"
           ? "bg-indigo-600/90 text-white"
           : "border border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-300",
+        className,
       )}
     >
       {children}
