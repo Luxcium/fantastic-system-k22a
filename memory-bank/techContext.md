@@ -3,7 +3,7 @@
 ## Stack Baseline
 - Node.js 22+ runtime.
 - TypeScript-first development with TSDoc annotations for documented APIs.
-- ESLint flat configuration paired with `eslint-config-prettier` for formatting harmony.
+- Biome (v2.2.0+) for linting, formatting, and import organization; configured in `web/biome.json`.
 
 ## Tooling
 - `scripts/init.sh` validates foundation files and handles git bootstrapping if needed.

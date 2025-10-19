@@ -1,5 +1,15 @@
 # Progress Log
 
+## 2025-09-27
+- **Biome Migration Complete**: Successfully migrated from ESLint/Prettier to Biome 2.2.0 for linting and formatting.
+  - Updated `.github/copilot-instructions.md` to reference Biome instead of ESLint
+  - Updated `memory-bank/techContext.md` with Biome tooling information
+  - Updated `memory-bank/instructions/layer-2-verify-and-bootstrap.instructions.md` to document Biome expectations
+  - Configured `.vscode/settings.json` with Biome as default formatter and code actions
+  - Created comprehensive `memory-bank/instructions/biome-linting-formatting.instructions.md` guide
+  - Added Biome to VS Code recommended extensions (`.vscode/extensions.json`)
+  - Verified Biome successfully catches linting errors, formats code, and organizes imports
+  - All documentation and instructions now reflect Biome as the standard toolchain
 ## 2025-10-19
 - **Frontend Optimization & Testing Completed**: Comprehensive review, validation, and optimization of the dashboard codebase
   - ✅ Fixed all TypeScript compilation errors (useId import, motion transition types, Badge className prop)
