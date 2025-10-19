@@ -68,3 +68,32 @@ Before to mark a task as completed you MUST imperatively update memory bank file
 - [`memory-bank/prompts/*.prompts.md`](../memory-bank/prompts/)
 - [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) (THIS FILE)
 - [`AGENTS.md`](../AGENTS.md) (for Codex and Codex CLI)
+
+## SOLID Concepts
+
+The theory of SOLID principles was introduced by Robert C. Martin (Uncle Bob) in his 2000 paper Design Principles and Design Patterns. The SOLID acronym was introduced later by Michael Feathers.
+
+> [!NOTE]
+> The SOLID principles are a set of five design principles that help software developers create more maintainable, understandable, and flexible software systems. Although they apply to any object-oriented design, the SOLID principles can also form a core philosophy for methodologies such as agile development or adaptive software development. We want to be modular and functional and we will adjust as we go along.
+
+### Single Responsibility Principle
+
+Single Responsibility Principle: A class should only have a single responsibility, that is, only changes to one part of the software's specification should be able to affect the specification of the class.
+
+### Open–closed Principle
+
+"Software entities ... should be open for extension, but closed for modification."
+
+### Liskov Substitution Principle
+
+"Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.See also design by contract.
+
+### Interface Segregation Principle
+
+"Many client-specific interfaces are better than one general-purpose interface."
+
+### Dependency Inversion Principle
+
+One should "depend upon abstractions, [not] concretions."
+
+
