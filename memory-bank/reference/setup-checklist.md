@@ -215,8 +215,8 @@ If you encounter issues:
 
 5. **Check documentation**:
    - See `SETUP.md` for detailed troubleshooting
-   - Review `QUICK-REFERENCE.md` for commands
-   - Check `DOCUMENTATION-INDEX.md` for all docs
+   - Review `memory-bank/reference/quick-reference.md` for commands
+   - Check `memory-bank/index.md` for all docs
 
 ## 📚 Next Steps
 
