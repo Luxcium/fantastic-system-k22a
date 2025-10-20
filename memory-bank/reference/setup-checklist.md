@@ -215,8 +215,8 @@ If you encounter issues:
 
 5. **Check documentation**:
    - See `SETUP.md` for detailed troubleshooting
-   - Review `QUICK-REFERENCE.md` for commands
-   - Check `DOCUMENTATION-INDEX.md` for all docs
+   - Review `quick-reference.md` for commands
+   - Check `../index.md` for all docs
 
 ## 📚 Next Steps
 
@@ -229,8 +229,8 @@ After successful setup:
 
 2. **Read documentation**:
    - [ ] `README.md` - Complete guide
-   - [ ] `memory-bank/systemPatterns.md` - Architecture
-   - [ ] `memory-bank/decisions/` - Design decisions
+   - [ ] `../systemPatterns.md` - Architecture
+   - [ ] `../decisions/` - Design decisions
 
 3. **Start developing**:
    - [ ] Create a new utility
