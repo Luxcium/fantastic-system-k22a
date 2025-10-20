@@ -1,23 +1,27 @@
 # Active Context
 
-- Timestamp: 2025-10-19T12:36:30-04:00
-- Current focus: Hardening the migrated dashboard frontend so the baseline build/test pipeline is green. PostCSS now loads via explicit ESM imports and date formatting is normalized to UTC to prevent timezone-related flakiness in tests and UI copy.
+- Timestamp: 2025-10-20T07:25:00Z
+- Current focus: Repository documentation consolidation completed. All markdown files (except README.md and AGENTS.md) have been moved to memory-bank/ for better organization.
 - Implementation status:
-  - Interactive dashboard shell lives in `web/src/app/page.tsx` with mock auth, role-aware routing, charts, and responsive layout mirroring the React reference.
-  - Vitest suite (62 specs) passes after stabilizing `formatDate` and `formatRelativeTime` helpers; utilities now avoid `any` types and follow Biome guidance.
-  - PostCSS config is ESM-friendly (`tailwindcss()` + `autoprefixer()`) so Vite/Vitest can resolve Tailwind when running under the Node API.
-- Immediate next action: Capture responsive (mobile/desktop) previews once the Playwright browser download issue is resolved, then proceed with NextAuth integration and real data hydration from Prisma-backed APIs.
+  - All documentation files successfully moved to `memory-bank/reference/` and `memory-bank/summaries/` subdirectories
+  - Complete documentation index available at `memory-bank/index.md`
+  - All internal references updated to reflect new file locations
+  - Repository structure simplified with only essential files in root
+- Completed actions:
+  - Created `memory-bank/reference/` directory for quick reference guides (Biome, setup checklist, quick reference, component architecture, firewall analysis)
+  - Created `memory-bank/summaries/` directory for implementation summaries
+  - Moved DOCUMENTATION-INDEX.md to memory-bank/index.md and updated all paths
+  - Updated README.md to reference new documentation locations
+  - Updated AGENTS.md to reflect new paths
+  - Verified all internal references are correct
 - Reference artifacts:
-  - `web/postcss.config.mjs` — explicit plugin imports
-  - `web/src/lib/utils.ts` — normalized date helper + lint-friendly utilities
-  - `web/src/test/utils.test.ts` & `web/src/test/ui-components.test.tsx` — coverage for helpers and UI
-  - `web/src/app/page.tsx` — current dashboard implementation
-- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved with synthetic data and animation modules.
+  - `memory-bank/index.md` — Complete documentation index (formerly DOCUMENTATION-INDEX.md)
+  - `memory-bank/reference/` — All quick reference guides and setup documentation
+  - `memory-bank/summaries/` — Implementation and optimization summaries
+  - Root directory now contains only: README.md, AGENTS.md, LICENSE, VERSION
+- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved with synthetic data and animation modules; frontend optimization and testing completed.
+- Immediate next action: Backend data integration, NextAuth authentication flow implementation, and continued feature development.
 - Notes:
-  - Dark-mode toggled via `document.documentElement` while awaiting design-token alignment.
-  - Google Fonts remain disabled because of workspace network restrictions.
-  - Playwright browser installation still blocked, which prevents automated screenshot capture.
-- Open questions:
-  - Should sign-in hand off to NextAuth routes once backend flows exist?
-  - Which telemetry endpoints (or mocked services) will power the charts after backend wiring?
-  - What visual validation workflow should replace Playwright screenshots if the sandbox limitation persists?
+  - Documentation is now more organized and easier to navigate
+  - Memory bank protocol followed: all context files updated
+  - All links verified to work with new structure
