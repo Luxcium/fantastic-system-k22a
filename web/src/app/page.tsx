@@ -5,35 +5,35 @@
  * Main dashboard application with authentication, routing, and role-based access control
  */
 
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Avatar, Badge, Button, Card, CardHeader } from "@/components/ui";
 import { cn, formatDate } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Avatar, Badge, Button, Card, CardHeader } from "@/components/ui";
-import { ThemeToggle } from "@/components/theme-toggle";
 import {
-Bell,
-ChevronDown,
-Database,
-Filter,
-LayoutDashboard,
-LogOut,
-Moon,
-Plus,
-Search,
-Settings,
-Shield,
-Sun,
-User,
-Users,
+	Bell,
+	ChevronDown,
+	Database,
+	Filter,
+	LayoutDashboard,
+	LogOut,
+	Moon,
+	Plus,
+	Search,
+	Settings,
+	Shield,
+	Sun,
+	User,
+	Users,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
-createContext,
-type ReactNode,
-useContext,
-useEffect,
-useId,
-useMemo,
-useState,
+	createContext,
+	type ReactNode,
+	useContext,
+	useEffect,
+	useId,
+	useMemo,
+	useState,
 } from "react";
 import {
 	Area,
@@ -152,11 +152,11 @@ const pageMotion = {
  * Navigation bar component with user menu and theme toggle
  */
 function Navbar({
-route,
-onNavigate,
+	route,
+	onNavigate,
 }: {
-route: Route;
-onNavigate: (route: Route) => void;
+	route: Route;
+	onNavigate: (route: Route) => void;
 }) {
 	const { user, signOut, updateUser } = useAuth();
 	const [roleMenuOpen, setRoleMenuOpen] = useState(false);
@@ -241,7 +241,7 @@ onNavigate: (route: Route) => void;
 						) : null}
 					</div>
 
-<ThemeToggle />
+					<ThemeToggle />
 
 					<Button variant="ghost" aria-label="Notifications">
 						<Bell className="h-5 w-5" />
@@ -865,76 +865,76 @@ function ProfileRoute() {
  * Application settings including theme toggle and database reset
  */
 function SettingsRoute() {
-const { theme, setTheme } = useTheme();
-const [mounted, setMounted] = useState(false);
+	const { theme, setTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
 
-useEffect(() => {
-setMounted(true);
-}, []);
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-const resetDemoDatabase = () => {
-window.alert("Demo action — hook this into your backend reset script.");
-};
+	const resetDemoDatabase = () => {
+		window.alert("Demo action — hook this into your backend reset script.");
+	};
 
-return (
-<motion.div {...pageMotion}>
-<Card>
-<CardHeader title="Settings" hint="Fine tune your workspace" />
-<div className="space-y-6">
-<div className="flex flex-wrap items-center justify-between gap-3">
-<div>
-<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
-Theme
-</p>
-<p className="text-sm text-neutral-500 dark:text-neutral-400">
-Switch between light and dark
-</p>
-</div>
-{mounted && (
-<div className="flex items-center gap-3">
-<Sun className="h-4 w-4 text-amber-500" />
-<label className="relative inline-flex cursor-pointer items-center">
-<input
-aria-label="Toggle dark mode"
-checked={theme === "dark"}
-className="peer sr-only"
-onChange={(event) =>
-setTheme(event.target.checked ? "dark" : "light")
-}
-type="checkbox"
-/>
-<div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
-<div className="h-5 w-5 translate-x-1 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
-</div>
-</label>
-<Moon className="h-4 w-4 text-indigo-500" />
-</div>
-)}
-</div>
+	return (
+		<motion.div {...pageMotion}>
+			<Card>
+				<CardHeader title="Settings" hint="Fine tune your workspace" />
+				<div className="space-y-6">
+					<div className="flex flex-wrap items-center justify-between gap-3">
+						<div>
+							<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
+								Theme
+							</p>
+							<p className="text-sm text-neutral-500 dark:text-neutral-400">
+								Switch between light and dark
+							</p>
+						</div>
+						{mounted && (
+							<div className="flex items-center gap-3">
+								<Sun className="h-4 w-4 text-amber-500" />
+								<label className="relative inline-flex cursor-pointer items-center">
+									<input
+										aria-label="Toggle dark mode"
+										checked={theme === "dark"}
+										className="peer sr-only"
+										onChange={(event) =>
+											setTheme(event.target.checked ? "dark" : "light")
+										}
+										type="checkbox"
+									/>
+									<div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
+										<div className="h-5 w-5 translate-x-1 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
+									</div>
+								</label>
+								<Moon className="h-4 w-4 text-indigo-500" />
+							</div>
+						)}
+					</div>
 
-<div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+					<div className="h-px bg-neutral-200 dark:bg-neutral-800" />
 
-<div className="flex flex-wrap items-center justify-between gap-3">
-<div>
-<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
-Reset Demo Database
-</p>
-<p className="text-sm text-neutral-500 dark:text-neutral-400">
-Mock trigger for Docker + Prisma reset scripts
-</p>
-</div>
-<Button
-variant="danger"
-className="gap-2"
-onClick={resetDemoDatabase}
->
-<Database className="h-4 w-4" /> Reset
-</Button>
-</div>
-</div>
-</Card>
-</motion.div>
-);
+					<div className="flex flex-wrap items-center justify-between gap-3">
+						<div>
+							<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
+								Reset Demo Database
+							</p>
+							<p className="text-sm text-neutral-500 dark:text-neutral-400">
+								Mock trigger for Docker + Prisma reset scripts
+							</p>
+						</div>
+						<Button
+							variant="danger"
+							className="gap-2"
+							onClick={resetDemoDatabase}
+						>
+							<Database className="h-4 w-4" /> Reset
+						</Button>
+					</div>
+				</div>
+			</Card>
+		</motion.div>
+	);
 }
 
 /**
@@ -1042,12 +1042,12 @@ function SignInScreen({
  * @returns Dashboard shell application
  */
 export default function DashboardShell() {
-const [route, setRoute] = useState<Route>("dashboard");
-const [user, setUser] = useState<UserModel | null>({
-name: "Benjamin",
-email: "benjamin@example.com",
-role: "admin",
-});
+	const [route, setRoute] = useState<Route>("dashboard");
+	const [user, setUser] = useState<UserModel | null>({
+		name: "Benjamin",
+		email: "benjamin@example.com",
+		role: "admin",
+	});
 
 	const authValue = useMemo<AuthContextShape>(
 		() => ({
@@ -1089,7 +1089,7 @@ role: "admin",
 					/>
 				) : (
 					<div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-<Navbar onNavigate={setRoute} route={route} />
+						<Navbar onNavigate={setRoute} route={route} />
 						<div className="flex flex-1 overflow-hidden">
 							<Sidebar onNavigate={setRoute} route={route} />
 							<main className="flex-1 overflow-y-auto bg-neutral-50/60 px-4 py-6 dark:bg-neutral-950/60">
@@ -1108,7 +1108,7 @@ role: "admin",
 											)
 										) : null}
 										{route === "profile" ? <ProfileRoute /> : null}
-{route === "settings" ? <SettingsRoute /> : null}
+										{route === "settings" ? <SettingsRoute /> : null}
 									</motion.div>
 								</AnimatePresence>
 							</main>
