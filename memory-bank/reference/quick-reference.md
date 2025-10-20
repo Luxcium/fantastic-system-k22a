@@ -123,7 +123,7 @@ pnpm test:e2e          # E2E tests (Playwright)
 - `README.md` - Complete guide
 - `SETUP.md` - Step-by-step setup
 - `../memory-bank/` - Project context
-- `../IMPLEMENTATION-SUMMARY.md` - This implementation
+- `../decisions/implementation-summary.md` - This implementation
 
 ## 🔍 Key Endpoints
 
@@ -221,8 +221,8 @@ pnpm install
 
 - **Docs**: `README.md`, `SETUP.md`
 - **Context**: `../memory-bank/`
-- **Decisions**: `../memory-bank/decisions/`
-- **Implementation**: `../IMPLEMENTATION-SUMMARY.md`
+- **Decisions**: `../decisions/`
+- **Implementation**: `../decisions/implementation-summary.md`
 
 ## 🎯 Next Steps
 

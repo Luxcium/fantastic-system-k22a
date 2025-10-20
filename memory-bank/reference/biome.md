@@ -56,7 +56,7 @@ pnpm biome check --diagnostic-level=error
 
 ## 📚 Learn More
 
-- Full guide: `memory-bank/instructions/biome-linting-formatting.instructions.md`
+- Full guide: `../instructions/biome-linting-formatting.instructions.md`
 - Configuration: `web/biome.json`
 - Official docs: https://biomejs.dev/
 
@@ -91,4 +91,4 @@ cd web && pnpm install
 3. Verify settings: `Cmd/Ctrl + ,` → search "default formatter"
 
 ### Need help?
-See the full documentation in `memory-bank/instructions/biome-linting-formatting.instructions.md`
+See the full documentation in `../instructions/biome-linting-formatting.instructions.md`
