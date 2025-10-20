@@ -13,14 +13,17 @@ This repository provides the baseline artifacts required to bootstrap a new Gene
 ## Quick Start
 1. Run `scripts/init.sh` to verify the foundation and initialize missing pieces.
 2. Review the contents of `memory-bank/` to understand the layered instructions.
-3. For the Next.js app: `cd web && pnpm install && pnpm dev` (see `BIOME.md` for linting/formatting).
+3. For the Next.js app: `cd web && pnpm install && pnpm dev` (see `memory-bank/reference/biome.md` for linting/formatting).
 4. Update `AGENTS.md` with session context before beginning any significant changes.
+5. See `memory-bank/index.md` for complete documentation index.
 
 ## Documentation
-- `memory-bank/instructions/` contains layered bootstrap guides for agents.
-- `memory-bank/prompts/` and `memory-bank/chatmodes/` will house reusable prompts and chat modes as they are created.
-- `AGENTS.md` tracks agent sessions and context hand-offs.
-- `BIOME.md` provides quick reference for the modern linter and formatter.
+- **Complete Documentation Index**: See `memory-bank/index.md` for all documentation
+- **Quick Reference**: See `memory-bank/reference/quick-reference.md` for commands and architecture
+- **AI Agent Instructions**: `memory-bank/instructions/` contains layered bootstrap guides
+- **Prompts & Chat Modes**: `memory-bank/prompts/` and `memory-bank/chatmodes/` for reusable AI configurations
+- **Agent Activity**: `AGENTS.md` tracks agent sessions and context hand-offs
+- **Biome Linting**: `memory-bank/reference/biome.md` provides quick reference for the modern linter and formatter
 
 ## Contributing
 Pull requests should maintain idempotent scripts and respect the layered instruction model. Document decisions and update `memory-bank/progress.md` as milestones advance.
