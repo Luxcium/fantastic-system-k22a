@@ -8,30 +8,32 @@
 import { cn, formatDate } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Avatar, Badge, Button, Card, CardHeader } from "@/components/ui";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
-	Bell,
-	ChevronDown,
-	Database,
-	Filter,
-	LayoutDashboard,
-	LogOut,
-	Moon,
-	Plus,
-	Search,
-	Settings,
-	Shield,
-	Sun,
-	User,
-	Users,
+Bell,
+ChevronDown,
+Database,
+Filter,
+LayoutDashboard,
+LogOut,
+Moon,
+Plus,
+Search,
+Settings,
+Shield,
+Sun,
+User,
+Users,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 import {
-	createContext,
-	type ReactNode,
-	useContext,
-	useEffect,
-	useId,
-	useMemo,
-	useState,
+createContext,
+type ReactNode,
+useContext,
+useEffect,
+useId,
+useMemo,
+useState,
 } from "react";
 import {
 	Area,
@@ -150,15 +152,11 @@ const pageMotion = {
  * Navigation bar component with user menu and theme toggle
  */
 function Navbar({
-	route,
-	onNavigate,
-	theme,
-	onThemeChange,
+route,
+onNavigate,
 }: {
-	route: Route;
-	onNavigate: (route: Route) => void;
-	theme: ThemeMode;
-	onThemeChange: (mode: ThemeMode) => void;
+route: Route;
+onNavigate: (route: Route) => void;
 }) {
 	const { user, signOut, updateUser } = useAuth();
 	const [roleMenuOpen, setRoleMenuOpen] = useState(false);
@@ -243,17 +241,7 @@ function Navbar({
 						) : null}
 					</div>
 
-					<Button
-						variant="ghost"
-						aria-label="Toggle theme"
-						onClick={() => onThemeChange(theme === "light" ? "dark" : "light")}
-					>
-						{theme === "light" ? (
-							<Moon className="h-5 w-5" />
-						) : (
-							<Sun className="h-5 w-5" />
-						)}
-					</Button>
+<ThemeToggle />
 
 					<Button variant="ghost" aria-label="Notifications">
 						<Bell className="h-5 w-5" />
@@ -876,74 +864,77 @@ function ProfileRoute() {
  * Settings route component
  * Application settings including theme toggle and database reset
  */
-function SettingsRoute({
-	theme,
-	onThemeChange,
-}: {
-	theme: ThemeMode;
-	onThemeChange: (mode: ThemeMode) => void;
-}) {
-	const resetDemoDatabase = () => {
-		window.alert("Demo action — hook this into your backend reset script.");
-	};
+function SettingsRoute() {
+const { theme, setTheme } = useTheme();
+const [mounted, setMounted] = useState(false);
 
-	return (
-		<motion.div {...pageMotion}>
-			<Card>
-				<CardHeader title="Settings" hint="Fine tune your workspace" />
-				<div className="space-y-6">
-					<div className="flex flex-wrap items-center justify-between gap-3">
-						<div>
-							<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
-								Theme
-							</p>
-							<p className="text-sm text-neutral-500 dark:text-neutral-400">
-								Switch between light and dark
-							</p>
-						</div>
-						<div className="flex items-center gap-3">
-							<Sun className="h-4 w-4 text-amber-500" />
-							<label className="relative inline-flex cursor-pointer items-center">
-								<input
-									aria-label="Toggle dark mode"
-									checked={theme === "dark"}
-									className="peer sr-only"
-									onChange={(event) =>
-										onThemeChange(event.target.checked ? "dark" : "light")
-									}
-									type="checkbox"
-								/>
-								<div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
-									<div className="h-5 w-5 translate-x-1 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
-								</div>
-							</label>
-							<Moon className="h-4 w-4 text-indigo-500" />
-						</div>
-					</div>
+useEffect(() => {
+setMounted(true);
+}, []);
 
-					<div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+const resetDemoDatabase = () => {
+window.alert("Demo action — hook this into your backend reset script.");
+};
 
-					<div className="flex flex-wrap items-center justify-between gap-3">
-						<div>
-							<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
-								Reset Demo Database
-							</p>
-							<p className="text-sm text-neutral-500 dark:text-neutral-400">
-								Mock trigger for Docker + Prisma reset scripts
-							</p>
-						</div>
-						<Button
-							variant="danger"
-							className="gap-2"
-							onClick={resetDemoDatabase}
-						>
-							<Database className="h-4 w-4" /> Reset
-						</Button>
-					</div>
-				</div>
-			</Card>
-		</motion.div>
-	);
+return (
+<motion.div {...pageMotion}>
+<Card>
+<CardHeader title="Settings" hint="Fine tune your workspace" />
+<div className="space-y-6">
+<div className="flex flex-wrap items-center justify-between gap-3">
+<div>
+<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
+Theme
+</p>
+<p className="text-sm text-neutral-500 dark:text-neutral-400">
+Switch between light and dark
+</p>
+</div>
+{mounted && (
+<div className="flex items-center gap-3">
+<Sun className="h-4 w-4 text-amber-500" />
+<label className="relative inline-flex cursor-pointer items-center">
+<input
+aria-label="Toggle dark mode"
+checked={theme === "dark"}
+className="peer sr-only"
+onChange={(event) =>
+setTheme(event.target.checked ? "dark" : "light")
+}
+type="checkbox"
+/>
+<div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
+<div className="h-5 w-5 translate-x-1 rounded-full bg-white shadow transition peer-checked:translate-x-5" />
+</div>
+</label>
+<Moon className="h-4 w-4 text-indigo-500" />
+</div>
+)}
+</div>
+
+<div className="h-px bg-neutral-200 dark:bg-neutral-800" />
+
+<div className="flex flex-wrap items-center justify-between gap-3">
+<div>
+<p className="text-base font-semibold text-neutral-700 dark:text-neutral-200">
+Reset Demo Database
+</p>
+<p className="text-sm text-neutral-500 dark:text-neutral-400">
+Mock trigger for Docker + Prisma reset scripts
+</p>
+</div>
+<Button
+variant="danger"
+className="gap-2"
+onClick={resetDemoDatabase}
+>
+<Database className="h-4 w-4" /> Reset
+</Button>
+</div>
+</div>
+</Card>
+</motion.div>
+);
 }
 
 /**
@@ -1051,17 +1042,12 @@ function SignInScreen({
  * @returns Dashboard shell application
  */
 export default function DashboardShell() {
-	const [route, setRoute] = useState<Route>("dashboard");
-	const [theme, setTheme] = useState<ThemeMode>("dark");
-	const [user, setUser] = useState<UserModel | null>({
-		name: "Benjamin",
-		email: "benjamin@example.com",
-		role: "admin",
-	});
-
-	useEffect(() => {
-		document.documentElement.classList.toggle("dark", theme === "dark");
-	}, [theme]);
+const [route, setRoute] = useState<Route>("dashboard");
+const [user, setUser] = useState<UserModel | null>({
+name: "Benjamin",
+email: "benjamin@example.com",
+role: "admin",
+});
 
 	const authValue = useMemo<AuthContextShape>(
 		() => ({
@@ -1103,12 +1089,7 @@ export default function DashboardShell() {
 					/>
 				) : (
 					<div className="mx-auto flex min-h-screen max-w-6xl flex-col">
-						<Navbar
-							onNavigate={setRoute}
-							onThemeChange={setTheme}
-							route={route}
-							theme={theme}
-						/>
+<Navbar onNavigate={setRoute} route={route} />
 						<div className="flex flex-1 overflow-hidden">
 							<Sidebar onNavigate={setRoute} route={route} />
 							<main className="flex-1 overflow-y-auto bg-neutral-50/60 px-4 py-6 dark:bg-neutral-950/60">
@@ -1127,9 +1108,7 @@ export default function DashboardShell() {
 											)
 										) : null}
 										{route === "profile" ? <ProfileRoute /> : null}
-										{route === "settings" ? (
-											<SettingsRoute onThemeChange={setTheme} theme={theme} />
-										) : null}
+{route === "settings" ? <SettingsRoute /> : null}
 									</motion.div>
 								</AnimatePresence>
 							</main>
