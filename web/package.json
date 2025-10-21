@@ -22,7 +22,8 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.2",
@@ -60,13 +61,23 @@
     "@vitest/coverage-v8": "^2.1.8",
     "@vitest/ui": "^2.1.8",
     "autoprefixer": "^10.4.21",
+    "husky": "^9.1.7",
     "jsdom": "^25.0.1",
+    "lint-staged": "^16.2.5",
     "postcss": "^8",
     "prisma": "^6.17.1",
     "tailwindcss": "^4",
     "tsx": "^4.19.2",
     "typescript": "^5",
     "vitest": "^2.1.8"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "biome check --write --no-errors-on-unmatched"
+    ],
+    "*.{json,md}": [
+      "biome format --write --no-errors-on-unmatched"
+    ]
   },
   "pnpm": {
     "onlyBuiltDependencies": [
