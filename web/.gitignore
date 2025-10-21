@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# key management directory (sensitive keys and certificates)
+.key/
+!.key/README.md
+!.key/.gitignore
