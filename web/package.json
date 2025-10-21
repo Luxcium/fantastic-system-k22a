@@ -22,6 +22,7 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:reset": "prisma migrate reset",
+    "verify": "bash scripts/verify-setup.sh",
     "postinstall": "prisma generate",
     "prepare": "husky"
   },
