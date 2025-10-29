@@ -9,6 +9,7 @@
  */
 
 import { existsSync, mkdirSync } from "node:fs";
+import { stat } from "node:fs/promises";
 import { join } from "node:path";
 import type { Browser, BrowserContext, Page } from "@playwright/test";
 import { chromium } from "@playwright/test";
@@ -275,8 +276,7 @@ export async function captureScreenshot(
       });
 
       // Get file stats
-      const fs = await import("node:fs/promises");
-      const stats = await fs.stat(filepath);
+      const stats = await stat(filepath);
 
       results.push({
         path: filepath,
