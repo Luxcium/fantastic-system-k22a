@@ -55,8 +55,8 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 ## Available Scripts
 
 ### Development
-- `pnpm dev` - Start dev server with browser
-- `pnpm dev:no-browser` - Start dev server without browser
+- `pnpm dev` - Start dev server with browser (auto-opens Chrome at http://localhost:3022)
+- `pnpm dev:no-browser` - Start dev server only (no browser auto-launch)
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
 
@@ -68,11 +68,11 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 - `pnpm test:e2e:ui` - Run E2E tests with UI
 
 ### Screenshots
-- `pnpm screenshot` - Capture desktop screenshot (both themes)
-- `pnpm screenshot:suite` - Capture all viewports and themes
-- `pnpm screenshot:mobile` - Mobile viewport
-- `pnpm screenshot:tablet` - Tablet viewport
-- `pnpm screenshot:desktop` - Desktop viewport
+- `pnpm screenshot` - Capture desktop (1920×1080) screenshot in both themes
+- `pnpm screenshot:suite` - Capture all viewports and themes (6 screenshots)
+- `pnpm screenshot:mobile` - Mobile viewport (375×667)
+- `pnpm screenshot:tablet` - Tablet viewport (768×1024)
+- `pnpm screenshot:desktop` - Desktop viewport (1920×1080)
 
 ### Code Quality
 - `pnpm lint` - Lint and fix code with Biome
