@@ -23,6 +23,7 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 - Capture what changed, why it matters, and what remains.
 - Reference related `memory-bank/*` updates or commits where helpful.
 - The `web/` directory is the Next.js app workspace, avoid confusion.
+- Using pnpm is mandatory and critical for any task you would have used npm for.
 - Ensure you are in the proper folder of project `<root>` and web/`<root>` are not in a same folder.
 
 ## Collaboration Expectations
