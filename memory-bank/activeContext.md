@@ -1,14 +1,19 @@
 # Active Context
 
-- Timestamp: 2025-10-29T01:25:00+00:00
-- Current focus: Screenshot automation system implemented and tested. Comprehensive tooling for capturing screenshots in agentic workflows now available.
+- Timestamp: 2025-10-30T02:44:00+00:00
+- Current focus: Next.js 16.0.1 and React 19.2.0 upgrade completed successfully. All existing functionality verified and working.
 - Implementation status:
-  - ✅ Screenshot automation system fully implemented with TypeScript utility, CLI tool, and documentation
-  - ✅ Support for multiple viewports (mobile, tablet, desktop, desktop-HD) with light/dark theme switching
-  - ✅ System browser detection working with Chromium/Chrome across platforms
-  - ✅ Tested successfully: 6 screenshots captured (mobile/tablet/desktop × light/dark) in ~7 seconds
-  - ✅ npm scripts added: `screenshot`, `screenshot:suite`, `screenshot:mobile/tablet/desktop`
-  - ✅ Documentation created at `web/docs/SCREENSHOT-AUTOMATION.md`
+  - ✅ Next.js upgraded from 15.5.4 to 16.0.1 (latest stable)
+  - ✅ React upgraded from 19.1.0 to 19.2.0 (latest stable)
+  - ✅ React-DOM upgraded from 19.1.0 to 19.2.0 (latest stable)
+  - ✅ TypeScript configuration updated for React automatic JSX runtime
+  - ✅ Turbopack enabled as default bundler (faster builds)
+  - ✅ All 62 tests passing
+  - ✅ Build process verified and working
+  - ✅ Development server tested and operational
+  - ✅ No breaking changes or regressions detected
+  - ✅ Screenshot automation system remains fully functional
+  - ✅ Documentation updated in memory-bank
 - Immediate next action: Continue with dashboard development, NextAuth integration and real data hydration from Prisma-backed APIs.
 - Reference artifacts:
   - `web/src/utils/screenshot.ts` — Core screenshot utility with full TypeScript support
@@ -19,12 +24,13 @@
   - `memory-bank/reference/` — quick reference guides (biome, quick-reference, setup-checklist, component-architecture)
   - `memory-bank/decisions/` — architectural decisions and summaries (implementation-summary, frontend-optimization-summary, firewall-analysis)
   - `memory-bank/roadmap/` — project roadmaps (alpha-track)
-- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved; comprehensive testing infrastructure in place; documentation consolidated; **screenshot automation system implemented and tested**.
+- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved; comprehensive testing infrastructure in place; documentation consolidated; screenshot automation system implemented and tested; **Next.js 16.0.1 and React 19.2.0 upgrade completed**.
 - Notes:
-  - Screenshot system uses Playwright with system browser for resilience
-  - Supports headless and headed modes for debugging
-  - Full-page screenshots, element waiting, and custom viewports supported
-  - Suitable for CI/CD pipelines, visual regression testing, and agentic workflows
+  - Next.js 16 brings Turbopack as default bundler for improved build performance
+  - React 19.2 includes latest bug fixes and improvements
+  - TypeScript configuration now uses "react-jsx" for automatic JSX runtime
+  - next-auth shows peer dependency warning but remains fully functional
+  - All existing features (screenshot automation, authentication, database) working correctly
 - Open questions:
-  - Should we integrate screenshot capture into CI/CD pipeline?
-  - Would visual regression testing be valuable for this project?
+  - Should we monitor next-auth updates for official Next.js 16 support?
+  - Are there Next.js 16 specific features we should leverage (explicit caching, etc.)?

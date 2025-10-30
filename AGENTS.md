@@ -27,6 +27,48 @@ This log captures each AI agent session across the Genesis layered bootstrap. Up
 - In any `.prompt.md` or `.chatmode.md` file, the `tools:` front-matter key **must** have its value on the same line (e.g. `tools: [ ... ]`).
   Splitting the array onto the next line currently breaks VS Code's parser and Copilot's tool-detection logic.
 
+## 📸 Screenshot Automation Requirements
+
+**IMPERATIVE REQUIREMENT**: AI agents MUST capture screenshots after making UI changes:
+
+### When to Capture Screenshots
+- **ALWAYS** after making any visual/UI changes to the application
+- **ALWAYS** after completing a feature that affects user-visible content
+- **ALWAYS** before marking a task as complete if UI was modified
+- When demonstrating new capabilities or features
+
+### How to Capture Screenshots
+Use the built-in screenshot automation system in `web/`:
+
+```bash
+# Full suite (mobile, tablet, desktop × light/dark) - RECOMMENDED
+cd web && pnpm screenshot:suite
+
+# Individual viewports (if needed)
+cd web && pnpm screenshot:mobile
+cd web && pnpm screenshot:tablet  
+cd web && pnpm screenshot:desktop
+```
+
+### Mobile-First Approach
+- **ALWAYS** prioritize mobile viewport when capturing screenshots
+- Capture mobile screenshots FIRST, then tablet, then desktop
+- Ensure mobile responsiveness is verified before desktop
+- Screenshots should demonstrate responsive design across all viewports
+
+### Screenshot Deliverables
+When completing UI work, provide screenshots showing:
+1. **Mobile viewport** (375×667) - PRIMARY
+2. **Tablet viewport** (768×1024) - SECONDARY
+3. **Desktop viewport** (1920×1080) - TERTIARY
+4. **Both light and dark themes** for each viewport
+
+### Integration with Workflow
+- Screenshots are saved to `web/screenshots/` directory
+- Filename format: `{viewport}-{theme}-{timestamp}.png`
+- Include screenshot paths in commit messages or PR descriptions
+- Reference screenshots when replying to PR comments about UI changes
+
 ## CRITICAL MEMORY BANK PROTOCOL (keeping it stateful, ingesting previous context)
 
 **IMPERATIVE REQUIREMENT**: NOW MUST synchronize memory bank AND on EVERY task execution:
