@@ -18,3 +18,8 @@
 ## Constraints
 - Avoid destructive operations; scripts must check for pre-existing files before creating new ones.
 - Network access may require explicit authorization; prefer offline resources when possible.
+- **Firewall-Restricted Environments**: Configuration in place to disable external service connections:
+  - Prisma checkpoint and telemetry disabled via CHECKPOINT_DISABLE and PRISMA_TELEMETRY_DISABLE
+  - Chromium/Playwright external connections blocked via browser launch args
+  - Next.js telemetry disabled via NEXT_TELEMETRY_DISABLED
+  - See `docs/FIREWALL-CONFIGURATION.md` for complete details and CI/CD usage

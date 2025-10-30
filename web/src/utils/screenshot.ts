@@ -217,7 +217,7 @@ export async function captureScreenshot(
   const results: ScreenshotResult[] = [];
 
   try {
-    // Launch browser
+    // Launch browser with disabled external connections
     browser = await chromium.launch({
       headless,
       executablePath: browserPath,
@@ -226,6 +226,12 @@ export async function captureScreenshot(
         "--disable-setuid-sandbox",
         "--disable-dev-shm-usage",
         "--disable-blink-features=AutomationControlled",
+        "--disable-sync",
+        "--disable-features=TranslateUI,OptimizationHints",
+        "--disable-component-update",
+        "--disable-background-networking",
+        "--disable-default-apps",
+        "--disable-extensions",
       ],
     });
 

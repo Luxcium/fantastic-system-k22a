@@ -24,6 +24,14 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
+    launchOptions: {
+      args: [
+        '--disable-sync',
+        '--disable-features=TranslateUI,OptimizationHints',
+        '--disable-component-update',
+        '--disable-background-networking',
+      ],
+    },
   },
 
   projects: [
