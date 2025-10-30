@@ -200,9 +200,9 @@ async function runAllExamples() {
   }
 }
 
+import { basename } from "path";
 // Run if called directly (ESM-compatible)
 import { fileURLToPath } from "url";
-import { basename } from "path";
 
 const isDirectRun =
   basename(fileURLToPath(import.meta.url)) === basename(process.argv[1]);

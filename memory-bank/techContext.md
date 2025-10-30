@@ -4,6 +4,8 @@
 - Node.js 22+ runtime.
 - TypeScript-first development with TSDoc annotations for documented APIs.
 - Biome (v2.2.0+) for linting, formatting, and import organization; configured in `web/biome.json`.
+- Next.js 16.0.1 with Turbopack as default bundler.
+- React 19.2.0 with automatic JSX runtime.
 
 ## Tooling
 - `scripts/init.sh` validates foundation files and handles git bootstrapping if needed.
