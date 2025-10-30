@@ -1,0 +1,1 @@
+# Features Directory\n\nThis directory contains feature-specific code organized by domain.\n\nEach feature should contain:\n- Components specific to that feature\n- Hooks and utilities for the feature\n- Types and interfaces\n- API routes or data fetching logic\n\nFollow the SOLID principles and keep features modular and independent.

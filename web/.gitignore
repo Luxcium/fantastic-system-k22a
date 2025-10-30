@@ -41,6 +41,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# key management directory (sensitive keys and certificates)
+.key/
+!.key/README.md
+!.key/.gitignore
 # screenshots (optionally commit specific screenshots as needed)
 /screenshots
 pnpm-lock.yaml
