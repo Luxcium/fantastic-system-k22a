@@ -45,3 +45,4 @@ next-env.d.ts
 .key/
 !.key/README.md
 !.key/.gitignore
+pnpm-lock.yaml
