@@ -37,6 +37,66 @@
   - Web README includes complete setup, architecture, and troubleshooting
   - All requirements from problem statement documented and verified
 - **Next Steps**: Continue with feature development, ensure tests pass, maintain documentation
+## 2025-10-30
+- **Next.js 16.0.1 & React 19.2.0 Upgrade Completed**: Successfully upgraded the project to the latest stable versions
+  - ✅ Upgraded Next.js from 15.5.4 to 16.0.1 using pnpm
+  - ✅ Upgraded React from 19.1.0 to 19.2.0 using pnpm
+  - ✅ Upgraded React-DOM from 19.1.0 to 19.2.0 using pnpm
+  - ✅ TypeScript configuration automatically updated by Next.js:
+    - Changed `jsx` from "preserve" to "react-jsx" (React automatic runtime)
+    - Added ".next/dev/types/**/*.ts" to include paths
+  - ✅ Build verification: Production build completed successfully with Turbopack
+  - ✅ TypeScript check: No compilation errors
+  - ✅ Test suite: All 62 tests passing (20 UI components + 42 utilities)
+  - ✅ Development server: Started successfully on port 3022
+  - ✅ Memory bank documentation updated: dependencies.md created, techContext.md updated
+- **New Features Available**:
+  - Turbopack as default bundler (faster builds and hot module replacement)
+  - React 19.2 latest improvements and bug fixes
+  - Explicit caching APIs available for future use
+  - Improved App Router performance
+- **Known Issues**:
+  - next-auth peer dependency warning (expects Next.js ^14 or ^15, but we have 16)
+    - Does not affect functionality; next-auth beta.25 works correctly with Next.js 16
+    - Will be resolved when next-auth officially supports Next.js 16
+  - Pre-existing Biome linting warnings (unrelated to upgrade)
+- **Decision Rationale**:
+  - Used pnpm CLI for all package operations (per project guidelines)
+  - Chose Next.js 16.0.1 (latest stable) over canary versions for stability
+  - Chose React 19.2.0 (latest stable) for compatibility with Next.js 16
+  - Minimal changes approach: only package versions and auto-generated TypeScript config
+  - All existing functionality verified to ensure no regressions
+- **Next Steps**: Monitor next-auth for Next.js 16 support, explore Next.js 16 explicit caching features, continue with dashboard development
+
+## 2025-10-29
+- **Screenshot Automation System Implemented**: Comprehensive screenshot capture capabilities for agentic workflows
+  - ✅ Created TypeScript screenshot utility in `web/src/utils/screenshot.ts` with full TSDoc documentation
+  - ✅ Implemented CLI tool `web/scripts/screenshot.ts` for command-line screenshot capture
+  - ✅ Added example scripts in `web/scripts/screenshot-examples.ts` demonstrating programmatic usage
+  - ✅ Added npm scripts: `screenshot`, `screenshot:suite`, `screenshot:mobile`, `screenshot:tablet`, `screenshot:desktop`
+  - ✅ System browser detection supporting Chromium/Chrome across Linux/macOS/Windows
+  - ✅ Multi-viewport support: mobile (375×667), tablet (768×1024), desktop (1920×1080), desktop-HD (2560×1440)
+  - ✅ Theme switching: light, dark, or both themes automatically
+  - ✅ Full-page screenshot capability for long pages
+  - ✅ Element waiting and custom delays for dynamic content
+  - ✅ Headless and headed modes (visible browser for debugging)
+  - ✅ Comprehensive documentation created at `web/docs/SCREENSHOT-AUTOMATION.md`
+  - ✅ Successfully tested: captured 6 screenshots (3 viewports × 2 themes) in ~7 seconds
+  - ✅ Updated `.gitignore` to exclude screenshots directory
+  - ✅ Updated `memory-bank/techContext.md` and `memory-bank/activeContext.md`
+- **Features**:
+  - Programmatic API: `captureScreenshot()`, `captureMultipleViewports()`, `captureSuite()`
+  - Resilient error handling with browser fallbacks
+  - Configurable timeouts, delays, and element selectors
+  - Custom viewport configurations supported
+  - Screenshot metadata (path, size, viewport, theme, timestamp)
+- **Use Cases Enabled**:
+  - Agentic workflow integration with programmatic screenshots
+  - CI/CD pipeline screenshots for visual regression testing
+  - Automated documentation screenshot generation
+  - Multi-device responsive testing
+  - Theme comparison (light/dark mode)
+- **Next Steps**: Integration with CI/CD workflows, visual regression testing setup (optional), baseline screenshot storage
 
 ## 2025-10-20
 - **Documentation Consolidation Complete**: All markdown files organized into memory-bank directory structure

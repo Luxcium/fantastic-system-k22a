@@ -23,6 +23,7 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 - Capture what changed, why it matters, and what remains.
 - Reference related `memory-bank/*` updates or commits where helpful.
 - The `web/` directory is the Next.js app workspace, avoid confusion.
+- Using pnpm is mandatory and critical for any task you would have used npm for.
 - Ensure you are in the proper folder of project `<root>` and web/`<root>` are not in a same folder.
 
 ## Collaboration Expectations
@@ -34,6 +35,65 @@ description: Guardrails for GitHub Copilot interactions in the Genesis 22 worksp
 
 - In any `.prompt.md` or `.chatmode.md` file, the `tools:` front-matter key **must** have its value on the same line (e.g. `tools: [ ... ]`).
   Splitting the array onto the next line currently breaks VS Code's parser and Copilot's tool-detection logic.
+
+## 📸 Screenshot Requirements for UI Changes
+
+**MANDATORY**: When making any UI/visual changes, you MUST capture and include screenshots.
+
+### Screenshot Capture Protocol
+
+1. **After Every UI Change**: Immediately capture screenshots using the screenshot automation system
+2. **Mobile-First Approach**: Always capture mobile viewport first, then tablet, then desktop
+3. **Theme Coverage**: Capture both light and dark themes for comprehensive coverage
+4. **Verification**: Use screenshots to verify changes work across all viewports before committing
+
+### How to Capture
+
+```bash
+# Navigate to web directory first
+cd web
+
+# Recommended: Capture full suite (all viewports + themes)
+pnpm screenshot:suite
+
+# Or capture individual viewports in mobile-first order:
+pnpm screenshot:mobile   # Mobile: 375×667 (PRIORITY)
+pnpm screenshot:tablet   # Tablet: 768×1024
+pnpm screenshot:desktop  # Desktop: 1920×1080
+```
+
+### Mobile-First Requirements
+
+- Mobile viewport is the PRIMARY viewport - always test and screenshot mobile first
+- Tablet viewport is SECONDARY - ensure consistency with mobile
+- Desktop viewport is TERTIARY - verify enhanced experience for larger screens
+- Responsive design must work seamlessly across all three viewports
+
+### When Screenshots Are Required
+
+- ✅ **ALWAYS** after modifying UI components
+- ✅ **ALWAYS** after changing styles, layouts, or visual appearance
+- ✅ **ALWAYS** after adding new pages or routes
+- ✅ **ALWAYS** after updating themes or color schemes
+- ✅ **ALWAYS** when replying to PR comments about visual changes
+- ✅ **ALWAYS** before completing any task involving UI work
+
+### Screenshot Deliverables
+
+Include in your work:
+1. Mobile viewport screenshots (both themes)
+2. Tablet viewport screenshots (both themes)
+3. Desktop viewport screenshots (both themes)
+4. Reference screenshot paths in commit messages
+5. Embed screenshots in PR replies when addressing UI feedback
+
+### Technical Details
+
+- Screenshots saved to: `web/screenshots/`
+- Filename format: `{viewport}-{theme}-{timestamp}.png`
+- System uses Playwright with system browser (Chromium/Chrome)
+- Full automation support for CI/CD pipelines
+- Documentation: `web/docs/SCREENSHOT-AUTOMATION.md`
 
 ## CRITICAL MEMORY BANK PROTOCOL (keeping it stateful, ingesting previous context)
 

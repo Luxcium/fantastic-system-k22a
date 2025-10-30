@@ -4,10 +4,16 @@
 - Node.js 22+ runtime.
 - TypeScript-first development with TSDoc annotations for documented APIs.
 - Biome (v2.2.0+) for linting, formatting, and import organization; configured in `web/biome.json`.
+- Next.js 16.0.1 with Turbopack as default bundler.
+- React 19.2.0 with automatic JSX runtime.
 
 ## Tooling
 - `scripts/init.sh` validates foundation files and handles git bootstrapping if needed.
 - VS Code workspace settings tie Copilot to the memory-bank triad for contextual responses.
+- **Screenshot Automation**: Playwright-based screenshot capture system in `web/src/utils/screenshot.ts` for agentic workflows
+  - CLI tool: `pnpm screenshot` with support for multiple viewports and themes
+  - Programmatic API for integration with automated workflows
+  - System browser detection (Chromium/Chrome) for cloud and local environments
 
 ## Constraints
 - Avoid destructive operations; scripts must check for pre-existing files before creating new ones.

@@ -45,4 +45,6 @@ next-env.d.ts
 .key/
 !.key/README.md
 !.key/.gitignore
+# screenshots (optionally commit specific screenshots as needed)
+/screenshots
 pnpm-lock.yaml
