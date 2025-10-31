@@ -10,9 +10,9 @@
  */
 
 import {
+  refresh as nextRefresh,
   revalidateTag as nextRevalidateTag,
-  // Note: updateTag and refresh are only available in Next.js 16+
-  // If not available in your version, these will need conditional imports
+  updateTag as nextUpdateTag,
 } from "next/cache";
 
 /**
@@ -73,13 +73,7 @@ export async function revalidateTagWithLife(
  * ```
  */
 export function updateTagImmediate(tag: string): void {
-  // Note: updateTag is only available in Next.js 16+ and only in Server Actions
-  // For compatibility, we're documenting the pattern but not importing it
-  // as it may not be available in all Next.js 16 versions yet
-  console.warn(
-    `updateTag('${tag}') called - ensure this is in a Server Action and Next.js 16+ is installed`,
-  );
-  // When available: updateTag(tag);
+  nextUpdateTag(tag);
 }
 
 /**
@@ -99,12 +93,7 @@ export function updateTagImmediate(tag: string): void {
  * ```
  */
 export function refreshPage(): void {
-  // Note: refresh() is only available in Next.js 16+ and only in Server Actions
-  // For compatibility, we're documenting the pattern but not importing it
-  console.warn(
-    "refresh() called - ensure this is in a Server Action and Next.js 16+ is installed",
-  );
-  // When available: refresh();
+  nextRefresh();
 }
 
 /**

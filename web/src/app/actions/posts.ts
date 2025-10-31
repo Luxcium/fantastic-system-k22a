@@ -32,14 +32,9 @@ export async function updatePostAction(
 
     // Use updateTag for immediate invalidation (Next.js 16+)
     // This blocks the next request and forces a re-fetch
-    // When available, uncomment:
-    // import { updateTag } from 'next/cache';
-    // updateTag(CacheTags.post(postId));
-    // updateTag(CacheTags.posts);
-
-    // Fallback to revalidateTag for now (eventual consistency)
-    await revalidateTagWithLife(CacheTags.post(postId), "minutes");
-    await revalidateTagWithLife(CacheTags.posts, "minutes");
+    const { updateTagImmediate } = await import("@/lib/cache");
+    updateTagImmediate(CacheTags.post(postId));
+    updateTagImmediate(CacheTags.posts);
 
     return {
       success: true,
@@ -105,13 +100,9 @@ export async function deletePostAction(postId: string) {
     // await db.post.delete({ where: { id: postId } });
 
     // Immediately invalidate caches
-    // When updateTag is available:
-    // updateTag(CacheTags.post(postId));
-    // updateTag(CacheTags.posts);
-
-    // Fallback to revalidateTag
-    await revalidateTagWithLife(CacheTags.post(postId), "minutes");
-    await revalidateTagWithLife(CacheTags.posts, "minutes");
+    const { updateTagImmediate } = await import("@/lib/cache");
+    updateTagImmediate(CacheTags.post(postId));
+    updateTagImmediate(CacheTags.posts);
 
     return {
       success: true,
@@ -134,11 +125,8 @@ export async function deletePostAction(postId: string) {
  */
 export async function refreshPageAction() {
   try {
-    // When refresh() is available in Next.js 16+:
-    // import { refresh } from 'next/cache';
-    // refresh();
-
-    console.info("Page refresh requested");
+    const { refreshPage } = await import("@/lib/cache");
+    refreshPage();
 
     return {
       success: true,
