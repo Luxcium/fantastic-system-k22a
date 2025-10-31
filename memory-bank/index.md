@@ -32,6 +32,7 @@ cd web && ./scripts/validate-setup.sh
 | [`../web/SETUP.md`](../web/SETUP.md) | Complete installation guide | Developers | 20 min |
 | [`../web/README.md`](../web/README.md) | Web app documentation | Developers | 15 min |
 | [`decisions/implementation-summary.md`](decisions/implementation-summary.md) | What was implemented | Tech leads, AI agents | 10 min |
+| [`reference/nextjs-16-handbook.md`](reference/nextjs-16-handbook.md) | Next.js 16+ modern conventions | AI agents, developers | 20 min |
 
 ### 🏗️ Architecture & Decisions
 | Document | Purpose | Audience | Time |
@@ -103,7 +104,9 @@ fantastic-system-k22a/
 │   │   ├── quick-reference.md     # Commands & architecture
 │   │   ├── biome.md               # Biome quick reference
 │   │   ├── setup-checklist.md     # Setup checklist
-│   │   └── component-architecture.md  # Component diagrams
+│   │   ├── component-architecture.md  # Component diagrams
+│   │   ├── nextjs-16-handbook.md  # Next.js 16+ modern conventions
+│   │   └── screenshot-automation.md  # Screenshot capture system
 │   ├── 📁 instructions/           # AI agent instructions
 │   ├── 📁 decisions/              # Architecture decision records
 │   │   ├── implementation-summary.md   # Foundation summary
