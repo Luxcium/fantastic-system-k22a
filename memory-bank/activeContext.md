@@ -79,6 +79,10 @@
   - TypeScript configuration now uses "react-jsx" for automatic JSX runtime
   - next-auth shows peer dependency warning but remains fully functional
   - All existing features (screenshot automation, authentication, database) working correctly
+- Backend integration kick-off:
+  - Created Prisma-backed utilities query module with aggregate helpers for favorites and usage counts
+  - Added `/api/utilities` route handler returning enriched catalogue data with Next.js 16 dynamic caching headers
+  - Covered data mapping logic with Vitest unit tests mocking Prisma client
 - Open questions:
   - Should we monitor next-auth updates for official Next.js 16 support?
   - Are there Next.js 16 specific features we should leverage (explicit caching, etc.)?

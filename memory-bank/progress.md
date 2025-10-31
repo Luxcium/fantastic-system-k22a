@@ -93,6 +93,12 @@ Resolved firewall blocking issues for Chromium/Playwright and Prisma services:
   - All existing functionality verified to ensure no regressions
 - **Next Steps**: Monitor next-auth for Next.js 16 support, explore Next.js 16 explicit caching features, continue with dashboard development
 
+### Utilities API bootstrap
+- ✅ Implemented `src/features/utilities/queries.ts` to read Prisma catalogue data and compute favorite/usage aggregates
+- ✅ Added `GET /api/utilities` route exposing enriched utility data with explicit dynamic caching headers
+- ✅ Created Vitest coverage for data mapping via Prisma client mocks
+- 🔄 Next step: connect dashboard client state to the new API and wire cache tag invalidation when mutating utilities
+
 ## 2025-10-29
 - **Screenshot Automation System Implemented**: Comprehensive screenshot capture capabilities for agentic workflows
   - ✅ Created TypeScript screenshot utility in `web/src/utils/screenshot.ts` with full TSDoc documentation
