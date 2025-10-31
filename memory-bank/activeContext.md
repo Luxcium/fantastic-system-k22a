@@ -1,5 +1,13 @@
 # Active Context
 
+- Timestamp: 2025-10-31T20:45:07Z
+- Current focus: Enforce the documented Node.js 22+ baseline in setup verification
+- Implementation status:
+  - ✅ Updated `web/scripts/verify-setup.sh` so Node.js majors below 22 fail and newer majors emit a cautionary warning
+  - ✅ Confirmed the script passes the Node.js check when running `pnpm verify` with Node v22.21.1
+- Immediate next action: Monitor future automation tasks that rely on the setup script now that the runtime requirement is enforced
+- Project Status: ✅ Setup verification aligned with tech context requirements
+
 - Timestamp: 2025-10-21T01:40:00Z
 - Current focus: ✅ PROJECT SETUP COMPLETE - All requirements from problem statement implemented and verified
 - Implementation status:
