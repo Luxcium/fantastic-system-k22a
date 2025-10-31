@@ -39,6 +39,7 @@ if (!command) {
 
 try {
   const child = spawn(command, args, options);
+  logInfo(`Attempting to open ${url} using ${command}.`);
 
   child.on('error', (error) => {
     logWarn(`Unable to launch browser using ${command}: ${error.message}`);
@@ -56,8 +57,6 @@ try {
   if (typeof child.unref === 'function') {
     child.unref();
   }
-
-  logInfo(`Attempting to open ${url} using ${command}.`);
 } catch (error) {
   logWarn(`Failed to spawn ${command}: ${error.message}`);
   logWarn(`Please open ${url} manually.`);
