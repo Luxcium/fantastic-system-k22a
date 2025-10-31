@@ -55,7 +55,7 @@ check_node() {
         if [ "$NODE_MAJOR" -lt 22 ]; then
             print_fail "Node.js $NODE_VERSION_RAW found, but v22+ is required"
         elif [ "$NODE_MAJOR" -gt 22 ]; then
-            print_warn "Node.js $NODE_VERSION_RAW detected. Baseline requirement is v22+. This major hasn't been validated yet"
+            print_warn "Node.js $NODE_VERSION_RAW detected. Baseline requirement is v22+. This major version hasn't been validated yet"
         else
             print_pass "Node.js $NODE_VERSION_RAW satisfies the v22+ requirement"
         fi
