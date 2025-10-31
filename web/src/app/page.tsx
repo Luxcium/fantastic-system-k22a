@@ -52,6 +52,8 @@ import { cn, formatDate } from "@/lib/utils";
 /** User role types for access control */
 type Role = "admin" | "editor" | "viewer";
 
+const allowedRoles: Role[] = ["admin", "editor", "viewer"];
+
 /** Available application routes */
 type Route = "dashboard" | "projects" | "users" | "profile" | "settings";
 
@@ -678,10 +680,30 @@ function UsersRoute() {
   const handleAddUser = () => {
     const name = window.prompt("Name?");
     const email = window.prompt("Email?");
-    const roleInput = (window.prompt("Role? (admin|editor|viewer)", "viewer") ??
-      "viewer") as Role;
+    const roleInput = window.prompt(
+      "Role? (admin|editor|viewer)",
+      "viewer",
+    );
     if (!name || !email) return;
-    setRows((previous) => [...previous, { name, email, role: roleInput }]);
+    const normalizedRole = roleInput?.trim().toLowerCase();
+    const isValidRole =
+      normalizedRole &&
+      allowedRoles.includes(normalizedRole as Role);
+
+    if (!isValidRole && roleInput && roleInput.trim() !== "") {
+      window.alert(
+        `Invalid role "${roleInput}". Defaulting to viewer.`,
+      );
+    }
+
+    const validatedRole: Role = isValidRole
+      ? (normalizedRole as Role)
+      : "viewer";
+
+    setRows((previous) => [
+      ...previous,
+      { name, email, role: validatedRole },
+    ]);
   };
 
   return (
@@ -1024,6 +1046,8 @@ function SignInScreen({
     </div>
   );
 }
+
+export { UsersRoute, allowedRoles };
 
 /**
  * Dashboard Shell - Main Application Component

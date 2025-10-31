@@ -1,5 +1,13 @@
 # Progress Log
 
+## 2025-11-01
+- **UsersRoute Role Validation**: Hardened the add-user prompt and added regression coverage
+  - ✅ Normalized prompt input to lowercase and validated against the canonical role list, defaulting to viewer on invalid input
+  - ✅ Updated state mutations to rely on the validated `Role` instance for downstream filters
+  - ✅ Added `web/src/app/page.test.tsx` to verify mixed-case role inputs correctly register as admin/editor/viewer
+  - ✅ Exported `UsersRoute` for targeted testing without impacting runtime consumers
+  - ✅ Test command: `pnpm vitest run src/app/page.test.tsx`
+
 ## 2025-10-21
 - **Project Setup Requirements Complete**: Addressed all missing elements required for development
   - ✅ Created `src/features/` directory for feature-specific code organization
