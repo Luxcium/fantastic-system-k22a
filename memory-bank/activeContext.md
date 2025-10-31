@@ -1,5 +1,15 @@
 # Active Context
 
+- Timestamp: 2025-10-31T00:00:00Z
+- Current focus: ♻️ Developer experience polish — ensure dev server ergonomics remain cross-platform
+- Implementation status:
+  - ✅ Replaced hard-coded `/usr/bin/google-chrome` launch with `web/scripts/open-browser.mjs`
+  - ✅ Updated `web/package.json` `dev` script to invoke the helper after `wait-on`
+  - ✅ Documented browser auto-launch behavior and opt-out instructions in `web/README.md`
+- Immediate next action: Monitor feedback from contributors using different OS environments and iterate if additional launchers are required.
+- Notes:
+  - Helper selects `open` (macOS), `start` (Windows via `cmd`), or `xdg-open` (Linux/BSD) and falls back to manual launch with warnings when unavailable.
+
 - Timestamp: 2025-10-21T01:40:00Z
 - Current focus: ✅ PROJECT SETUP COMPLETE - All requirements from problem statement implemented and verified
 - Implementation status:

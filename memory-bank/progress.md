@@ -1,5 +1,8 @@
 # Progress Log
 
+## 2025-10-31
+- **Dev server browser helper**: Replaced the Linux-specific Chrome invocation with `web/scripts/open-browser.mjs`, updated the `dev` npm script to call it after `wait-on`, and documented the cross-platform behavior plus opt-out instructions in `web/README.md`.
+
 ## 2025-10-21
 - **Project Setup Requirements Complete**: Addressed all missing elements required for development
   - ✅ Created `src/features/` directory for feature-specific code organization
