@@ -1,5 +1,14 @@
 # Active Context
 
+- Timestamp: 2025-10-31T00:00:00Z
+- Current focus: Align theme toggles with system-resolved values and backstop with tests
+- Decisions:
+  - Update `ThemeToggle` to derive its current theme from `resolvedTheme ?? theme` so system mode renders correctly.
+  - Update the settings route theme switch to reflect the resolved theme while continuing to persist explicit `"light"` and `"dark"` values.
+  - Add unit coverage that exercises system-mode defaults for both dark and light resolutions to prevent regressions.
+- Status: Component updates merged locally with passing coverage (`pnpm test --run`).
+- Next steps: Monitor for additional theme integration points that might need resolved-theme awareness.
+
 - Timestamp: 2025-10-21T01:40:00Z
 - Current focus: ✅ PROJECT SETUP COMPLETE - All requirements from problem statement implemented and verified
 - Implementation status:

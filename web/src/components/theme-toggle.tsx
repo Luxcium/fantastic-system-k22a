@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/Button";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const currentTheme = resolvedTheme ?? theme;
 
   // Avoid hydration mismatch
   useEffect(() => {
@@ -17,7 +19,11 @@ export function ThemeToggle() {
   if (!mounted) {
     return (
       <Button variant="ghost" aria-label="Toggle theme">
-        <Sun className="h-5 w-5" />
+        {currentTheme === "light" ? (
+          <Moon className="h-5 w-5" />
+        ) : (
+          <Sun className="h-5 w-5" />
+        )}
       </Button>
     );
   }
@@ -26,9 +32,9 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       aria-label="Toggle theme"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
     >
-      {theme === "light" ? (
+      {currentTheme === "light" ? (
         <Moon className="h-5 w-5" />
       ) : (
         <Sun className="h-5 w-5" />

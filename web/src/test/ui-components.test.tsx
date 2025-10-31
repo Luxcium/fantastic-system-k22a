@@ -3,12 +3,40 @@
  * Testing Button, Badge, Avatar, and Card components
  */
 
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import * as NextThemes from "next-themes";
+import { ThemeToggle } from "../components/theme-toggle";
 import { Avatar } from "../components/ui/Avatar";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { Card, CardHeader } from "../components/ui/Card";
+
+type ThemeValue = "light" | "dark" | "system";
+
+const setThemeSpy = vi.fn<(value: "light" | "dark") => void>();
+
+const themeState: {
+  theme: ThemeValue | undefined;
+  resolvedTheme: Exclude<ThemeValue, "system"> | undefined;
+  setTheme: typeof setThemeSpy;
+} = {
+  theme: "light",
+  resolvedTheme: "light",
+  setTheme: setThemeSpy,
+};
+
+vi.spyOn(NextThemes, "useTheme").mockImplementation(() => themeState);
+
+beforeEach(() => {
+  themeState.theme = "system";
+  themeState.resolvedTheme = "light";
+  setThemeSpy.mockClear();
+});
+
+afterEach(() => {
+  setThemeSpy.mockClear();
+});
 
 describe("Button", () => {
   it("should render with primary variant by default", () => {
@@ -144,5 +172,41 @@ describe("CardHeader", () => {
     render(<CardHeader title="Title" />);
     const hint = screen.queryByText(/hint/i);
     expect(hint).not.toBeInTheDocument();
+  });
+});
+
+describe("ThemeToggle", () => {
+  it("should reflect system light mode with moon icon and switch to dark", async () => {
+    themeState.theme = "system";
+    themeState.resolvedTheme = "light";
+
+    render(<ThemeToggle />);
+
+    const button = screen.getByRole("button", { name: /toggle theme/i });
+
+    await waitFor(() => {
+      expect(button.querySelector(".lucide-moon")).toBeInTheDocument();
+    });
+
+    fireEvent.click(button);
+
+    expect(setThemeSpy).toHaveBeenCalledWith("dark");
+  });
+
+  it("should reflect system dark mode with sun icon and switch to light", async () => {
+    themeState.theme = "system";
+    themeState.resolvedTheme = "dark";
+
+    render(<ThemeToggle />);
+
+    const button = screen.getByRole("button", { name: /toggle theme/i });
+
+    await waitFor(() => {
+      expect(button.querySelector(".lucide-sun")).toBeInTheDocument();
+    });
+
+    fireEvent.click(button);
+
+    expect(setThemeSpy).toHaveBeenCalledWith("light");
   });
 });
