@@ -28,26 +28,29 @@ export type CacheLife =
   | "max"; // Maximum possible cache time
 
 /**
- * Revalidate content by tag with explicit cache lifetime
+ * Revalidate content by tag.
  *
  * This is the Next.js 16+ way of doing ISR-style revalidation.
- * Unlike v14/v15 which had implicit caching, v16 requires you to
- * explicitly state how long the cache should last.
+ * Note: The cache lifetime is not controlled by this function.
+ * To control cache lifetime, use the `revalidate` option in fetch calls or route segment config.
  *
  * @param tag - The cache tag to revalidate
- * @param cacheLife - How long the cache should be fresh
+ * @param cacheLife - (Unused) How long the cache should be fresh. This parameter is ignored.
  *
  * @example
  * ```ts
  * // In a server action or route handler
  * await revalidateTagWithLife('blog-posts', 'hours');
  * ```
+ * @remarks
+ * The `cacheLife` parameter is accepted for API compatibility, but is not used.
+ * Next.js does not support setting cache lifetime via `revalidateTag`.
  */
 export async function revalidateTagWithLife(
   tag: string,
   cacheLife: CacheLife = "max",
 ): Promise<void> {
-  await nextRevalidateTag(tag, cacheLife);
+  await nextRevalidateTag(tag);
 }
 
 /**
