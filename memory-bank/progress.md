@@ -1,5 +1,11 @@
 # Progress Log
 
+## 2025-10-31
+- **Setup verification aligned with Node.js 22+ baseline**
+  - ✅ Updated `web/scripts/verify-setup.sh` to fail when Node.js < 22 and warn on newer, unvalidated majors
+  - ✅ Ran `pnpm verify` with Node v22.21.1 to confirm the script accepts supported runtimes and communicates other environment gaps
+  - ℹ️ Remaining warnings stem from local environment defaults (Docker not installed, `.env.local` missing, `.key/` directory absent)
+
 ## 2025-10-21
 - **Project Setup Requirements Complete**: Addressed all missing elements required for development
   - ✅ Created `src/features/` directory for feature-specific code organization

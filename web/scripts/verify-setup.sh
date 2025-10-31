@@ -50,13 +50,14 @@ print_info() {
 check_node() {
     print_check "Checking Node.js version..."
     if command -v node &> /dev/null; then
-        NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
-        if [ "$NODE_VERSION" -ge 22 ]; then
-            print_pass "Node.js $(node --version) installed (required: v22+)"
-        elif [ "$NODE_VERSION" -ge 18 ]; then
-            print_warn "Node.js $(node --version) found. v22+ is recommended, but v18+ will work"
+        NODE_VERSION_RAW=$(node --version)
+        NODE_MAJOR=$(echo "$NODE_VERSION_RAW" | cut -d'v' -f2 | cut -d'.' -f1)
+        if [ "$NODE_MAJOR" -lt 22 ]; then
+            print_fail "Node.js $NODE_VERSION_RAW found, but v22+ is required"
+        elif [ "$NODE_MAJOR" -gt 22 ]; then
+            print_warn "Node.js $NODE_VERSION_RAW detected. Baseline requirement is v22+. This major hasn't been validated yet"
         else
-            print_fail "Node.js $(node --version) found, but v18+ is required"
+            print_pass "Node.js $NODE_VERSION_RAW satisfies the v22+ requirement"
         fi
     else
         print_fail "Node.js is not installed"
