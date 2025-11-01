@@ -135,14 +135,14 @@ export type CacheLife = "short" | "medium" | "long" | "indefinite";
  * the intended cache lifetime. The actual revalidation behavior is the same.
  *
  * @param tag - The cache tag to revalidate
- * @param life - Cache lifetime hint (documentation only)
+ * @param _life - Cache lifetime hint (documentation only)
  *
  * @example
  * ```ts
  * revalidateTagWithLife('blog-posts', 'short');
  * ```
  */
-export function revalidateTagWithLife(tag: string, life?: CacheLife): void {
+export function revalidateTagWithLife(tag: string, _life?: CacheLife): void {
 	// Life parameter is for documentation purposes
 	// Next.js handles actual cache timing
 	revalidateByTag(tag);
