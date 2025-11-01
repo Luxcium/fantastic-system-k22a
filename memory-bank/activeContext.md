@@ -1,7 +1,21 @@
 # Active Context
 
+- Timestamp: 2025-11-01T05:32:00Z
+- Current focus: ✅ Critical Build Issues Resolved - Next.js configuration and cache utilities fixed
+- Implementation status:
+  - ✅ Fixed next.config.ts: Removed `turbopackPersistentCaching` (canary-only feature) for Next.js 16.0.1 stable
+  - ✅ Fixed cache.ts: Added missing exports `revalidateTagWithLife`, `updateTagImmediate`, `refreshPage`
+  - ✅ Fixed API routes and server actions: Changed invalid CacheLife values ("hours", "minutes") to valid types ("short", "medium")
+  - ✅ Created missing .key directory with README for sensitive key management
+  - ✅ TypeScript compilation passing with zero errors
+  - ✅ Production build successful
+  - ✅ All 62 tests passing (20 UI components + 42 utilities)
+  - ✅ All 20 verification checks passing
+- Immediate next action: Monitor firewall-restricted environment behavior, continue with feature development
+- Project Status: 🎉 FULLY OPERATIONAL - All systems green
+
 - Timestamp: 2025-10-31T20:45:07Z
-- Current focus: Enforce the documented Node.js 22+ baseline in setup verification
+- Previous focus: Enforce the documented Node.js 22+ baseline in setup verification
 - Implementation status:
   - ✅ Updated `web/scripts/verify-setup.sh` so Node.js majors below 22 fail and newer majors emit a cautionary warning
   - ✅ Confirmed the script passes the Node.js check when running `pnpm verify` with Node v22.21.1
@@ -86,6 +100,20 @@
   - `web/src/utils/screenshot.ts` — Core screenshot utility with full TypeScript support
   - `web/scripts/screenshot.ts` — CLI tool for screenshot capture
   - `web/scripts/screenshot-examples.ts` — Programmatic usage examples
+  - `web/docs/SCREENSHOT-AUTOMATION.md` — Comprehensive documentation
+  - `memory-bank/index.md` — complete documentation index
+  - `memory-bank/reference/` — quick reference guides (biome, quick-reference, setup-checklist, component-architecture)
+  - `memory-bank/decisions/` — architectural decisions and summaries (implementation-summary, frontend-optimization-summary, firewall-analysis)
+  - `memory-bank/roadmap/` — project roadmaps (alpha-track)
+- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved; comprehensive testing infrastructure in place; documentation consolidated; screenshot automation system implemented and tested; **Next.js 16.0.1 and React 19.2.0 upgrade completed**.
+- Notes:
+  - Next.js 16 brings Turbopack as default bundler for improved build performance
+  - React 19.2 includes latest bug fixes and improvements
+  - TypeScript configuration now uses "react-jsx" for automatic JSX runtime
+  - next-auth shows peer dependency warning but remains fully functional
+  - All existing features (screenshot automation, authentication, database) working correctly
+- Open questions:
+  - None - Next.js 16 documentation and reference implementations completed
   - `web/docs/SCREENSHOT-AUTOMATION.md` — Comprehensive documentation
   - `memory-bank/index.md` — complete documentation index
   - `memory-bank/reference/` — quick reference guides (biome, quick-reference, setup-checklist, component-architecture)

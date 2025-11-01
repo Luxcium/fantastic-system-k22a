@@ -122,3 +122,67 @@ export function revalidateMultipleTags(tags: string[]): void {
 	tags.map((tag) => revalidateByTag(tag));
 	return;
 }
+
+/**
+ * Cache life profiles for different content types
+ */
+export type CacheLife = "short" | "medium" | "long" | "indefinite";
+
+/**
+ * Revalidate a tag with an explicit cache lifetime hint
+ *
+ * This is a convenience wrapper around revalidateByTag that documents
+ * the intended cache lifetime. The actual revalidation behavior is the same.
+ *
+ * @param tag - The cache tag to revalidate
+ * @param life - Cache lifetime hint (documentation only)
+ *
+ * @example
+ * ```ts
+ * revalidateTagWithLife('blog-posts', 'short');
+ * ```
+ */
+export function revalidateTagWithLife(tag: string, life?: CacheLife): void {
+	// Life parameter is for documentation purposes
+	// Next.js handles actual cache timing
+	revalidateByTag(tag);
+}
+
+/**
+ * Update a tag with immediate invalidation (alias for expireTagImmediate)
+ *
+ * Provides clearer naming for server actions that need immediate cache updates.
+ *
+ * @param tag - The cache tag to immediately invalidate
+ *
+ * @example
+ * ```ts
+ * 'use server';
+ * export async function updateData(id: string) {
+ *   await db.update({ id });
+ *   updateTagImmediate(`data-${id}`);
+ * }
+ * ```
+ */
+export function updateTagImmediate(tag: string): void {
+	expireTagImmediate(tag);
+}
+
+/**
+ * Refresh the current page by revalidating its path
+ *
+ * Useful for ensuring the user sees fresh data after a mutation.
+ *
+ * @param path - The path to refresh (defaults to current page)
+ *
+ * @example
+ * ```ts
+ * 'use server';
+ * export async function refreshPageAction(path?: string) {
+ *   refreshPage(path);
+ * }
+ * ```
+ */
+export function refreshPage(path = "/"): void {
+	revalidateByPath(path);
+}

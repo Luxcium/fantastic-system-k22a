@@ -1,10 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    // Enable Turbopack persistent caching for faster cold starts in development
-    turbopackPersistentCaching: true,
-  },
+	// Turbopack is enabled by default in Next.js 16
+	// Persistent caching requires canary version - removed for stable 16.0.1
+	experimental: {},
 };
 
 export default nextConfig;

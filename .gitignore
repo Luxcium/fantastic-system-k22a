@@ -59,3 +59,4 @@ docker/pgadmin/data/
 # Keep workspace customizations tracked
 !.vscode/
 web/prisma/generated
+!web/.key/README.md

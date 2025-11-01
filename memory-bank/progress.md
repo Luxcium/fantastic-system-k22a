@@ -1,5 +1,36 @@
 # Progress Log
 
+## 2025-11-01
+
+### Critical Build Fixes and Optimization
+Resolved blocking issues preventing builds and deployment:
+  - ✅ **Next.js Configuration Fix**: Removed `experimental.turbopackPersistentCaching` from next.config.ts
+    - This feature requires Next.js canary version but project uses 16.0.1 stable
+    - Was causing "CanaryOnlyError" preventing dev server and builds
+    - Turbopack still enabled by default in Next.js 16 without needing the experimental flag
+  - ✅ **Cache Utility Completion**: Added missing exports to `src/lib/cache.ts`
+    - Added `revalidateTagWithLife()` function with CacheLife type hints
+    - Added `updateTagImmediate()` as alias for `expireTagImmediate()`
+    - Added `refreshPage()` for path-based revalidation
+    - Added `CacheLife` type with valid values: "short", "medium", "long", "indefinite"
+  - ✅ **Type Safety Fixes**: Corrected invalid CacheLife values in API routes and server actions
+    - Changed "hours" → "medium" in POST /api/posts route
+    - Changed "minutes" → "short" in DELETE /api/posts route
+    - Changed "hours" → "short" in createPostAction
+    - All type errors resolved
+  - ✅ **Missing Directory**: Created `.key/` directory with README for sensitive keys management
+    - Required by setup verification script
+    - Properly gitignored except for README
+  - ✅ **Verification Results**: All 20 checks passing
+    - Node.js v22.20.0 ✅
+    - TypeScript compilation ✅
+    - Production build ✅
+    - All 62 tests passing ✅
+    - Docker/PostgreSQL running ✅
+- **Impact**: Project now fully buildable and deployable without errors
+- **Firewall Configuration**: Already in place via environment variables, no external connections needed
+- **Next Steps**: Feature development can proceed without build obstacles
+
 ## 2025-10-31
 - **Setup verification aligned with Node.js 22+ baseline**
   - ✅ Updated `web/scripts/verify-setup.sh` to fail when Node.js < 22 and warn on newer, unvalidated majors
@@ -256,6 +287,37 @@ Resolved firewall blocking issues for Chromium/Playwright and Prisma services:
 ## 2025-10-19
 - **Build/Test Stabilization**: Updated `postcss.config.mjs` to import `@tailwindcss/postcss` and `autoprefixer` explicitly, resolving Vitest's PostCSS plugin resolution failure.
 - **Deterministic Utilities**: `formatDate` now formats in UTC so helper tests are timezone-agnostic; `debounce`, `throttle`, and `isEmpty` were tightened to avoid `any` usage and comply with Biome linting.
+- **Validation**: `pnpm test --run` passes (62 specs) confirming the dashboard utilities and UI components remain healthy after the fixes.
+- **Follow-up**: Still need automated mobile/desktop screenshot capture once Playwright browsers install successfully; revisit NextAuth + Prisma integration next.
+
+## 2025-10-12
+- **Foundation System Completed**: Implemented comprehensive Next.js application foundation with all core building blocks:
+  - ✅ Docker Compose + Postgres database with health checks, pgAdmin, and volume persistence
+  - ✅ Prisma ORM with complete schema (User, Session, Utility, AuditLog models), migrations, and seed scripts
+  - ✅ NextAuth v5 authentication with credentials + OAuth (Google/GitHub), session management, and security
+  - ✅ Responsive navigation system with registry pattern, search, breadcrumbs, and access control
+  - ✅ Zustand state management with persistence, notifications, and feature flags
+  - ✅ API client with interceptors, error handling, retry logic, and telemetry integration
+  - ✅ Security middleware with rate limiting, CSRF protection, and comprehensive security headers
+  - ✅ Observability layer with telemetry, performance monitoring, error tracking, and health endpoints
+  - ✅ Testing infrastructure with Vitest (unit), Playwright (E2E), coverage reporting, and test utilities
+  - ✅ Utility management API with CRUD operations, validation, pagination, and audit logging
+- **Dependencies**: Added all necessary packages - Prisma, NextAuth, Zustand, React Query, Zod, bcrypt, Radix UI, testing libraries
+- **Configuration**: Complete setup files - docker-compose.yml, .env.example, vitest.config.ts, playwright.config.ts, middleware.ts
+- **Documentation**: Created comprehensive inline documentation, TSDoc comments, and setup instructions
+- **Next Steps**: Install dependencies, initialize database, run migrations/seeds, execute test suite, validate system health
+
+## 2025-10-03
+- Audited Phase 0–6 backlog for `web/` and confirmed only baseline Next.js/Tailwind scaffold is live; drafted challenge cards (Intent/Inputs/Steps/Output) to stage remaining phases with ESLint/Prettier + layout + Prisma work queued first.
+
+## 2025-09-27
+- Next.js workspace generated in `web/` via pnpm dlx create-next-app; build approvals fixed through `pnpm.onlyBuiltDependencies` and `pnpm rebuild`.
+- Documented web utility baseline roadmap and decision log; awaiting stack preference confirmation before scaffolding Next.js workspace.
+- Layer 1 foundation files created (`.editorconfig`, `.gitattributes`, `.gitignore`, `LICENSE`, `README.md`, `VERSION`, `scripts/` assets) and `scripts/init.sh` verified for idempotence.
+- Layer 2 workspace ergonomics established: VS Code settings, Copilot guardrails, memory-bank triad directories, and six context files initialized.
+- Layer 3 bootstrap: Confirmed instruction set, added `.prettierignore`, authored `bootstrap-maintainer.chatmode.md`, and created the `bootstrap-audit.prompt.md` card referencing governing instructions.
+- Layer 4 automation: Added validator and health scripts, wired VS Code tasks/settings, ingested commit-policy instructions, refreshed prompt cards, and published `memory-bank/index.md`.
+- Next: Integrate repo tooling with the new `web/` app (scripts, VS Code tasks), then proceed with layout/navigation scaffolding and CI wiring.
 - **Validation**: `pnpm test --run` passes (62 specs) confirming the dashboard utilities and UI components remain healthy after the fixes.
 - **Follow-up**: Still need automated mobile/desktop screenshot capture once Playwright browsers install successfully; revisit NextAuth + Prisma integration next.
 

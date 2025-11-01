@@ -23,31 +23,31 @@ import { CacheTags, revalidateTagWithLife } from "@/lib/cache";
  * @param data - The data to update
  */
 export async function updatePostAction(
-  postId: string,
-  _data: { title?: string; content?: string },
+	postId: string,
+	_data: { title?: string; content?: string },
 ) {
-  try {
-    // In production, update the database
-    // await db.post.update({ where: { id: postId }, data });
+	try {
+		// In production, update the database
+		// await db.post.update({ where: { id: postId }, data });
 
-    // Use updateTag for immediate invalidation (Next.js 16+)
-    // This blocks the next request and forces a re-fetch
-    const { updateTagImmediate } = await import("@/lib/cache");
-    updateTagImmediate(CacheTags.post(postId));
-    updateTagImmediate(CacheTags.posts);
+		// Use updateTag for immediate invalidation (Next.js 16+)
+		// This blocks the next request and forces a re-fetch
+		const { updateTagImmediate } = await import("@/lib/cache");
+		updateTagImmediate(CacheTags.post(postId));
+		updateTagImmediate(CacheTags.posts);
 
-    return {
-      success: true,
-      message: "Post updated successfully",
-      postId,
-    };
-  } catch (error) {
-    console.error("Error updating post:", error);
-    return {
-      success: false,
-      error: "Failed to update post",
-    };
-  }
+		return {
+			success: true,
+			message: "Post updated successfully",
+			postId,
+		};
+	} catch (error) {
+		console.error("Error updating post:", error);
+		return {
+			success: false,
+			error: "Failed to update post",
+		};
+	}
 }
 
 /**
@@ -56,37 +56,37 @@ export async function updatePostAction(
  * @param data - The post data to create
  */
 export async function createPostAction(data: {
-  title: string;
-  content: string;
-  slug: string;
+	title: string;
+	content: string;
+	slug: string;
 }) {
-  try {
-    // Validate input
-    if (!data.title || !data.slug) {
-      return {
-        success: false,
-        error: "Title and slug are required",
-      };
-    }
+	try {
+		// Validate input
+		if (!data.title || !data.slug) {
+			return {
+				success: false,
+				error: "Title and slug are required",
+			};
+		}
 
-    // In production, create in database
-    // const post = await db.post.create({ data });
+		// In production, create in database
+		// const post = await db.post.create({ data });
 
-    // Revalidate posts list with explicit cache life
-    await revalidateTagWithLife(CacheTags.posts, "hours");
+		// Revalidate posts list with explicit cache life
+		await revalidateTagWithLife(CacheTags.posts, "short");
 
-    return {
-      success: true,
-      message: "Post created successfully",
-      // post,
-    };
-  } catch (error) {
-    console.error("Error creating post:", error);
-    return {
-      success: false,
-      error: "Failed to create post",
-    };
-  }
+		return {
+			success: true,
+			message: "Post created successfully",
+			// post,
+		};
+	} catch (error) {
+		console.error("Error creating post:", error);
+		return {
+			success: false,
+			error: "Failed to create post",
+		};
+	}
 }
 
 /**
@@ -95,26 +95,26 @@ export async function createPostAction(data: {
  * @param postId - The ID of the post to delete
  */
 export async function deletePostAction(postId: string) {
-  try {
-    // In production, delete from database
-    // await db.post.delete({ where: { id: postId } });
+	try {
+		// In production, delete from database
+		// await db.post.delete({ where: { id: postId } });
 
-    // Immediately invalidate caches
-    const { updateTagImmediate } = await import("@/lib/cache");
-    updateTagImmediate(CacheTags.post(postId));
-    updateTagImmediate(CacheTags.posts);
+		// Immediately invalidate caches
+		const { updateTagImmediate } = await import("@/lib/cache");
+		updateTagImmediate(CacheTags.post(postId));
+		updateTagImmediate(CacheTags.posts);
 
-    return {
-      success: true,
-      message: "Post deleted successfully",
-    };
-  } catch (error) {
-    console.error("Error deleting post:", error);
-    return {
-      success: false,
-      error: "Failed to delete post",
-    };
-  }
+		return {
+			success: true,
+			message: "Post deleted successfully",
+		};
+	} catch (error) {
+		console.error("Error deleting post:", error);
+		return {
+			success: false,
+			error: "Failed to delete post",
+		};
+	}
 }
 
 /**
@@ -124,19 +124,19 @@ export async function deletePostAction(postId: string) {
  * without targeting specific cache tags.
  */
 export async function refreshPageAction() {
-  try {
-    const { refreshPage } = await import("@/lib/cache");
-    refreshPage();
+	try {
+		const { refreshPage } = await import("@/lib/cache");
+		refreshPage();
 
-    return {
-      success: true,
-      message: "Page refresh triggered",
-    };
-  } catch (error) {
-    console.error("Error refreshing page:", error);
-    return {
-      success: false,
-      error: "Failed to refresh page",
-    };
-  }
+		return {
+			success: true,
+			message: "Page refresh triggered",
+		};
+	} catch (error) {
+		console.error("Error refreshing page:", error);
+		return {
+			success: false,
+			error: "Failed to refresh page",
+		};
+	}
 }
