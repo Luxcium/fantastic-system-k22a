@@ -1,143 +1,124 @@
 /**
- * Cache Helper Utilities for Next.js 16+
+ * Cache Helper Utilities for Next.js 15+
  *
- * Provides wrappers around Next.js 16's explicit caching APIs:
- * - revalidateTag(tag, cacheLife) - for declarative SWR-style revalidation
- * - updateTag(tag) - for immediate invalidation (server actions only)
- * - refresh() - for refreshing uncached parts
+ * Provides wrappers around Next.js caching and revalidation APIs:
+ * - revalidateTag(tag) - for on-demand cache revalidation
+ * - revalidatePath(path) - for path-based cache revalidation
+ * - unstable_expireTag(tag) - experimental immediate invalidation
  *
- * @see https://nextjs.org/docs/app/getting-started/caching-and-revalidating
+ * @see https://nextjs.org/docs/app/api-reference/functions/revalidateTag
+ * @see https://nextjs.org/docs/app/api-reference/functions/revalidatePath
  */
 
 import {
-  refresh as nextRefresh,
-  revalidateTag as nextRevalidateTag,
-  updateTag as nextUpdateTag,
+	revalidateTag as nextRevalidateTag,
+	revalidatePath,
+	unstable_expireTag,
 } from "next/cache";
 
 /**
- * Cache life profiles for revalidateTag
- * These determine how long the cache should be considered fresh
- */
-export type CacheLife =
-  | "seconds" // Very short-lived (few seconds)
-  | "minutes" // Short-lived (few minutes)
-  | "hours" // Medium-lived (few hours)
-  | "days" // Long-lived (few days)
-  | "weeks" // Very long-lived (weeks)
-  | "max"; // Maximum possible cache time
-
-/**
- * Revalidate content by tag with explicit cache lifetime
+ * Revalidate content by cache tag
  *
- * This is the Next.js 16+ way of doing ISR-style revalidation.
- * Unlike v14/v15 which had implicit caching, v16 requires you to
- * explicitly state how long the cache should last.
+ * This is the standard way to revalidate cached data in Next.js.
+ * When called, Next.js will purge the cache for all data tagged
+ * with the specified tag on the next request.
  *
  * @param tag - The cache tag to revalidate
- * @param cacheLife - How long the cache should be fresh
  *
  * @example
  * ```ts
  * // In a server action or route handler
- * await revalidateTagWithLife('blog-posts', 'hours');
+ * revalidateByTag('blog-posts');
  * ```
  */
-export async function revalidateTagWithLife(
-  tag: string,
-  cacheLife: CacheLife = "max",
-): Promise<void> {
-  await nextRevalidateTag(tag, cacheLife);
+export function revalidateByTag(tag: string): void {
+	nextRevalidateTag(tag);
 }
 
 /**
- * Immediately invalidate a cache tag (server actions only)
+ * Immediately expire a cache tag (experimental)
  *
- * Unlike revalidateTag which is eventual, updateTag blocks until
- * the next request and forces a re-fetch. This is useful for
- * "read-your-writes" consistency where you need to see changes
- * immediately after a mutation.
+ * Unlike revalidateTag which is eventual, unstable_expireTag
+ * attempts immediate invalidation. This is useful for "read-your-writes"
+ * consistency where you need to see changes immediately after a mutation.
  *
- * ⚠️ WARNING: Only works in Server Actions, not in Route Handlers!
- * If you need to invalidate from a Route Handler, use revalidateTagWithLife instead.
+ * ⚠️ WARNING: This is an unstable/experimental API and may change!
  *
- * @param tag - The cache tag to invalidate
+ * @param tag - The cache tag to expire
  *
  * @example
  * ```ts
  * 'use server';
  * export async function updateProfile(userId: string, data: any) {
  *   await db.user.update({ where: { id: userId }, data });
- *   updateTagImmediate(`user-${userId}`);
+ *   expireTagImmediate(`user-${userId}`);
  * }
  * ```
  */
-export function updateTagImmediate(tag: string): void {
-  nextUpdateTag(tag);
+export function expireTagImmediate(tag: string): void {
+	unstable_expireTag(tag);
 }
 
 /**
- * Refresh uncached dynamic parts of the page
+ * Revalidate content by path
  *
- * This is the server-side equivalent of router.refresh().
- * Use when you've changed dynamic content that isn't tagged
- * and need to force the server to re-render.
+ * Purges cached data for a specific path. Useful when you need
+ * to revalidate an entire page or route segment.
+ *
+ * @param path - The path to revalidate (e.g., "/blog", "/blog/[slug]")
+ * @param type - Optional: "page" (default) or "layout"
  *
  * @example
  * ```ts
  * 'use server';
- * export async function refreshHeader() {
- *   await updateSomeGlobalState();
- *   refreshPage();
+ * export async function revalidateBlogPost(slug: string) {
+ *   revalidateByPath(`/blog/${slug}`);
  * }
  * ```
  */
-export function refreshPage(): void {
-  nextRefresh();
+export function revalidateByPath(path: string, type?: "page" | "layout"): void {
+	revalidatePath(path, type);
 }
 
 /**
  * Common cache tag patterns for consistency
  */
 export const CacheTags = {
-  // User-related tags
-  user: (id: string) => `user-${id}`,
-  userProfile: (id: string) => `user-profile-${id}`,
-  userPosts: (id: string) => `user-posts-${id}`,
+	// User-related tags
+	user: (id: string) => `user-${id}`,
+	userProfile: (id: string) => `user-profile-${id}`,
+	userPosts: (id: string) => `user-posts-${id}`,
 
-  // Post-related tags
-  post: (id: string) => `post-${id}`,
-  posts: "posts",
-  postComments: (postId: string) => `post-comments-${postId}`,
+	// Post-related tags
+	post: (id: string) => `post-${id}`,
+	posts: "posts",
+	postComments: (postId: string) => `post-comments-${postId}`,
 
-  // Collection tags
-  collection: (type: string) => `collection-${type}`,
-  list: (name: string) => `list-${name}`,
+	// Collection tags
+	collection: (type: string) => `collection-${type}`,
+	list: (name: string) => `list-${name}`,
 
-  // Dynamic content tags
-  feed: "feed",
-  trending: "trending",
-  featured: "featured",
+	// Dynamic content tags
+	feed: "feed",
+	trending: "trending",
+	featured: "featured",
 } as const;
 
 /**
  * Helper to revalidate multiple tags at once
  *
  * @param tags - Array of cache tags to revalidate
- * @param cacheLife - How long the cache should be fresh
  *
  * @example
  * ```ts
- * await revalidateMultipleTags([
+ * revalidateMultipleTags([
  *   CacheTags.posts,
  *   CacheTags.user('123'),
  *   CacheTags.feed
- * ], 'hours');
+ * ]);
  * ```
  */
-export async function revalidateMultipleTags(
-  tags: string[],
-  cacheLife: CacheLife = "max",
-): Promise<void> {
-  await Promise.all(tags.map((tag) => revalidateTagWithLife(tag, cacheLife)));
+export function revalidateMultipleTags(tags: string[]): void {
+	tags.map((tag) => revalidateByTag(tag));
+	return;
 }
