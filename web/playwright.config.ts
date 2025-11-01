@@ -26,10 +26,10 @@ export default defineConfig({
     video: "retain-on-failure",
     launchOptions: {
       args: [
-        '--disable-sync',
-        '--disable-features=TranslateUI,OptimizationHints',
-        '--disable-component-update',
-        '--disable-background-networking',
+        "--disable-sync",
+        "--disable-features=TranslateUI,OptimizationHints",
+        "--disable-component-update",
+        "--disable-background-networking",
       ],
     },
   },

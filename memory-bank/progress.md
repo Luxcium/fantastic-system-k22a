@@ -1,5 +1,11 @@
 # Progress Log
 
+## 2025-10-31
+- **Setup verification aligned with Node.js 22+ baseline**
+  - ✅ Updated `web/scripts/verify-setup.sh` to fail when Node.js < 22 and warn on newer, unvalidated majors
+  - ✅ Ran `pnpm verify` with Node v22.21.1 to confirm the script accepts supported runtimes and communicates other environment gaps
+  - ℹ️ Remaining warnings stem from local environment defaults (Docker not installed, `.env.local` missing, `.key/` directory absent)
+
 ## 2025-10-21
 - **Project Setup Requirements Complete**: Addressed all missing elements required for development
   - ✅ Created `src/features/` directory for feature-specific code organization
@@ -37,6 +43,62 @@
   - Web README includes complete setup, architecture, and troubleshooting
   - All requirements from problem statement documented and verified
 - **Next Steps**: Continue with feature development, ensure tests pass, maintain documentation
+## 2025-10-31
+
+### Next.js 16+ Snapshot Handbook Implementation
+Created comprehensive reference documentation for Next.js 16+ modern conventions:
+  - ✅ Created `memory-bank/reference/nextjs-16-handbook.md` (11KB comprehensive guide)
+    - Repository layout and idiomatic 2025 structure
+    - App Router anatomy with v16 expectations
+    - Explicit caching model (tag-first with cache life profiles)
+    - Turbopack as default bundler configuration
+    - Tailwind + shadcn/ui usage rules for agents
+    - API surface patterns for App Router era
+    - Migration optics from 2021→2024→2025
+    - Example minimal project structure
+    - Complete changelog of what matters most
+  - ✅ Created `src/lib/cache.ts` - Cache helper utilities
+    - `revalidateTagWithLife()` wrapper for explicit cache lifetime
+    - `updateTagImmediate()` for server action invalidation (documented pattern)
+    - `refreshPage()` for uncached content refreshing
+    - `CacheTags` object with common tag patterns
+    - `revalidateMultipleTags()` batch revalidation helper
+    - TypeScript types for cache life profiles
+  - ✅ Created `src/app/api/posts/route.ts` - Example API route
+    - GET endpoint with cache tag demonstration
+    - POST endpoint with `revalidateTag` usage
+    - DELETE endpoint with multiple tag invalidation
+    - Comprehensive documentation of Next.js 16 patterns
+  - ✅ Created `src/app/actions/posts.ts` - Server actions examples
+    - `updatePostAction()` with immediate invalidation pattern
+    - `createPostAction()` with cache revalidation
+    - `deletePostAction()` with multi-tag invalidation
+    - `refreshPageAction()` for full page refresh
+  - ✅ Updated `web/next.config.ts`
+    - Added `turbopackFileSystemCacheForDev: true` for faster cold starts
+    - Documented `cacheComponents` flag with compatibility notes
+  - ✅ Updated `web/postcss.config.mjs`
+    - Removed redundant `autoprefixer` plugin (Tailwind CSS 4 handles it)
+    - Simplified to modern 2025 conventions
+  - ✅ Updated `memory-bank/index.md`
+    - Added handbook reference to Getting Started section
+    - Added to repository structure diagram
+  - ✅ Updated `memory-bank/dependencies.md`
+    - Updated Next.js 16.0.1 details with key features
+    - Updated React 19.2.0 details with new capabilities
+  - ✅ Updated `memory-bank/activeContext.md` with implementation status
+  - ✅ All files linted and type-checked successfully
+  - ✅ Production build verified with Turbopack
+
+**Purpose**: Provide AI agents and developers with authoritative Next.js 16+ reference that documents modern patterns, explicit caching, and 2025 conventions without requiring external browsing.
+
+**Impact**: 
+  - AI agents now have complete Next.js 16+ context
+  - Clear examples of explicit caching patterns
+  - Migration guidance from older Next.js versions
+  - Production-ready cache helper utilities
+  - Reference implementations for API routes and server actions
+
 ## 2025-10-30
 
 ### Next.js 16.0.1 & React 19.2.0 Upgrade Completed
