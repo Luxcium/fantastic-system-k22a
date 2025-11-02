@@ -42,5 +42,9 @@
 	"chat.agent.enabled": true,
 	"chat.agent.thinkingStyle": "expanded",
 	"chat.math.enabled": true,
-	"chatgpt.openOnStartup": false
+	"chatgpt.openOnStartup": false,
+	// Genesis 22 Workspace Automation Settings
+	"genesis.autoStartup": false,
+	"genesis.memoryBankAutoLoad": true,
+	"genesis.environment": "auto"
 }

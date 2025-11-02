@@ -4,6 +4,10 @@ Thumbs.db
 
 # Editor directories
 .vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+.vscode/.genesis-session
 .idea/
 *.code-workspace
 
@@ -40,6 +44,9 @@ test-results/
 # Misc caches
 .cache/
 .mypy_cache/
+
+# Genesis session state (generated)
+memory-bank/SESSION_START.md
 
 # Prisma
 prisma/generated/

@@ -1,0 +1,62 @@
+{
+	"name": "Genesis 22",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "latest",
+			"dockerDashComposeVersion": "v2"
+		},
+		"ghcr.io/devcontainers-contrib/features/pnpm:2": {
+			"version": "10"
+		}
+	},
+
+	"postCreateCommand": "bash -c 'chmod +x scripts/*.sh && scripts/init.sh && cd web && pnpm install && pnpm db:generate'",
+
+	"postStartCommand": "scripts/startup.sh",
+
+	"forwardPorts": [3022, 5433, 5050],
+
+	"portsAttributes": {
+		"3022": {
+			"label": "Next.js Dev Server",
+			"onAutoForward": "notify"
+		},
+		"5433": {
+			"label": "PostgreSQL",
+			"onAutoForward": "silent"
+		},
+		"5050": {
+			"label": "pgAdmin",
+			"onAutoForward": "silent"
+		}
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"biomejs.biome",
+				"github.copilot",
+				"github.copilot-chat",
+				"prisma.prisma"
+			],
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			}
+		}
+	},
+
+	"remoteEnv": {
+		"CHECKPOINT_DISABLE": "1",
+		"PRISMA_TELEMETRY_DISABLE": "1",
+		"PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD": "1",
+		"NEXT_TELEMETRY_DISABLED": "1"
+	},
+
+	"updateContentCommand": "cd web && pnpm install",
+
+	"mounts": [
+		"source=${localWorkspaceFolder}/.key,target=/workspaces/${localWorkspaceFolderBasename}/.key,type=bind,consistency=cached"
+	]
+}
