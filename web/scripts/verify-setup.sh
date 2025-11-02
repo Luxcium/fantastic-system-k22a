@@ -74,6 +74,11 @@ check_pnpm() {
     if command -v pnpm &> /dev/null; then
         PNPM_VERSION=$(pnpm --version 2>/dev/null || echo "unknown")
         print_pass "pnpm $PNPM_VERSION installed"
+    else
+        print_fail "pnpm is not installed. Install with: npm install -g pnpm"
+    fi
+}
+
 check_docker() {
     print_check "Checking Docker..."
     if command -v docker &> /dev/null; then
@@ -89,11 +94,6 @@ check_docker() {
         else
             print_fail "Docker is not installed"
         fi
-    fi
-}           print_warn "Docker is installed but not running. Start Docker Desktop."
-        fi
-    else
-        print_fail "Docker is not installed"
     fi
 }
 
@@ -149,6 +149,11 @@ check_directories() {
         if [ -d "$dir" ]; then
             print_pass "Directory exists: $dir"
         else
+            print_fail "Missing directory: $dir"
+        fi
+    done
+}
+
 check_database() {
     print_check "Checking database connection..."
 
@@ -172,11 +177,6 @@ check_database() {
         else
             print_warn "No database configuration found. Configure DATABASE_URL or start container."
         fi
-    fi
-}   if docker ps --format '{{.Names}}' | grep -q "genesis-postgres"; then
-        print_pass "PostgreSQL container is running"
-    else
-        print_warn "PostgreSQL container not running. Start with: pnpm db:init"
     fi
 }
 
