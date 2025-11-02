@@ -61,10 +61,4 @@ elif [[ "$GENESIS_ENV" == "ci" ]]; then
   log "Running in CI environment"
 fi
 
-log "Execution completed at $(date --iso-8601=seconds)"ll
-  log "Repository initialized and initial commit created."
-else
-  log "Git repository already initialized."
-fi
-
 log "Execution completed at $(date --iso-8601=seconds)"
