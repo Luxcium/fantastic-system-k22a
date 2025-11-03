@@ -41,14 +41,20 @@ try {
   const child = spawn(command, args, options);
   logInfo(`Attempting to open ${url} using ${command}.`);
 
+  let warned = false;
+
   child.on('error', (error) => {
-    logWarn(`Unable to launch browser using ${command}: ${error.message}`);
-    logWarn(`Please open ${url} manually.`);
+    if (!warned) {
+      warned = true;
+      logWarn(`Unable to launch browser using ${command}: ${error.message}`);
+      logWarn(`Please open ${url} manually.`);
+    }
   });
 
   // Some commands (like xdg-open) exit immediately; treat non-zero exit as warning.
   child.on('exit', (code) => {
-    if (typeof code === 'number' && code !== 0) {
+    if (!warned && typeof code === 'number' && code !== 0) {
+      warned = true;
       logWarn(`Browser launcher ${command} exited with code ${code}. Please open ${url} manually.`);
     }
   });
