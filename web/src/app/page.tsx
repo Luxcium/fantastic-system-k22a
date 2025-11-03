@@ -865,8 +865,10 @@ function ProfileRoute() {
  * Application settings including theme toggle and database reset
  */
 function SettingsRoute() {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const currentTheme = resolvedTheme ?? theme;
 
   useEffect(() => {
     setMounted(true);
@@ -896,11 +898,11 @@ function SettingsRoute() {
                 <label className="relative inline-flex cursor-pointer items-center">
                   <input
                     aria-label="Toggle dark mode"
-                    checked={theme === "dark"}
+                    checked={currentTheme === "dark"}
                     className="peer sr-only"
-                    onChange={(event) =>
-                      setTheme(event.target.checked ? "dark" : "light")
-                    }
+                    onChange={(event) => {
+                      setTheme(event.target.checked ? "dark" : "light");
+                    }}
                     type="checkbox"
                   />
                   <div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
