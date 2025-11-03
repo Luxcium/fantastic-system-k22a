@@ -34,9 +34,6 @@ beforeEach(() => {
   setThemeSpy.mockClear();
 });
 
-afterEach(() => {
-  setThemeSpy.mockClear();
-});
 
 describe("Button", () => {
   it("should render with primary variant by default", () => {
