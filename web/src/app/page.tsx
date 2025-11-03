@@ -690,7 +690,7 @@ function UsersRoute() {
       normalizedRole &&
       allowedRoles.some((r) => r === normalizedRole);
 
-    if (!isValidRole && roleInput && roleInput.trim() !== "") {
+    if (!isValidRole && roleInput !== null) {
       window.alert(
         `Invalid role "${roleInput}". Defaulting to viewer.`,
       );
