@@ -48,4 +48,5 @@ next-env.d.ts
 # screenshots (optionally commit specific screenshots as needed)
 /screenshots
 pnpm-lock.yaml
+package-lock.json
 !.key/README.md
