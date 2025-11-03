@@ -1,5 +1,19 @@
 # Active Context
 
+- Timestamp: 2025-11-01T00:00:00Z
+- Current focus: 🔐 Strengthen user management UX safeguards and regression coverage
+- Implementation status:
+  - ✅ Normalized `UsersRoute` add-user prompt to validate roles against the canonical role list
+  - ✅ Added defensive fallback to the viewer role when prompts receive invalid input, with user feedback
+  - ✅ Exported `UsersRoute` for targeted tests without affecting runtime behavior
+  - ✅ Introduced `page.test.tsx` to confirm mixed-case role inputs register correctly across admin/editor/viewer paths
+- Immediate next action: Continue improving dashboard reliability with focused tests around interactive handlers
+- Project Status: 🚧 Feature hardening in progress
+- Notes:
+  - Testing performed with `pnpm vitest run src/app/page.test.tsx`
+  - Validation ensures downstream filters relying on strict `Role` comparisons stay functional
+- Open questions:
+  - Should invalid role prompts abort user creation instead of defaulting to viewer for stricter data hygiene?
 - Timestamp: 2025-10-31T00:00:00Z
 - Current focus: Align theme toggles with system-resolved values and backstop with tests
 - Decisions:
