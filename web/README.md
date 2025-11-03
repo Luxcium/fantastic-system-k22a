@@ -96,13 +96,20 @@ pnpm db:seed
 6. **Start development server**:
 ```bash
 pnpm dev
-# Opens browser automatically at http://localhost:3022
+# Starts the dev server and launches your default browser when possible
 
-# Or without browser:
+# Or without browser auto-launch:
 pnpm dev:no-browser
 ```
 
 Visit [http://localhost:3022](http://localhost:3022)
+
+### Browser auto-launch helper
+
+When `pnpm dev` runs, the workspace calls `node ./scripts/open-browser.mjs` after the server is ready. The helper detects your
+platform and attempts to open the site using the OS launcher (`open` on macOS, `start` on Windows, `xdg-open` on Linux/BSD). If
+no launcher is available or the command fails, it logs a warning so you can open [http://localhost:3022](http://localhost:3022)
+manually. Use `pnpm dev:no-browser` whenever you prefer to keep the server running without attempting to launch a browser.
 
 For detailed setup instructions, see [SETUP.md](./SETUP.md).
 

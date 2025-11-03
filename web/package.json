@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev -p 3022\" \"wait-on http://localhost:3022 && /usr/bin/google-chrome http://localhost:3022\"",
+    "dev": "concurrently \"next dev -p 3022\" \"wait-on http://localhost:3022 && node ./scripts/open-browser.mjs http://localhost:3022\"",
     "dev:no-browser": "next dev -p 3022",
     "build": "next build",
     "start": "next start -p 3022",

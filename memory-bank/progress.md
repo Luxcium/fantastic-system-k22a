@@ -38,6 +38,7 @@ Resolved blocking issues preventing builds and deployment:
 - **Next Steps**: Feature development can proceed without build obstacles
 
 ## 2025-10-31
+- **Dev server browser helper**: Replaced the Linux-specific Chrome invocation with `web/scripts/open-browser.mjs`, updated the `dev` npm script to call it after `wait-on`, and documented the cross-platform behavior plus opt-out instructions in `web/README.md`.
 - **Setup verification aligned with Node.js 22+ baseline**
   - ✅ Updated `web/scripts/verify-setup.sh` to fail when Node.js < 22 and warn on newer, unvalidated majors
   - ✅ Ran `pnpm verify` with Node v22.21.1 to confirm the script accepts supported runtimes and communicates other environment gaps
