@@ -26,14 +26,9 @@
 	"chat.instructionsFilesLocations": {
 		"memory-bank/instructions": true
 	},
-	"chat.promptFiles": true,
 	"chat.promptFilesLocations": {
 		"memory-bank/prompts": true
 	},
-	"chat.modeFilesLocations": {
-		"memory-bank/chatmodes": true
-	},
-	"genesis.nodeBaseline": "Node.js 22+",
 	"github.copilot.chat.commitMessageGeneration.instructions": [
 		{
 			"file": "memory-bank/instructions/conventional-commits-must-be-used.instructions.md"

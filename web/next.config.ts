@@ -1,13 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    // Enable Turbopack file system cache for faster cold starts in development
-    turbopackFileSystemCacheForDev: true,
-  },
-  // Note: cacheComponents is experimental and not compatible with dynamic route segments
-  // Enable when your routes are fully compatible:
-  // cacheComponents: true,
+	// Turbopack is enabled by default in Next.js 16
+	// Persistent caching requires canary version - removed for stable 16.0.1
+	experimental: {},
 };
 
 export default nextConfig;

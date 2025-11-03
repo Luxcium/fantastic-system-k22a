@@ -1,19 +1,63 @@
-# Agent Activity Log
+# Codex CLI Agent Guide
 
-This log captures each AI agent session across the Genesis layered bootstrap. Update the table whenever you complete a meaningful stage so the next agent has actionable context.
+This file defines how ANY AI AGENTS and Codex CLI operates if you are reading this you are an ai agent in this repository. It aligns with the Memory Bank protocol and complements `.github/copilot-instructions.md`.
 
-| Timestamp | Agent | Layer Focus | Key Actions | Handoff / Next Step |
-|-----------|-------|-------------|-------------|---------------------|
-| 2025-10-20T07:30:00-04:00 | GitHub Copilot | Documentation Consolidation | Consolidated all markdown files into memory-bank directory structure. Created reference/ and roadmap/ subdirectories. Moved 8 files from root and 1 from docs/roadmap/ to memory-bank. Updated all internal references and README.md. Created comprehensive documentation index at memory-bank/index.md. Root now contains only README.md, AGENTS.md, LICENSE, and VERSION. | Continue with dashboard development and backend integration. All documentation now accessible via memory-bank/index.md. |
-| 2025-10-12T14:30:00-04:00 | GitHub Copilot | Foundation Complete | Implemented comprehensive Next.js foundation: Docker/Postgres, Prisma ORM, NextAuth v5, navigation system, state management, API layer, security middleware, observability, testing infrastructure. Created 78+ files (~8K LOC). Updated memory bank and created complete documentation. | Execute setup: `cd web && pnpm install`, configure .env.local, run `pnpm db:init && pnpm db:migrate && pnpm db:seed && pnpm dev`. See memory-bank/reference/setup-checklist.md for details. |
-| 2025-10-03T00:24:20-04:00 | Codex (GPT-5) | L4 — Phase audit | Audited Phase 0–6 roadmap for `web/`, captured statuses, produced challenge cards, and updated memory bank. | Start executing Phase 0/1 backlog (ESLint/Prettier alignment, layout scaffold, Prisma planning). |
-| 2025-09-27T09:35:15-04:00 | Codex (GPT-5) | L4 — Scaffold | Bootstrapped Next.js app in `web/` via pnpm dlx; configured pnpm build approvals and logged decisions/progress. | Integrate repo tooling with new app then start layout/navigation work. |
-| 2025-09-27T09:10:30-04:00 | Codex (GPT-5) | L4 — Roadmap prep | Documented baseline roadmap and decision log for web utility center; updated memory bank active/progress files and roadmap doc. | Await stack/tooling confirmation before scaffolding Next.js workspace. |
-| 2025-09-27T08:59:45-04:00 | Codex (GPT-5) | L4 — Automation & health | Authored validator suite, triad health script, VS Code tasks/settings, ingested commit-policy instructions, refreshed prompt cards, and generated `memory-bank/index.md`. | Consider CI wiring for validators or move into feature-level scaffolding. |
-| 2025-09-27T08:58:47-04:00 | Codex (GPT-5) | L3 — Guidance scaffolding | Verified instruction corpus, introduced `.prettierignore`, authored `bootstrap-maintainer.chatmode.md`, and created the `bootstrap-audit.prompt.md` card with links to governing layers. | Transition to Layer 4 to plan automation and repository health routines. |
-| 2025-09-27T08:57:01-04:00 | Codex (GPT-5) | L2 — Workspace bootstrap | Added VS Code workspace settings, authored Copilot guardrails, created memory-bank triad directories with READMEs, and initialized six core context files with current information. | Advance to Layer 3 to author reusable instructions, prompts, and chat modes as needed. |
-| 2025-09-27T08:54:56-04:00 | Codex (GPT-5) | L1 — Foundation complete | Authored baseline repository files, created `scripts/init.sh`, verified executability, and double-checked idempotence by rerunning the initializer. | Proceed to Layer 2: add workspace ergonomics and memory-bank triad artifacts. |
-| 2025-09-27T08:54:34-04:00 | Codex (GPT-5) | L1 — Foundation prep | Ran `init-genesis-22.sh` to download layered instructions; audited repository and noted missing foundation artifacts. | Finish Layer 1 by creating baseline files and verifying `scripts/init.sh` idempotence. |
+> [!NOTE]
+> Seek first into ['github copilot instructions'](./github/copilot-instructions.md) for more information on how we want the project to evolve to use GitHub Copilot with Agents, any behaviour or important information that you see fit for you to use shall be referenced, or included in this set of instructions below at the end. Instruction may be specifict to each agent, or if it is general, it shall be taken into account and referenced using relative links (markdown) or include the language here, in your own AGENTS.md autonomusly and never remove any of your own instructions be carefull when editing your AGENTS.md file yourself not remove, only add.
+
+## Three AI Agent System or More
+
+This project supports your ai agent and at least three AI agents with distinct entry points and responsibilities:
+
+- **Codex CLI (YOU)** → `AGENTS.md` (THIS IS YOUR PRIMARY INSTRUCTION FILE)
+- **Cline AI** → `.clinerules/main-rules.md` (Cline AI's primary instruction file)
+- **VS Code Copilot** → `.github/copilot-instructions.md` (VS Code Copilot's primary instruction file)
+
+**Important:** When you read other agents' context and instruction files, do NOT modify them. Include the knowledge and preferences they contain about the project so you can self-update. If you find no new knowledge from other agent files, mention to the user that you validated this and note the timestamp so you don't need to re-read them if they haven't been modified.
+
+## Core Principles (Subset from Memory Bank)
+
+- Always read all files in `memory-bank/` at the start of a task.
+- Plan before acting; document key decisions and assumptions.
+- Write back results and decisions to the Memory Bank before concluding a task.
+- Treat the Memory Bank as authoritative context. Never ignore it.
+
+## Operating Constraints
+
+- Package manager: `pnpm` (see `packageManager` field in package.json files)
+- Node.js: >= 22.11
+- No CI/CD automation added unless explicitly requested.
+- No test scaffolding added unless requested (development-first flow).
+
+Extended autonomous operation: Your A.I. Agent can work independently for hours while maintaining clarity and focus on incremental progress. The agent must make steady advances on a few tasks at a time rather than attempting everything at once. It provides fact-based progress updates that accurately reflect what has been accomplished.
+
+## Monorepo Conventions
+
+- Subprojects live under `services/`, `packages/`, `libraries/`.
+- Prefer local, per-package configs when reasonable to reduce cross-project coupling.
+- VS Code settings at the repo root enable Prettier + ESLint across subprojects.
+
+## Editor & Tooling
+
+- Formatting: Prettier (required config) with format-on-save.
+- Linting: ESLint (flat config in new projects), run fixers on save.
+- TypeScript: modern Node target, `src/` → `dist/`, source maps and declarations.
+- Scripts: `dev`, `build`, `start`, `lint(:fix)`, `format(:check)`, `typecheck`.
+
+## Standard Task Flow
+
+1. Read Memory Bank files and the target subproject.
+2. Outline planned changes; keep them minimal and focused.
+3. Implement changes with clear, reviewable diffs.
+4. Validate locally (typecheck, lint). Do not add CI.
+5. Update Memory Bank (active context + progress) with what changed and why.
+
+## Session-Sticky Preferences (Codex CLI)
+
+- Be proactive: implement requested changes without pausing for confirmation.
+- Optimize for developer speed: scripts and editor integration are first-class.
+- Respect existing project structure and conventions.
+
 
 ## Usage Guidance
 - Log entries in reverse chronological order (newest at top of its section).
@@ -102,3 +146,79 @@ Before to mark a task as completed you MUST imperatively update memory bank file
 - [`memory-bank/prompts/*.prompts.md`](../memory-bank/prompts/)
 - [`AGENTS.md`](../AGENTS.md) (THIS FILE) (for Codex and Codex CLI)
 - [`.github/copilot-instructions.md`](../.github/copilot-instructions.md) (for copilot in vscode and github)
+
+## Dependency Management Protocol (CRITICAL)
+
+**ABSOLUTE RULE: NEVER write dependency version numbers directly in package.json**
+
+**CORRECT approach:**
+
+1. Create package.json with empty `dependencies: {}` and `devDependencies: {}`
+2. Install ALL dependencies via CLI commands ONLY:
+
+```bash
+# Production dependencies - use explicit version tags
+pnpm add langchain@next @langchain/core@next zod@latest dotenv@latest
+pnpm add @langchain/openai@next @langchain/anthropic@next
+
+# Development dependencies - use @latest or specific tags
+pnpm add -D typescript@latest tsx@latest eslint@latest
+pnpm add -D prettier@latest vitest@latest rimraf@latest
+pnpm add -D typescript-eslint@latest eslint-config-prettier@latest
+pnpm add -D eslint-plugin-simple-import-sort@latest
+pnpm add -D eslint-plugin-tsdoc@latest @types/node@latest
+```
+
+**FORBIDDEN:**
+
+- ❌ Writing `"typescript": "^5.7.2"` in package.json
+- ❌ Hallucinating version numbers from outdated training data
+- ❌ Guessing version compatibility
+- ❌ Using `pnpm install` without specific packages
+
+**Rationale:**
+
+- AI models have outdated version knowledge (training data cutoff)
+- Package registries determine latest versions at install time
+- Version tags (`@next`, `@latest`) ensure current releases
+- Avoids version conflicts and deprecated packages
+
+**When documenting dependencies:**
+
+- Record WHY a dependency was chosen in `memory-bank/techContext.md`
+- Note any version constraints or compatibility requirements
+- Document installation commands for reproducibility
+
+## Notes for Future Work
+
+- If adding complex workflows, prefer documenting them in `memory-bank/` and referencing from subproject READMEs.
+- When introducing new dependencies, record rationale in `memory-bank/techContext.md` or relevant docs.
+
+Do not add or remove any modes and/or models in the .instructions.md .prompts.md files or .chatmode.md files in their front matter as this is not something you can validate you must avoid hallucinations those are risky never change, add a descriptions if it is missing but never remove or change any of the existing ones.
+
+When you are asked to use a specific mode or model and you are codex/codex-cli you will use the model and mode you operate under already. you must never validate that it exists (or not) in the front matter of the .instructions.md .prompts.md files or .chatmode.md files before use.
+
+## ExecPlans
+
+When writing complex features or significant refactors, use an ExecPlan (as described in [`memory-bank/agents/PLANS.md`](../memory-bank/agents/PLANS.md)) from design to implementation.
+
+## Agent Activity Log
+
+- 2025-10-19 — GitHub Copilot: Created comprehensive markdown linting infrastructure with `scripts/validate-markdown.sh` (400+ lines) and `memory-bank/instructions/markdown-linting-rules.instructions.md` (270+ lines). Fixed all 9 markdown linting errors across 6 files. Updated scripts/README.md with complete documentation. Enhanced validate-memory-bank.sh to allow external links in linting rules. All markdown files now pass validation with 0 errors. Memory Bank updated with progress and patterns.
+- 2025-10-15 — GitHub Copilot: Added `scripts/ensure-plans.sh` to enforce the canonical ExecPlan template and updated `scripts/README.md` accordingly. Memory Bank context refreshed to capture the new guardrail.
+
+This log captures each AI agent session across the Genesis layered bootstrap. Update the table whenever you complete a meaningful stage so the next agent has actionable context.
+
+| Timestamp | Agent | Layer Focus | Key Actions | Handoff / Next Step |
+|-----------|-------|-------------|-------------|---------------------|
+| 2025-10-20T07:30:00-04:00 | GitHub Copilot | Documentation Consolidation | Consolidated all markdown files into memory-bank directory structure. Created reference/ and roadmap/ subdirectories. Moved 8 files from root and 1 from docs/roadmap/ to memory-bank. Updated all internal references and README.md. Created comprehensive documentation index at memory-bank/index.md. Root now contains only README.md, AGENTS.md, LICENSE, and VERSION. | Continue with dashboard development and backend integration. All documentation now accessible via memory-bank/index.md. |
+| 2025-10-12T14:30:00-04:00 | GitHub Copilot | Foundation Complete | Implemented comprehensive Next.js foundation: Docker/Postgres, Prisma ORM, NextAuth v5, navigation system, state management, API layer, security middleware, observability, testing infrastructure. Created 78+ files (~8K LOC). Updated memory bank and created complete documentation. | Execute setup: `cd web && pnpm install`, configure .env.local, run `pnpm db:init && pnpm db:migrate && pnpm db:seed && pnpm dev`. See memory-bank/reference/setup-checklist.md for details. |
+| 2025-10-03T00:24:20-04:00 | Codex (GPT-5) | L4 — Phase audit | Audited Phase 0–6 roadmap for `web/`, captured statuses, produced challenge cards, and updated memory bank. | Start executing Phase 0/1 backlog (ESLint/Prettier alignment, layout scaffold, Prisma planning). |
+| 2025-09-27T09:35:15-04:00 | Codex (GPT-5) | L4 — Scaffold | Bootstrapped Next.js app in `web/` via pnpm dlx; configured pnpm build approvals and logged decisions/progress. | Integrate repo tooling with new app then start layout/navigation work. |
+| 2025-09-27T09:10:30-04:00 | Codex (GPT-5) | L4 — Roadmap prep | Documented baseline roadmap and decision log for web utility center; updated memory bank active/progress files and roadmap doc. | Await stack/tooling confirmation before scaffolding Next.js workspace. |
+| 2025-09-27T08:59:45-04:00 | Codex (GPT-5) | L4 — Automation & health | Authored validator suite, triad health script, VS Code tasks/settings, ingested commit-policy instructions, refreshed prompt cards, and generated `memory-bank/index.md`. | Consider CI wiring for validators or move into feature-level scaffolding. |
+| 2025-09-27T08:58:47-04:00 | Codex (GPT-5) | L3 — Guidance scaffolding | Verified instruction corpus, introduced `.prettierignore`, authored `bootstrap-maintainer.chatmode.md`, and created the `bootstrap-audit.prompt.md` card with links to governing layers. | Transition to Layer 4 to plan automation and repository health routines. |
+| 2025-09-27T08:57:01-04:00 | Codex (GPT-5) | L2 — Workspace bootstrap | Added VS Code workspace settings, authored Copilot guardrails, created memory-bank triad directories with READMEs, and initialized six core context files with current information. | Advance to Layer 3 to author reusable instructions, prompts, and chat modes as needed. |
+| 2025-09-27T08:54:56-04:00 | Codex (GPT-5) | L1 — Foundation complete | Authored baseline repository files, created `scripts/init.sh`, verified executability, and double-checked idempotence by rerunning the initializer. | Proceed to Layer 2: add workspace ergonomics and memory-bank triad artifacts. |
+| 2025-09-27T08:54:34-04:00 | Codex (GPT-5) | L1 — Foundation prep | Ran `init-genesis-22.sh` to download layered instructions; audited repository and noted missing foundation artifacts. | Finish Layer 1 by creating baseline files and verifying `scripts/init.sh` idempotence. |
+
