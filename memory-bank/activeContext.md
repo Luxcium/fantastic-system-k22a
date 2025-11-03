@@ -1,5 +1,14 @@
 # Active Context
 
+- Timestamp: 2025-11-02T00:00:00Z
+- Current focus: 📊 Stabilize dashboard charts by eliminating Recharts dimension warnings
+- Implementation status:
+  - ✅ Added minimum width and height guards to all `ResponsiveContainer` usages in `web/src/app/page.tsx`
+  - 🔁 Monitoring `pnpm dev` logs to confirm the warnings stay suppressed after hot reloads
+- Immediate next action: Observe live reload behavior and confirm no regressions across dashboard viewports.
+- Notes:
+  - Recharts requires non-zero container dimensions; defensive props prevent noisy console spam during development.
+
 - Timestamp: 2025-10-31T00:00:00Z
 - Current focus: ♻️ Developer experience polish — ensure dev server ergonomics remain cross-platform
 - Implementation status:

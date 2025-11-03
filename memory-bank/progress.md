@@ -1,5 +1,11 @@
 # Progress Log
 
+## 2025-11-02
+- **Dashboard Chart Stability**: Addressed `ResponsiveContainer` dimension warnings in development logs
+  - ✅ Added `minWidth`/`minHeight` guards to each `ResponsiveContainer` in `web/src/app/page.tsx`
+  - 🔁 Observing `pnpm dev` output to confirm the console remains free of `width(-1)`/`height(-1)` warnings after hot reloads
+  - 🔎 Monitoring responsive layouts to ensure chart containers retain positive dimensions across breakpoints
+
 ## 2025-11-01
 - **UsersRoute Role Validation**: Hardened the add-user prompt and added regression coverage
   - ✅ Normalized prompt input to lowercase and validated against the canonical role list, defaulting to viewer on invalid input
