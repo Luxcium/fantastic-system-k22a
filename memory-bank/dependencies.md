@@ -4,14 +4,17 @@ This document tracks the project dependencies, their versions, and rationale for
 
 ## Core Framework
 
-### Next.js 15.5.4
+### Next.js 16.0.1
 - **Purpose**: React framework with App Router, server components, and built-in optimizations
-- **Rationale**: Latest stable version with improved performance and developer experience
-- **Node Version**: Requires Node.js 22+
+- **Rationale**: Latest stable version with Turbopack as default bundler, improved performance and explicit caching model
+- **Node Version**: Requires Node.js ≥ 20.9
+- **Key Features**: Turbopack by default, explicit caching with `revalidateTag(tag, cacheLife)`, layout deduplication, incremental prefetching
+- **Breaking Changes**: Async request data access (`params`, `searchParams`, `headers()`, `cookies()`), parallel routes require `default.tsx`
 
-### React 19.1.0 & React DOM 19.1.0
+### React 19.2.0 & React DOM 19.2.0
 - **Purpose**: UI library with server and client components
-- **Rationale**: Latest React version with improved concurrent features and hooks
+- **Rationale**: Latest React version with View Transitions, improved concurrent features and hooks
+- **Key Features**: View Transitions API support, `useEffectEvent()` hook, improved server components
 
 ### TypeScript 5.x
 - **Purpose**: Type-safe JavaScript development

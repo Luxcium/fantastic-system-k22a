@@ -4,6 +4,11 @@
 
 # Don't use set -e because we want to continue checking even if some checks fail
 
+# Source environment detection
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../../scripts/detect-env.sh
+source "$SCRIPT_DIR/../../scripts/detect-env.sh"
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -50,13 +55,14 @@ print_info() {
 check_node() {
     print_check "Checking Node.js version..."
     if command -v node &> /dev/null; then
-        NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
-        if [ "$NODE_VERSION" -ge 22 ]; then
-            print_pass "Node.js $(node --version) installed (required: v22+)"
-        elif [ "$NODE_VERSION" -ge 18 ]; then
-            print_warn "Node.js $(node --version) found. v22+ is recommended, but v18+ will work"
+        NODE_VERSION_RAW=$(node --version)
+        NODE_MAJOR=$(echo "$NODE_VERSION_RAW" | cut -d'v' -f2 | cut -d'.' -f1)
+        if [ "$NODE_MAJOR" -lt 22 ]; then
+            print_fail "Node.js $NODE_VERSION_RAW found, but v22+ is required"
+        elif [ "$NODE_MAJOR" -gt 22 ]; then
+            print_warn "Node.js $NODE_VERSION_RAW detected. Baseline requirement is v22+. This major version hasn't been validated yet"
         else
-            print_fail "Node.js $(node --version) found, but v18+ is required"
+            print_pass "Node.js $NODE_VERSION_RAW satisfies the v22+ requirement"
         fi
     else
         print_fail "Node.js is not installed"
@@ -82,7 +88,12 @@ check_docker() {
             print_warn "Docker is installed but not running. Start Docker Desktop."
         fi
     else
-        print_fail "Docker is not installed"
+        # In cloud environments, Docker might not be needed if using DATABASE_URL
+        if [[ "$GENESIS_ENV" =~ ^(codespaces|ci)$ ]] && [[ -n "${DATABASE_URL:-}" ]]; then
+            print_info "Docker not required in cloud environment with DATABASE_URL"
+        else
+            print_fail "Docker is not installed"
+        fi
     fi
 }
 
@@ -99,7 +110,7 @@ check_env_file() {
     print_check "Checking environment configuration..."
     if [ -f ".env.local" ]; then
         print_pass ".env.local file exists"
-        
+
         # Check for required variables
         if grep -q "NEXTAUTH_SECRET" .env.local; then
             SECRET=$(grep "NEXTAUTH_SECRET" .env.local | cut -d'=' -f2 | tr -d '"' | tr -d ' ')
@@ -111,7 +122,7 @@ check_env_file() {
         else
             print_fail "NEXTAUTH_SECRET not found in .env.local"
         fi
-        
+
         if grep -q "DATABASE_URL" .env.local; then
             print_pass "DATABASE_URL is configured"
         else
@@ -124,7 +135,7 @@ check_env_file() {
 
 check_directories() {
     print_check "Checking directory structure..."
-    
+
     REQUIRED_DIRS=(
         "src/app"
         "src/components"
@@ -133,7 +144,7 @@ check_directories() {
         ".key"
         "prisma"
     )
-    
+
     for dir in "${REQUIRED_DIRS[@]}"; do
         if [ -d "$dir" ]; then
             print_pass "Directory exists: $dir"
@@ -145,22 +156,39 @@ check_directories() {
 
 check_database() {
     print_check "Checking database connection..."
-    if docker ps --format '{{.Names}}' | grep -q "genesis-postgres"; then
+
+    # Cloud environment: check for DATABASE_URL
+    if [[ "$GENESIS_ENV" =~ ^(codespaces|ci)$ ]] && [[ -n "${DATABASE_URL:-}" ]]; then
+        print_pass "DATABASE_URL configured for cloud environment"
+        # Try to check migrations status
+        if command -v pnpm &> /dev/null; then
+            if pnpm prisma migrate status &> /dev/null; then
+                print_pass "Database migrations are current"
+            else
+                print_warn "Database migrations may need to be applied. Run: pnpm db:migrate"
+            fi
+        fi
+    # Local environment: check Docker container
+    elif docker ps --format '{{.Names}}' 2>/dev/null | grep -q "genesis-postgres"; then
         print_pass "PostgreSQL container is running"
     else
-        print_warn "PostgreSQL container not running. Start with: pnpm db:init"
+        if [[ "$GENESIS_ENV" == "local" ]]; then
+            print_warn "PostgreSQL container not running. Start with: pnpm db:init"
+        else
+            print_warn "No database configuration found. Configure DATABASE_URL or start container."
+        fi
     fi
 }
 
 check_prisma() {
     print_check "Checking Prisma setup..."
-    
+
     if [ -f "prisma/schema.prisma" ]; then
         print_pass "Prisma schema exists"
     else
         print_fail "Prisma schema not found"
     fi
-    
+
     if [ -d "prisma/generated/client" ]; then
         print_pass "Prisma Client is generated"
     else
@@ -172,7 +200,7 @@ check_typescript() {
     print_check "Checking TypeScript configuration..."
     if [ -f "tsconfig.json" ]; then
         print_pass "tsconfig.json exists"
-        
+
         # Only check compilation if pnpm is available
         if command -v pnpm &> /dev/null; then
             if pnpm run type-check &> /dev/null; then
@@ -209,7 +237,7 @@ check_build() {
     else
         print_fail "next.config.ts not found"
     fi
-    
+
     if [ -f "biome.json" ]; then
         print_pass "Biome configuration exists"
     else
