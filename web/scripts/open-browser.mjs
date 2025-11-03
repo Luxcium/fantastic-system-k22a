@@ -43,6 +43,9 @@ if (!command) {
 
 try {
   const child = spawn(command, args, options);
+  logInfo(`Attempting to open ${url} using ${command}.`);
+
+  let warned = false;
 
   logInfo(`Attempting to open ${url} using ${command}.`);
   child.on("error", (error) => {

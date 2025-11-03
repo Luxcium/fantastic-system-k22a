@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Source environment detection
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=detect-env.sh
+source "$SCRIPT_DIR/detect-env.sh"
+
 log() {
   printf '[INFO] %s\n' "$1"
 }
@@ -10,6 +15,7 @@ warn() {
 }
 
 log "Genesis foundation verification starting..."
+log "Environment: $GENESIS_ENV"
 
 foundation=(
   .editorconfig
@@ -37,12 +43,6 @@ if [[ ${#missing[@]} -eq 0 ]]; then
 else
   warn "Foundation missing ${#missing[@]} item(s). See log above."
 fi
-
-if [[ -d scripts ]]; then
-  chmod +x scripts/*.sh 2>/dev/null || true
-  log "Ensured scripts are executable."
-fi
-
 if [[ ! -d .git ]]; then
   log "Initializing new git repository..."
   git init >/dev/null
@@ -51,6 +51,14 @@ if [[ ! -d .git ]]; then
   log "Repository initialized and initial commit created."
 else
   log "Git repository already initialized."
+fi
+
+# Cloud-specific guidance
+if [[ "$GENESIS_ENV" == "codespaces" ]]; then
+  log "Running in GitHub Codespaces"
+  log "Tip: Configure secrets in Codespaces settings for environment variables"
+elif [[ "$GENESIS_ENV" == "ci" ]]; then
+  log "Running in CI environment"
 fi
 
 log "Execution completed at $(date --iso-8601=seconds)"

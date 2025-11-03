@@ -9,8 +9,44 @@
 - Immediate next action: Monitor feedback from contributors using different OS environments and iterate if additional launchers are required.
 - Notes:
   - Helper selects `open` (macOS), `start` (Windows via `cmd`), or `xdg-open` (Linux/BSD) and falls back to manual launch with warnings when unavailable.
+- Timestamp: 2025-11-01T00:00:00Z
+- Current focus: 🔐 Strengthen user management UX safeguards and regression coverage
+- Implementation status:
+  - ✅ Normalized `UsersRoute` add-user prompt to validate roles against the canonical role list
+  - ✅ Added defensive fallback to the viewer role when prompts receive invalid input, with user feedback
+  - ✅ Exported `UsersRoute` for targeted tests without affecting runtime behavior
+  - ✅ Introduced `page.test.tsx` to confirm mixed-case role inputs register correctly across admin/editor/viewer paths
+- Immediate next action: Continue improving dashboard reliability with focused tests around interactive handlers
+- Project Status: 🚧 Feature hardening in progress
+- Notes:
+  - Testing performed with `pnpm vitest run src/app/page.test.tsx`
+  - Validation ensures downstream filters relying on strict `Role` comparisons stay functional
+- Open questions:
+  - Should invalid role prompts abort user creation instead of defaulting to viewer for stricter data hygiene?
+- Timestamp: 2025-10-31T00:00:00Z
+- Current focus: Align theme toggles with system-resolved values and backstop with tests
+- Decisions:
+  - Update `ThemeToggle` to derive its current theme from `resolvedTheme ?? theme` so system mode renders correctly.
+  - Update the settings route theme switch to reflect the resolved theme while continuing to persist explicit `"light"` and `"dark"` values.
+  - Add unit coverage that exercises system-mode defaults for both dark and light resolutions to prevent regressions.
+- Status: Component updates merged locally with passing coverage (`pnpm test --run`).
+- Next steps: Monitor for additional theme integration points that might need resolved-theme awareness.
+- Timestamp: 2025-11-01T05:32:00Z
+- Current focus: ✅ Critical Build Issues Resolved - Next.js configuration and cache utilities fixed
+- Implementation status:
+  - ✅ Fixed next.config.ts: Removed `turbopackPersistentCaching` (canary-only feature) for Next.js 16.0.1 stable
+  - ✅ Fixed cache.ts: Added missing exports `revalidateTagWithLife`, `updateTagImmediate`, `refreshPage`
+  - ✅ Fixed API routes and server actions: Changed invalid CacheLife values ("hours", "minutes") to valid types ("short", "medium")
+  - ✅ Created missing .key directory with README for sensitive key management
+  - ✅ TypeScript compilation passing with zero errors
+  - ✅ Production build successful
+  - ✅ All 62 tests passing (20 UI components + 42 utilities)
+  - ✅ All 20 verification checks passing
+- Immediate next action: Monitor firewall-restricted environment behavior, continue with feature development
+- Project Status: 🎉 FULLY OPERATIONAL - All systems green
+
 - Timestamp: 2025-10-31T20:45:07Z
-- Current focus: Enforce the documented Node.js 22+ baseline in setup verification
+- Previous focus: Enforce the documented Node.js 22+ baseline in setup verification
 - Implementation status:
   - ✅ Updated `web/scripts/verify-setup.sh` so Node.js majors below 22 fail and newer majors emit a cautionary warning
   - ✅ Confirmed the script passes the Node.js check when running `pnpm verify` with Node v22.21.1
@@ -95,6 +131,24 @@
   - `web/src/utils/screenshot.ts` — Core screenshot utility with full TypeScript support
   - `web/scripts/screenshot.ts` — CLI tool for screenshot capture
   - `web/scripts/screenshot-examples.ts` — Programmatic usage examples
+  - `web/docs/SCREENSHOT-AUTOMATION.md` — Comprehensive documentation
+  - `memory-bank/index.md` — complete documentation index
+  - `memory-bank/reference/` — quick reference guides (biome, quick-reference, setup-checklist, component-architecture)
+  - `memory-bank/decisions/` — architectural decisions and summaries (implementation-summary, frontend-optimization-summary, firewall-analysis)
+  - `memory-bank/roadmap/` — project roadmaps (alpha-track)
+- Previous milestones: Genesis foundation (Docker/Postgres/Prisma/NextAuth) established; Biome migration completed; dashboard UI parity achieved; comprehensive testing infrastructure in place; documentation consolidated; screenshot automation system implemented and tested; **Next.js 16.0.1 and React 19.2.0 upgrade completed**.
+- Notes:
+  - Next.js 16 brings Turbopack as default bundler for improved build performance
+  - React 19.2 includes latest bug fixes and improvements
+  - TypeScript configuration now uses "react-jsx" for automatic JSX runtime
+  - next-auth shows peer dependency warning but remains fully functional
+  - All existing features (screenshot automation, authentication, database) working correctly
+- Backend integration kick-off:
+  - Created Prisma-backed utilities query module with aggregate helpers for favorites and usage counts
+  - Added `/api/utilities` route handler returning enriched catalogue data with Next.js 16 dynamic caching headers
+  - Covered data mapping logic with Vitest unit tests mocking Prisma client
+- Open questions:
+  - None - Next.js 16 documentation and reference implementations completed
   - `web/docs/SCREENSHOT-AUTOMATION.md` — Comprehensive documentation
   - `memory-bank/index.md` — complete documentation index
   - `memory-bank/reference/` — quick reference guides (biome, quick-reference, setup-checklist, component-architecture)

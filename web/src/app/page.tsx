@@ -52,6 +52,8 @@ import { cn, formatDate } from "@/lib/utils";
 /** User role types for access control */
 type Role = "admin" | "editor" | "viewer";
 
+const allowedRoles: Role[] = ["admin", "editor", "viewer"];
+
 /** Available application routes */
 type Route = "dashboard" | "projects" | "users" | "profile" | "settings";
 
@@ -678,10 +680,30 @@ function UsersRoute() {
   const handleAddUser = () => {
     const name = window.prompt("Name?");
     const email = window.prompt("Email?");
-    const roleInput = (window.prompt("Role? (admin|editor|viewer)", "viewer") ??
-      "viewer") as Role;
+    const roleInput = window.prompt(
+      "Role? (admin|editor|viewer)",
+      "viewer",
+    );
     if (!name || !email) return;
-    setRows((previous) => [...previous, { name, email, role: roleInput }]);
+    const normalizedRole = roleInput?.trim().toLowerCase();
+    const isValidRole =
+      normalizedRole &&
+      allowedRoles.some((r) => r === normalizedRole);
+
+    if (!isValidRole && roleInput !== null) {
+      window.alert(
+        `Invalid role "${roleInput}". Defaulting to viewer.`,
+      );
+    }
+
+    const validatedRole: Role = isValidRole
+      ? (normalizedRole as Role)
+      : "viewer";
+
+    setRows((previous) => [
+      ...previous,
+      { name, email, role: validatedRole },
+    ]);
   };
 
   return (
@@ -865,8 +887,10 @@ function ProfileRoute() {
  * Application settings including theme toggle and database reset
  */
 function SettingsRoute() {
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+
+  const currentTheme = resolvedTheme ?? theme;
 
   useEffect(() => {
     setMounted(true);
@@ -896,11 +920,11 @@ function SettingsRoute() {
                 <label className="relative inline-flex cursor-pointer items-center">
                   <input
                     aria-label="Toggle dark mode"
-                    checked={theme === "dark"}
+                    checked={currentTheme === "dark"}
                     className="peer sr-only"
-                    onChange={(event) =>
-                      setTheme(event.target.checked ? "dark" : "light")
-                    }
+                    onChange={(event) => {
+                      setTheme(event.target.checked ? "dark" : "light");
+                    }}
                     type="checkbox"
                   />
                   <div className="h-6 w-11 rounded-full bg-neutral-200 transition peer-checked:bg-indigo-500">
@@ -1024,6 +1048,8 @@ function SignInScreen({
     </div>
   );
 }
+
+export { UsersRoute, allowedRoles };
 
 /**
  * Dashboard Shell - Main Application Component
