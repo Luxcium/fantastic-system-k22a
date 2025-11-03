@@ -688,7 +688,7 @@ function UsersRoute() {
     const normalizedRole = roleInput?.trim().toLowerCase();
     const isValidRole =
       normalizedRole &&
-      allowedRoles.includes(normalizedRole as Role);
+      allowedRoles.some((r) => r === normalizedRole);
 
     if (!isValidRole && roleInput && roleInput.trim() !== "") {
       window.alert(
