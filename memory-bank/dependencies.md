@@ -108,14 +108,26 @@ This document tracks the project dependencies, their versions, and rationale for
 ### Linting & Formatting
 
 #### Biome 2.2.0
+
 - **Purpose**: Fast linter and formatter (replaces ESLint + Prettier)
 - **Features**: 10-100x faster, single tool for linting and formatting
 - **Configuration**: web/biome.json
 - **Rationale**: Modern tooling, faster feedback loops
 
+#### markdownlint-cli2 0.18.1 (Added 2025-11-06)
+
+- **Purpose**: Strict markdown linting and validation for AI agents
+- **Features**: 50+ rules enforcing CommonMark/GFM standards, auto-fix capability
+- **Configuration**: .markdownlint-cli2.jsonc (root and web/)
+- **Rationale**: Ensures consistent, high-quality markdown across all documentation
+- **Integration**: Pre-commit hooks via lint-staged, validation scripts for AI agents
+- **Key Rules**: ATX headings, consistent lists, no trailing spaces, code block languages, image alt text
+- **Scripts**: `markdown:lint`, `markdown:fix`, `markdown:validate`
+
 ### Git Hooks
 
 #### Husky 9.1.7
+
 - **Purpose**: Git hooks made easy
 - **Rationale**: Enforce code quality before commits
 

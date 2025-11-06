@@ -1,12 +1,31 @@
 # Progress Log
 
+## 2025-11-06
+
+- **Markdown Linting Protocol**: Implemented strict markdown validation system for AI agents
+  - ✅ Installed markdownlint-cli2 v0.18.1 as dev dependency via pnpm
+  - ✅ Created comprehensive `.markdownlint-cli2.jsonc` configuration with 50+ rules enforcing CommonMark/GFM standards
+  - ✅ Created `.markdownlintignore` for build artifacts and special files (*.prompt.md, *.chatmode.md)
+  - ✅ Added `markdown:lint`, `markdown:fix`, and `markdown:validate` npm scripts
+  - ✅ Created `web/scripts/validate-markdown.sh` with colored output and clear guidance for AI agents
+  - ✅ Updated lint-staged to run markdownlint before Biome formatting on *.md files
+  - ✅ Fixed all 165 violations across 58 markdown files in repository
+  - ✅ Created comprehensive documentation in `memory-bank/reference/markdown-protocol.md`
+  - ✅ Updated `.github/copilot-instructions.md` with mandatory validation workflow
+  - ✅ Updated `AGENTS.md` with quick reference for Codex CLI agents
+  - ✅ All markdown files now pass strict validation (0 errors)
+  - 📋 **Key Rules**: ATX headings, dash lists, 2-space indent, no trailing spaces/tabs, code blocks with language, alt text for images, no bare URLs, single trailing newline
+  - 🔧 **AI Agent Workflow**: Run `pnpm markdown:validate` after changes, fix violations, report status
+
 ## 2025-11-03
+
 - **Dashboard Hydration & Charts**: Resolved ThemeToggle hydration mismatch and silenced Recharts dimension spam
   - ✅ Theme toggle now renders a neutral placeholder before mount, eliminating Sun/Moon SSR divergence
   - ✅ Responsive charts render only after client mount with skeleton placeholders, preventing `width(-1)` warnings
   - ✅ Deleted erroneous `web/prisma/generated/client/schema.prisma` and validated with `pnpm test --run src/app/page.test.tsx`
 
 ## 2025-11-02
+
 - **Dashboard Chart Stability**: Addressed `ResponsiveContainer` dimension warnings in development logs
   - ✅ Added `minWidth`/`minHeight` guards to each `ResponsiveContainer` in `web/src/app/page.tsx`
   - 🔁 Observing `pnpm dev` output to confirm the console remains free of `width(-1)`/`height(-1)` warnings after hot reloads
