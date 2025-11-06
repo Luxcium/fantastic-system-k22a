@@ -74,8 +74,6 @@ type AuthContextShape = {
 };
 
 /** Theme mode options */
-type ThemeMode = "light" | "dark";
-
 const AuthContext = createContext<AuthContextShape | null>(null);
 
 const useAuth = () => {
@@ -428,7 +426,12 @@ function StatCard({
  * Displays analytics, charts, and quick actions
  */
 function DashboardRoute() {
+	const [chartsReady, setChartsReady] = useState(false);
 	const trafficGradientId = useId();
+
+	useEffect(() => {
+		setChartsReady(true);
+	}, []);
 	return (
 		<motion.div {...pageMotion}>
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -442,48 +445,60 @@ function DashboardRoute() {
 				<Card className="xl:col-span-2">
 					<CardHeader title="Weekly Traffic" hint="Synthetic telemetry" />
 					<div className="h-72">
-						<ResponsiveContainer
-							width="100%"
-							height="100%"
-							minWidth={240}
-							minHeight={200}
-						>
-							<AreaChart
-								data={traffic}
-								margin={{ top: 12, left: 8, right: 8 }}
-								minWidth={0}
+						{chartsReady ? (
+							<ResponsiveContainer
+								width="100%"
+								height="100%"
+								minWidth={240}
+								minHeight={200}
 							>
-								<defs>
-									<linearGradient
-										id={trafficGradientId}
-										x1="0"
-										y1="0"
-										x2="0"
-										y2="1"
-									>
-										<stop offset="5%" stopColor="#4f46e5" stopOpacity={0.35} />
-										<stop offset="95%" stopColor="#4f46e5" stopOpacity={0.05} />
-									</linearGradient>
-								</defs>
-								<CartesianGrid strokeDasharray="4 4" strokeOpacity={0.2} />
-								<XAxis dataKey="day" strokeOpacity={0.45} />
-								<YAxis strokeOpacity={0.45} />
-								<Tooltip
-									contentStyle={{
-										borderRadius: 12,
-										borderColor: "#e5e7eb",
-										boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
-									}}
-								/>
-								<Area
-									type="monotone"
-									dataKey="value"
-									stroke="#4338ca"
-									strokeWidth={2}
-									fill={`url(#${trafficGradientId})`}
-								/>
-							</AreaChart>
-						</ResponsiveContainer>
+								<AreaChart
+									data={traffic}
+									margin={{ top: 12, left: 8, right: 8 }}
+									minWidth={0}
+								>
+									<defs>
+										<linearGradient
+											id={trafficGradientId}
+											x1="0"
+											y1="0"
+											x2="0"
+											y2="1"
+										>
+											<stop
+												offset="5%"
+												stopColor="#4f46e5"
+												stopOpacity={0.35}
+											/>
+											<stop
+												offset="95%"
+												stopColor="#4f46e5"
+												stopOpacity={0.05}
+											/>
+										</linearGradient>
+									</defs>
+									<CartesianGrid strokeDasharray="4 4" strokeOpacity={0.2} />
+									<XAxis dataKey="day" strokeOpacity={0.45} />
+									<YAxis strokeOpacity={0.45} />
+									<Tooltip
+										contentStyle={{
+											borderRadius: 12,
+											borderColor: "#e5e7eb",
+											boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
+										}}
+									/>
+									<Area
+										type="monotone"
+										dataKey="value"
+										stroke="#4338ca"
+										strokeWidth={2}
+										fill={`url(#${trafficGradientId})`}
+									/>
+								</AreaChart>
+							</ResponsiveContainer>
+						) : (
+							<div className="h-full w-full animate-pulse rounded-2xl bg-neutral-200/60 dark:bg-neutral-800/40" />
+						)}
 					</div>
 				</Card>
 
@@ -510,64 +525,74 @@ function DashboardRoute() {
 				<Card className="xl:col-span-2">
 					<CardHeader title="Latency vs Errors" hint="Correlation window" />
 					<div className="h-72">
-						<ResponsiveContainer
-							width="100%"
-							height="100%"
-							minWidth={240}
-							minHeight={200}
-						>
-							<LineChart
-								data={traffic}
-								margin={{ top: 12, left: 8, right: 8 }}
-								minWidth={0}
+						{chartsReady ? (
+							<ResponsiveContainer
+								width="100%"
+								height="100%"
+								minWidth={240}
+								minHeight={200}
 							>
-								<CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
-								<XAxis dataKey="day" strokeOpacity={0.45} />
-								<YAxis strokeOpacity={0.45} />
-								<Tooltip
-									contentStyle={{
-										borderRadius: 12,
-										borderColor: "#e5e7eb",
-										boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
-									}}
-								/>
-								<Line
-									type="monotone"
-									dataKey="value"
-									stroke="#0ea5e9"
-									strokeWidth={2}
-								/>
-							</LineChart>
-						</ResponsiveContainer>
+								<LineChart
+									data={traffic}
+									margin={{ top: 12, left: 8, right: 8 }}
+									minWidth={0}
+								>
+									<CartesianGrid strokeDasharray="3 3" strokeOpacity={0.2} />
+									<XAxis dataKey="day" strokeOpacity={0.45} />
+									<YAxis strokeOpacity={0.45} />
+									<Tooltip
+										contentStyle={{
+											borderRadius: 12,
+											borderColor: "#e5e7eb",
+											boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
+										}}
+									/>
+									<Line
+										type="monotone"
+										dataKey="value"
+										stroke="#0ea5e9"
+										strokeWidth={2}
+									/>
+								</LineChart>
+							</ResponsiveContainer>
+						) : (
+							<div className="h-full w-full animate-pulse rounded-2xl bg-neutral-200/60 dark:bg-neutral-800/40" />
+						)}
 					</div>
 				</Card>
 				<Card>
 					<CardHeader title="Error Budget" hint="Errors per day" />
 					<div className="h-72">
-						<ResponsiveContainer
-							width="100%"
-							height="100%"
-							minWidth={240}
-							minHeight={200}
-						>
-							<BarChart data={errorRate} minWidth={0}>
-								<CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
-								<XAxis dataKey="day" strokeOpacity={0.45} />
-								<YAxis
-									strokeOpacity={0.45}
-									tickFormatter={(value) => `${(value as number).toFixed(2)}%`}
-								/>
-								<Tooltip
-									formatter={(v: number) => `${v.toFixed(2)}%`}
-									contentStyle={{
-										borderRadius: 12,
-										borderColor: "#e5e7eb",
-										boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
-									}}
-								/>
-								<Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#f97316" />
-							</BarChart>
-						</ResponsiveContainer>
+						{chartsReady ? (
+							<ResponsiveContainer
+								width="100%"
+								height="100%"
+								minWidth={240}
+								minHeight={200}
+							>
+								<BarChart data={errorRate} minWidth={0}>
+									<CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
+									<XAxis dataKey="day" strokeOpacity={0.45} />
+									<YAxis
+										strokeOpacity={0.45}
+										tickFormatter={(value) =>
+											`${(value as number).toFixed(2)}%`
+										}
+									/>
+									<Tooltip
+										formatter={(v: number) => `${v.toFixed(2)}%`}
+										contentStyle={{
+											borderRadius: 12,
+											borderColor: "#e5e7eb",
+											boxShadow: "0 10px 40px rgba(15,23,42,0.08)",
+										}}
+									/>
+									<Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#f97316" />
+								</BarChart>
+							</ResponsiveContainer>
+						) : (
+							<div className="h-full w-full animate-pulse rounded-2xl bg-neutral-200/60 dark:bg-neutral-800/40" />
+						)}
 					</div>
 				</Card>
 			</div>

@@ -1,5 +1,11 @@
 # Progress Log
 
+## 2025-11-03
+- **Dashboard Hydration & Charts**: Resolved ThemeToggle hydration mismatch and silenced Recharts dimension spam
+  - ✅ Theme toggle now renders a neutral placeholder before mount, eliminating Sun/Moon SSR divergence
+  - ✅ Responsive charts render only after client mount with skeleton placeholders, preventing `width(-1)` warnings
+  - ✅ Deleted erroneous `web/prisma/generated/client/schema.prisma` and validated with `pnpm test --run src/app/page.test.tsx`
+
 ## 2025-11-02
 - **Dashboard Chart Stability**: Addressed `ResponsiveContainer` dimension warnings in development logs
   - ✅ Added `minWidth`/`minHeight` guards to each `ResponsiveContainer` in `web/src/app/page.tsx`

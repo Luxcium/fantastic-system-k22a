@@ -1,5 +1,15 @@
 # Active Context
 
+- Timestamp: 2025-11-03T00:00:00Z
+- Current focus: 🌓 Eliminate hydration mismatch and stabilize dashboard charts
+- Implementation status:
+  - ✅ Updated `ThemeToggle` to render a neutral placeholder before mount, preventing SSR/client icon divergence
+  - ✅ Deferred all `ResponsiveContainer` instances until after client mount with skeleton fallbacks to stop `width(-1)` warnings
+  - ✅ Removed stray `web/prisma/generated/client/schema.prisma` artifact and re-ran `pnpm test --run src/app/page.test.tsx` (pass)
+- Immediate next action: Monitor the dev console for clean hydration and Recharts logs across viewport changes
+- Notes:
+  - Skeleton placeholders maintain layout stability while charts wait for measurable container dimensions.
+
 - Timestamp: 2025-11-02T00:00:00Z
 - Current focus: 📊 Stabilize dashboard charts by eliminating Recharts dimension warnings
 - Implementation status:
