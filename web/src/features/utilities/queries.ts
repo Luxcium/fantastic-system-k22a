@@ -55,7 +55,10 @@ export async function listUtilities(): Promise<UtilitySummary[]> {
   });
 
   return utilities.map((utility) => {
-    const metadata = (utility.metadata ?? null) as Record<string, unknown> | null;
+    const metadata = (utility.metadata ?? null) as Record<
+      string,
+      unknown
+    > | null;
     const features = metadata ? normalizeStringArray(metadata.features) : [];
     const keywords = metadata ? normalizeStringArray(metadata.keywords) : [];
 

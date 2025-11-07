@@ -53,9 +53,7 @@ describe("listUtilities", () => {
         isActive: false,
         metadata: null,
         updatedAt: new Date("2025-10-19T11:30:00.000Z"),
-        userUtilities: [
-          { isFavorite: false, usageCount: 0 },
-        ],
+        userUtilities: [{ isFavorite: false, usageCount: 0 }],
       },
     ]);
 

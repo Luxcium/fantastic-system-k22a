@@ -4,8 +4,9 @@
  */
 
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { UseThemeProps } from "next-themes";
 import * as NextThemes from "next-themes";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ThemeToggle } from "../components/theme-toggle";
 import { Avatar } from "../components/ui/Avatar";
 import { Badge } from "../components/ui/Badge";
@@ -14,26 +15,29 @@ import { Card, CardHeader } from "../components/ui/Card";
 
 type ThemeValue = "light" | "dark" | "system";
 
-const setThemeSpy = vi.fn<(value: "light" | "dark") => void>();
+const setThemeSpy = vi.fn();
 
 const themeState: {
   theme: ThemeValue | undefined;
   resolvedTheme: Exclude<ThemeValue, "system"> | undefined;
-  setTheme: typeof setThemeSpy;
+  setTheme: (theme: string) => void;
+  themes: string[];
 } = {
   theme: "light",
   resolvedTheme: "light",
   setTheme: setThemeSpy,
+  themes: ["light", "dark", "system"],
 };
 
-vi.spyOn(NextThemes, "useTheme").mockImplementation(() => themeState);
+vi.spyOn(NextThemes, "useTheme").mockImplementation(
+  () => themeState as UseThemeProps,
+);
 
 beforeEach(() => {
   themeState.theme = "system";
   themeState.resolvedTheme = "light";
   setThemeSpy.mockClear();
 });
-
 
 describe("Button", () => {
   it("should render with primary variant by default", () => {
