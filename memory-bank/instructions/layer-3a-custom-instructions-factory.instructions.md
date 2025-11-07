@@ -36,12 +36,22 @@ The layer 2 gave you a place to move the instructions files used to generate thi
 - Do not change existing `applyTo`.
 - Log brief changes in `memory-bank/progress.md`.
 
+## Markdown Resilience Integration
+
+Before creating any `.instructions.md` file:
+
+- Use [Layer 4B pre-flight checklist](./layer-4b-markdown-resilience.instructions.md) via [validate-before-create prompt](../prompts/validate-before-create.prompt.md)
+- Verify frontmatter, structure, and content compliance
+- After creation, run validation: `./scripts/check-markdown.sh`
+- If validation fails, run auto-repair: `./scripts/auto-repair-markdown.sh`
+
 ## Review Gate
 
 - `description` present and concrete.
 - No new or modified `applyTo` without explicit approval.
 - Links resolve. Prefer relative links for internal targets; allow external links when value-add and reputable.
 - No duplication. Within size target.
+- **Markdown compliance**: Pass validation before committing.
 
 ## Use custom instructions in VS Code
 

@@ -45,25 +45,46 @@ Extended autonomous operation: Your A.I. Agent can work independently for hours 
 - Scripts: `dev`, `build`, `start`, `lint(:fix)`, `format(:check)`, `typecheck`.
 - **Markdown**: Strict linting with markdownlint-cli2 (see Markdown Protocol below).
 
-## Markdown Protocol for AI Agents
+## Markdown Resilience Protocol (Layer 4B)
 
-**MANDATORY**: All AI agents must validate markdown after changes.
+**MANDATORY**: All AI agents must follow the three-stage markdown resilience protocol.
+
+Reference: `memory-bank/instructions/layer-4b-markdown-resilience.instructions.md`
+
+### Three-Stage Pipeline
+
+**1. Prevention** → Use pre-flight checklist before creating files
+**2. Detection** → Run validation after changes
+**3. Repair** → Auto-repair if validation fails
 
 ### Quick Commands
 
 ```bash
+# Root-level (preferred)
+./scripts/check-markdown.sh         # Full validation
+./scripts/auto-repair-markdown.sh   # Self-healing repair (3 attempts)
+
+# From web directory
 cd web
-pnpm markdown:validate  # Full validation (use this!)
+pnpm markdown:validate  # Full validation
 pnpm markdown:fix       # Auto-fix issues
 pnpm markdown:lint      # Show errors only
 ```
 
-### Validation Requirements
+### Agent Responsibilities
 
-1. Run `pnpm markdown:validate` after any markdown edits
-2. Fix all reported violations before committing
+**Before Creating Markdown Files**:
+
+1. Review pre-flight checklist: `memory-bank/prompts/validate-before-create.prompt.md`
+2. Verify frontmatter, structure, and content
+3. Guarantee compliant output
+
+**After Creating/Editing Markdown**:
+
+1. Run validation: `./scripts/check-markdown.sh`
+2. If fails: Run auto-repair: `./scripts/auto-repair-markdown.sh`
 3. Report validation status in progress updates
-4. Never commit markdown with linting errors
+4. **NEVER** commit markdown with linting errors
 
 ### Key Rules
 
@@ -75,7 +96,12 @@ pnpm markdown:lint      # Show errors only
 - No bare URLs
 - Files end with newline
 
-Full documentation: `memory-bank/reference/markdown-protocol.md`
+### Documentation
+
+- Layer 4B Protocol: `memory-bank/instructions/layer-4b-markdown-resilience.instructions.md`
+- Pre-flight Checklist: `memory-bank/prompts/validate-before-create.prompt.md`
+- Repair Protocol: `memory-bank/prompts/repair-markdown-files.prompt.md`
+- Full Reference: `memory-bank/reference/markdown-protocol.md`
 
 ## Standard Task Flow
 

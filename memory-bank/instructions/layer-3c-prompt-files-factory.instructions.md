@@ -29,12 +29,23 @@ Storage. Place actual prompt files in `memory-bank/prompts/`. The present docume
 
 - No contradictions with the selected mode's tools/model.
 - Links resolve. Prefer relative links internally; allow external links when they add clear value. No policy duplication. Outputs explicit.
+- **Markdown compliance**: Pass validation before committing.
 
 ## Verify & Bootstrap
 
 - Create `memory-bank/prompts/` if missing.
 - Ensure referenced mode exists; if absent, create it per Layer 3B.
 - Ensure referenced instruction files exist; if absent, create minimal stubs per Layer 3A.
+
+## Markdown Resilience Integration
+
+Embed [Layer 4B validation](./layer-4b-markdown-resilience.instructions.md) in all prompt creation workflows:
+
+- Use [validate-before-create](../prompts/validate-before-create.prompt.md) checklist before creating `.prompt.md` files
+- Verify path marker, heading structure, and slash command format
+- After creation, run validation: `./scripts/check-markdown.sh`
+- If validation fails, run auto-repair: `./scripts/auto-repair-markdown.sh`
+- Guarantee compliant output before completion
 
 The goal is to generate a procedure that will follow all our guidelines for our `.prompt.md` files.
 

@@ -98,23 +98,71 @@ Include in your work:
 
 ## 📝 Markdown Protocol Requirements
 
-**MANDATORY**: AI agents must follow strict markdown linting and validation protocols.
+**MANDATORY**: AI agents must follow strict markdown linting and validation protocols with Layer 4B resilience.
 
-### Validation Workflow
+### Layer 4B Markdown Resilience Protocol
 
-1. **After ANY markdown changes**, run validation:
+Reference: [`memory-bank/instructions/layer-4b-markdown-resilience.instructions.md`](../memory-bank/instructions/layer-4b-markdown-resilience.instructions.md)
 
-   ```bash
-   cd web
-   pnpm markdown:validate
-   ```
+**Three-Stage Pipeline**: Prevention → Detection → Repair
 
-2. **If validation fails**:
-   - Review errors and fix violations
-   - Use `pnpm markdown:fix` for auto-fixable issues
-   - Re-run validation until clean
+#### 1. Prevention (Before Creating Files)
 
-3. **Report validation status** in progress updates
+Use pre-flight validation checklist:
+
+- Review [`validate-before-create` prompt](../memory-bank/prompts/validate-before-create.prompt.md)
+- Verify frontmatter, structure, and content compliance
+- Guarantee compliant output from the start
+
+#### 2. Detection (After Changes)
+
+Run validation scripts:
+
+```bash
+# Root-level validation (preferred)
+./scripts/check-markdown.sh
+
+# Or from web directory
+cd web
+pnpm markdown:validate
+```
+
+#### 3. Repair (If Validation Fails)
+
+Use self-healing auto-repair:
+
+```bash
+# Root-level auto-repair (preferred)
+./scripts/auto-repair-markdown.sh
+
+# Or from web directory
+cd web
+pnpm markdown:fix
+```
+
+### Quick Commands Reference
+
+```bash
+# Validation
+./scripts/check-markdown.sh              # Full validation
+./scripts/auto-repair-markdown.sh        # Auto-repair (3 attempts)
+
+# VS Code Tasks
+# Command Palette → Tasks: Run Task
+# - 🔍 Markdown: Validate All
+# - 🔧 Markdown: Auto-Repair
+# - 🚨 Markdown: Full Health Check
+```
+
+### Agent Guarantees
+
+**MANDATORY**: All AI agents MUST:
+
+1. ✅ Use pre-flight checklist before creating markdown files
+2. ✅ Run validation after any markdown changes
+3. ✅ Use auto-repair if validation fails
+4. ✅ Report validation status in progress updates
+5. ✅ **NEVER** commit markdown with linting errors
 
 ### Key Rules Enforced
 
@@ -128,11 +176,10 @@ Include in your work:
 
 ### Documentation
 
-- Full protocol: `memory-bank/reference/markdown-protocol.md`
-- Available commands: `markdown:lint`, `markdown:fix`, `markdown:validate`
-- Integrated with pre-commit hooks via lint-staged
-
-**NEVER commit markdown files with linting errors!**
+- Layer 4B Protocol: [`memory-bank/instructions/layer-4b-markdown-resilience.instructions.md`](../memory-bank/instructions/layer-4b-markdown-resilience.instructions.md)
+- Pre-flight Checklist: [`memory-bank/prompts/validate-before-create.prompt.md`](../memory-bank/prompts/validate-before-create.prompt.md)
+- Repair Protocol: [`memory-bank/prompts/repair-markdown-files.prompt.md`](../memory-bank/prompts/repair-markdown-files.prompt.md)
+- Full Reference: [`memory-bank/reference/markdown-protocol.md`](../memory-bank/reference/markdown-protocol.md)
 
 ## CRITICAL MEMORY BANK PROTOCOL (keeping it stateful, ingesting previous context)
 

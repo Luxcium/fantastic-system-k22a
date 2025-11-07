@@ -34,11 +34,22 @@ Storage. Place actual mode files in `memory-bank/chatmodes/`. The present docume
 - Never change an existing mode's `tools` or `model` lines without explicit approval. Flag instead.
 - Factor common text into an instructions file and link to it.
 
+## Markdown Resilience Integration
+
+Follow [Layer 4B resilience protocol](./layer-4b-markdown-resilience.instructions.md) for all `.chatmode.md` files:
+
+- Use pre-flight validation before creation
+- Verify frontmatter compliance and structure
+- Never return non-compliant files to user
+- Run `./scripts/check-markdown.sh` after creation
+- Use `./scripts/auto-repair-markdown.sh` if validation fails
+
 ## Review Gate
 
 - Front-matter present and compliant.
 - Body minimal. Inputs/outputs/boundaries explicit.
 - Links resolve. Prefer relative links internally; allow authoritative external links. Avoid duplicating instruction text.
+- **Markdown compliance**: Pass validation before committing.
 
 ## Exclusions
 
