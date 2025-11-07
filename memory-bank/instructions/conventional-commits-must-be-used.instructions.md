@@ -1,5 +1,5 @@
 ---
-description: 'Mandatory for all commit messages: Conventional commit protocol with gitmoji MUST BE USED.'
+description: "Mandatory for all commit messages: Conventional commit protocol with gitmoji MUST BE USED."
 ---
 
 # Conventional Commit Messages
@@ -24,24 +24,24 @@ description: 'Mandatory for all commit messages: Conventional commit protocol wi
 
 ## Essential Gitmoji
 
-| Emoji | Code | Usage |
-| ----- | ----------------- | ----- |
-| 🐛 | `:bug:` | Bug fixes |
-| 🚑 | `:ambulance:` | Critical hotfix |
-| 📝 | `:memo:` | Documentation |
-| 🎨 | `:art:` | Code style |
-| ⚡ | `:zap:` | Performance |
-| 🔥 | `:fire:` | Remove code or files |
-| ♻️ | `:recycle:` | Refactor |
-| ✅ | `:white_check_mark:` | Tests |
-| 🔧 | `:wrench:` | Configuration |
-| ⬆️ | `:arrow_up:` | Upgrade dependencies |
-| ⬇️ | `:arrow_down:` | Downgrade dependencies |
-| 💥 | `:boom:` | Breaking changes |
-| 🚨 | `:rotating_light:` | Fix warnings |
-| 💚 | `:green_heart:` | Fix CI |
-| 🔒 | `:lock:` | Security fixes |
-| ✨ | `:sparkles:` | New features |
+| Emoji | Code                 | Usage                  |
+| ----- | -------------------- | ---------------------- |
+| 🐛    | `:bug:`              | Bug fixes              |
+| 🚑    | `:ambulance:`        | Critical hotfix        |
+| 📝    | `:memo:`             | Documentation          |
+| 🎨    | `:art:`              | Code style             |
+| ⚡    | `:zap:`              | Performance            |
+| 🔥    | `:fire:`             | Remove code or files   |
+| ♻️    | `:recycle:`          | Refactor               |
+| ✅    | `:white_check_mark:` | Tests                  |
+| 🔧    | `:wrench:`           | Configuration          |
+| ⬆️    | `:arrow_up:`         | Upgrade dependencies   |
+| ⬇️    | `:arrow_down:`       | Downgrade dependencies |
+| 💥    | `:boom:`             | Breaking changes       |
+| 🚨    | `:rotating_light:`   | Fix warnings           |
+| 💚    | `:green_heart:`      | Fix CI                 |
+| 🔒    | `:lock:`             | Security fixes         |
+| ✨    | `:sparkles:`         | New features           |
 
 ## Examples
 
@@ -60,7 +60,7 @@ chore(ci): :wrench: update workflow
   - Requires users to take action to adapt to the new version.
 - You add `!` before `:` when a commit introduces a breaking change.
 - You include a `BREAKING CHANGE:` footer that describes the impact.
-Add `!` before `:` and include `BREAKING CHANGE:` in footer:
+  Add `!` before `:` and include `BREAKING CHANGE:` in footer:
 
 ```bash
 feat(api)!: :boom: remove legacy endpoints
@@ -74,6 +74,6 @@ Closes #123
 
 - [Breaking Changes Guide](./breaking-changes-commits.instructions.md)
 - [Complete Gitmoji List](./gitmoji-complete-list.instructions.md)
-- [Commit Examples](./commit-examples.instructions.md)  
+- [Commit Examples](./commit-examples.instructions.md)
 - [Conventional Commits](https://www.conventionalcommits.org/)
 - [Gitmoji Guide](https://gitmoji.dev/)

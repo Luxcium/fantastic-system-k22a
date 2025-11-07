@@ -243,15 +243,12 @@ See `prisma/schema.prisma` for the complete schema. Key models:
 We use `class-variance-authority` for type-safe component variants:
 
 ```typescript
-const buttonVariants = cva(
-  "base-classes",
-  {
-    variants: {
-      variant: { primary: "...", secondary: "..." },
-      size: { sm: "...", md: "..." }
-    }
-  }
-)
+const buttonVariants = cva("base-classes", {
+  variants: {
+    variant: { primary: "...", secondary: "..." },
+    size: { sm: "...", md: "..." },
+  },
+});
 ```
 
 ## 📦 Dependencies
@@ -422,13 +419,13 @@ pnpm screenshot:desktop
 ### Programmatic Usage
 
 ```typescript
-import { captureScreenshot, VIEWPORTS } from '@/utils/screenshot';
+import { captureScreenshot, VIEWPORTS } from "@/utils/screenshot";
 
 // Capture screenshot programmatically
 const results = await captureScreenshot({
-  url: 'http://localhost:3022',
+  url: "http://localhost:3022",
   viewport: VIEWPORTS.mobile,
-  theme: 'both'
+  theme: "both",
 });
 ```
 

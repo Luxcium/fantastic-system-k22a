@@ -37,10 +37,10 @@ This is a current-state snapshot for an AI/developer that **cannot browse** but 
 
 **Notes:**
 
-* 2025 Next.js template already ships with **App Router + TS + Tailwind + ESLint** when you do `npx create-next-app@latest --typescript --eslint --app` — you don't need to enable them one by one.
-* `src/` is preferred to keep framework root clean.
-* Anything *environmental* (Prisma schema, Docker, infra) stays **outside** `src/` so the AI doesn't ship it to the browser.
-* Parallel route slots **must** have `default.tsx` in v16, or build fails.
+- 2025 Next.js template already ships with **App Router + TS + Tailwind + ESLint** when you do `npx create-next-app@latest --typescript --eslint --app` — you don't need to enable them one by one.
+- `src/` is preferred to keep framework root clean.
+- Anything _environmental_ (Prisma schema, Docker, infra) stays **outside** `src/` so the AI doesn't ship it to the browser.
+- Parallel route slots **must** have `default.tsx` in v16, or build fails.
 
 ---
 
@@ -75,27 +75,27 @@ Next.js 16 made the cache **explicit** and **tag-first**.
 
 ```ts
 // app/actions/revalidate-posts.ts
-'use server';
+"use server";
 
-import { revalidateTag } from 'next/cache';
+import { revalidateTag } from "next/cache";
 
 export async function revalidatePosts() {
   // v16 form: tag + cache life/profile
-  await revalidateTag('posts', 'max');
+  await revalidateTag("posts", "max");
 }
 ```
 
-* v14/v15 code that did `revalidateTag('posts')` **must add** the second argument now.
-* This keeps "ISR feeling" while forcing the agent to pick an explicit freshness.
+- v14/v15 code that did `revalidateTag('posts')` **must add** the second argument now.
+- This keeps "ISR feeling" while forcing the agent to pick an explicit freshness.
 
 ### 3.2 Immediate invalidation (server actions)
 
 ```ts
 // app/actions/update-profile.ts
-'use server';
+"use server";
 
-import { updateTag } from 'next/cache';
-import { db } from '@/lib/db';
+import { updateTag } from "next/cache";
+import { db } from "@/lib/db";
 
 export async function updateProfile(userId: string, data: any) {
   await db.user.update({ where: { id: userId }, data });
@@ -103,27 +103,27 @@ export async function updateProfile(userId: string, data: any) {
 }
 ```
 
-* `updateTag(...)` is **server actions only**. If you are in a route handler, use `revalidateTag(...)` instead.
+- `updateTag(...)` is **server actions only**. If you are in a route handler, use `revalidateTag(...)` instead.
 
 ### 3.3 Refreshing uncached parts
 
 ```ts
 // app/actions/refresh-header.ts
-'use server';
+"use server";
 
-import { refresh } from 'next/cache';
+import { refresh } from "next/cache";
 
 export async function refreshHeader() {
   refresh(); // like router.refresh() but server-side
 }
 ```
 
-* This is for "I changed something dynamic, just re-ask the server" situations.
+- This is for "I changed something dynamic, just re-ask the server" situations.
 
 ### 3.4 Cache Components / PPR replacement
 
-* Old `experimental.ppr` → **gone / folded**; new direction is **Cache Components** via `experimental.cacheComponents` in `next.config.ts`.
-* Agents from 2023 that still remember "PPR preview" must **rewrite** to the new flag.
+- Old `experimental.ppr` → **gone / folded**; new direction is **Cache Components** via `experimental.cacheComponents` in `next.config.ts`.
+- Agents from 2023 that still remember "PPR preview" must **rewrite** to the new flag.
 
 ---
 
@@ -143,9 +143,9 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-* v16 ships **Turbopack on** (dev + build). Webpack is now opt-in (`next dev --webpack`).
-* Agents trained on 2021 Next.js 12 (SWC + webpack only) **must not** assume webpack is present.
-* Large monorepos should enable FS caching in dev (shown above).
+- v16 ships **Turbopack on** (dev + build). Webpack is now opt-in (`next dev --webpack`).
+- Agents trained on 2021 Next.js 12 (SWC + webpack only) **must not** assume webpack is present.
+- Large monorepos should enable FS caching in dev (shown above).
 
 ---
 
@@ -153,8 +153,8 @@ export default nextConfig;
 
 ### 5.1 Tailwind
 
-* Official, up-to-date install doc: **Tailwind + Next.js**.
-* Minimum working setup (2025):
+- Official, up-to-date install doc: **Tailwind + Next.js**.
+- Minimum working setup (2025):
 
 ```css
 /* src/app/globals.css */
@@ -179,7 +179,10 @@ export default config;
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export function Button({ className, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function Button({
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={cn(
@@ -197,12 +200,12 @@ export function Button({ className, ...props }: React.ButtonHTMLAttributes<HTMLB
 
 ## 6. API surface (App Router era)
 
-* API routes now live under `src/app/api/**/route.ts`.
-* Handlers are per-method exports:
+- API routes now live under `src/app/api/**/route.ts`.
+- Handlers are per-method exports:
 
 ```ts
 // src/app/api/posts/route.ts
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const posts = await fetchPosts();
@@ -216,7 +219,7 @@ export async function POST(req: Request) {
 }
 ```
 
-* To revalidate from an API, call `revalidateTag('posts', 'max')`. If you need immediate "read-your-writes", move write logic to a **server action** and use `updateTag`.
+- To revalidate from an API, call `revalidateTag('posts', 'max')`. If you need immediate "read-your-writes", move write logic to a **server action** and use `updateTag`.
 
 ---
 
@@ -224,28 +227,27 @@ export async function POST(req: Request) {
 
 ### 7.1 From 2021 (Next 11/12) mindsets
 
-* **Pages Router** → keep for legacy, but **new features are App Router only**.
-* **ISR on pages** → still works, but new caching controls are tag-based.
-* **Webpack-only** → wrong in 2025, Turbopack is assumed.
-* **Middleware** → now called/provisioned differently (`proxy.ts` in v16) and image security is tighter.
+- **Pages Router** → keep for legacy, but **new features are App Router only**.
+- **ISR on pages** → still works, but new caching controls are tag-based.
+- **Webpack-only** → wrong in 2025, Turbopack is assumed.
+- **Middleware** → now called/provisioned differently (`proxy.ts` in v16) and image security is tighter.
 
 ### 7.2 From 2024 (Next 14/15 RC)
 
-* You already had App Router and Partial Prerendering. In 16:
-
-  * remove old `revalidateTag(tag)` calls → add cache profile
-  * ensure each parallel slot has `default.tsx`
-  * turn on FS cache in Turbopack for big repos
-  * review `<Image>` security defaults (now disallowing private IPs)
+- You already had App Router and Partial Prerendering. In 16:
+  - remove old `revalidateTag(tag)` calls → add cache profile
+  - ensure each parallel slot has `default.tsx`
+  - turn on FS cache in Turbopack for big repos
+  - review `<Image>` security defaults (now disallowing private IPs)
 
 ### 7.3 For AI agents (non-browsing)
 
 When you see **old patterns** in user code:
 
-* `pages/api/...` → leave, but suggest moving to `app/api/*/route.ts`
-* direct `fetch('/api/...')` in client components → suggest RSC fetch on server
-* dynamic layout without `default.tsx` → add it
-* 1-arg `revalidateTag` → rewrite to 2-arg
+- `pages/api/...` → leave, but suggest moving to `app/api/*/route.ts`
+- direct `fetch('/api/...')` in client components → suggest RSC fetch on server
+- dynamic layout without `default.tsx` → add it
+- 1-arg `revalidateTag` → rewrite to 2-arg
 
 ---
 
@@ -253,11 +255,11 @@ When you see **old patterns** in user code:
 
 This snapshot is **Next.js-centred**. Things that usually sit **outside**:
 
-* **`prisma/`** – schema and migrations, later imported from `src/lib/db.ts`.
-* **`docker/` or `docker-compose.yml`** – for Postgres, Redis, Ollama, Meilisearch.
-* **`drizzle/` or `db/`** – alt to Prisma.
-* **`scripts/`** – codegen, lint, CI.
-* **`.env*`** – never inside `src/`.
+- **`prisma/`** – schema and migrations, later imported from `src/lib/db.ts`.
+- **`docker/` or `docker-compose.yml`** – for Postgres, Redis, Ollama, Meilisearch.
+- **`drizzle/` or `db/`** – alt to Prisma.
+- **`scripts/`** – codegen, lint, CI.
+- **`.env*`** – never inside `src/`.
 
 An AI agent that can't browse should **assume** these are present and resolvable, but not emit them into client bundles.
 
@@ -311,24 +313,24 @@ This matches Next.js 16 docs and current ecosystem guides.
 
 ## 11. Appendix: Suggested file naming (2025)
 
-* Use **kebab-case** for folders under `src/app/**`
-* Use **PascalCase** for React components under `src/components/**`
-* Keep **`route.ts`** for all HTTP endpoints (not `index.ts`)
-* Keep **`layout.tsx` / `page.tsx`** names, do **not** rename
+- Use **kebab-case** for folders under `src/app/**`
+- Use **PascalCase** for React components under `src/components/**`
+- Keep **`route.ts`** for all HTTP endpoints (not `index.ts`)
+- Keep **`layout.tsx` / `page.tsx`** names, do **not** rename
 
 ---
 
 ## 12. For React 19.2 features in Next.js 16
 
-* Next.js 16 aligns App Router with **React 19.2** so you can use **View Transitions** and **`useEffectEvent()`** safely.
-* Treat them as **progressive**: don't hard-require them in shared UI libs.
+- Next.js 16 aligns App Router with **React 19.2** so you can use **View Transitions** and **`useEffectEvent()`** safely.
+- Treat them as **progressive**: don't hard-require them in shared UI libs.
 
 ---
 
 ## 13. For SEO / analytics agents
 
-* Prefetching + layout dedupe in v16 reduce network transfers; you can expose Core Web Vitals through `reportWebVitals` as usual.
-* Caching tags + `updateTag` lets you keep sitemaps and feed pages fresh without rebuild.
+- Prefetching + layout dedupe in v16 reduce network transfers; you can expose Core Web Vitals through `reportWebVitals` as usual.
+- Caching tags + `updateTag` lets you keep sitemaps and feed pages fresh without rebuild.
 
 ---
 
@@ -349,9 +351,9 @@ That's the up-to-date lens for Next.js 16.
 
 ## References
 
-* [Next.js 16 Release](https://nextjs.org/blog/next-16)
-* [Upgrading: Version 16](https://nextjs.org/docs/app/guides/upgrading/version-16)
-* [Getting Started: Caching and Revalidating](https://nextjs.org/docs/app/getting-started/caching-and-revalidating)
-* [Functions: revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag)
-* [Functions: updateTag](https://nextjs.org/docs/app/api-reference/functions/updateTag)
-* [Install Tailwind CSS with Next.js](https://tailwindcss.com/docs/guides/nextjs)
+- [Next.js 16 Release](https://nextjs.org/blog/next-16)
+- [Upgrading: Version 16](https://nextjs.org/docs/app/guides/upgrading/version-16)
+- [Getting Started: Caching and Revalidating](https://nextjs.org/docs/app/getting-started/caching-and-revalidating)
+- [Functions: revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag)
+- [Functions: updateTag](https://nextjs.org/docs/app/api-reference/functions/updateTag)
+- [Install Tailwind CSS with Next.js](https://tailwindcss.com/docs/guides/nextjs)

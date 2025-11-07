@@ -1,12 +1,14 @@
 # Decision Log — Biome Migration
 
 ## Context
+
 - Repository was documented to use ESLint flat config with eslint-config-prettier for formatting
 - Next.js workspace (`web/`) was already scaffolded with Biome 2.2.0 from create-next-app template
 - User requested migration to modern Biome linter tool (October 2025)
 - Need to update all documentation and instructions to reflect Biome as the standard
 
 ## Decision
+
 - Adopt Biome 2.2.0 as the primary linter and formatter for the entire project
 - Remove all references to ESLint and Prettier from documentation
 - Configure VS Code to use Biome as default formatter with automatic code actions
@@ -14,6 +16,7 @@
 - Add Biome to VS Code recommended extensions
 
 ## Rationale
+
 - **Performance**: Biome is 10-100x faster than ESLint due to Rust implementation
 - **Simplicity**: Single tool replaces ESLint + Prettier + import organizers
 - **Modern**: Biome represents the state-of-the-art (October 2025) for JavaScript/TypeScript tooling
@@ -24,6 +27,7 @@
 ## Implementation Details
 
 ### Files Modified
+
 1. `.github/copilot-instructions.md`
    - Replaced ESLint flat config reference with Biome
    - Updated guardrails to reflect modern tooling
@@ -43,6 +47,7 @@
    - Configured Biome for all TypeScript/JavaScript file types
 
 ### Files Created
+
 1. `.vscode/extensions.json`
    - Added Biome VS Code extension to recommendations
    - Includes GitHub Copilot extensions
@@ -61,6 +66,7 @@
      - References and related instructions
 
 ### Existing Configuration
+
 - `web/biome.json` (already present from create-next-app)
   - Git integration enabled
   - Recommended rules for React and Next.js
@@ -68,6 +74,7 @@
   - Proper file exclusions (node_modules, .next, dist, build)
 
 ### Testing Performed
+
 1. Verified Biome installation and version (2.2.0)
 2. Ran `pnpm biome check` on existing codebase - all files pass
 3. Created test file with intentional issues:
@@ -79,6 +86,7 @@
 5. Confirmed import organization works correctly
 
 ## Benefits Realized
+
 - **Faster linting**: Biome checks complete in ~5ms vs typical ESLint runs
 - **Unified tooling**: Single command for lint + format + import organization
 - **Better errors**: Clear, actionable error messages with fix suggestions
@@ -86,7 +94,9 @@
 - **Editor integration**: Seamless VS Code integration with format-on-save
 
 ## Migration Path
+
 For future repositories or projects still using ESLint/Prettier:
+
 1. Install `@biomejs/biome` as dev dependency
 2. Create `biome.json` with recommended configuration
 3. Update VS Code settings to use Biome as default formatter
@@ -96,6 +106,7 @@ For future repositories or projects still using ESLint/Prettier:
 7. Test thoroughly before committing
 
 ## Next Steps
+
 - Documentation is complete and tested
 - All memory bank files updated with migration details
 - VS Code workspace ready for Biome usage
@@ -103,6 +114,7 @@ For future repositories or projects still using ESLint/Prettier:
 - CI/CD pipelines should use `pnpm biome check` for validation
 
 ## References
+
 - [Biome Official Documentation](https://biomejs.dev/)
 - [Biome Migration Guide](https://biomejs.dev/guides/migrate-eslint-prettier/)
 - `memory-bank/instructions/biome-linting-formatting.instructions.md`

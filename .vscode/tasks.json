@@ -108,6 +108,50 @@
 				"panel": "shared"
 			},
 			"problemMatcher": []
+		},
+		{
+			"label": "🔍 Markdown: Validate All",
+			"type": "shell",
+			"command": "./scripts/check-markdown.sh",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "🔧 Markdown: Auto-Repair",
+			"type": "shell",
+			"command": "./scripts/auto-repair-markdown.sh",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "🚨 Markdown: Full Health Check",
+			"type": "shell",
+			"command": "./scripts/triad-health.sh && ./scripts/check-markdown.sh",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			},
+			"problemMatcher": [],
+			"dependsOn": [
+				"Validate 3A Instructions",
+				"Validate 3B Chatmodes",
+				"Validate 3C Prompts"
+			]
 		}
 	]
 }

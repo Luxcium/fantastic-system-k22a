@@ -1,4 +1,4 @@
---- 
+---
 description: Layer 2 — verify and extend a repository’s development environment without overwriting; add only missing VS Code, Copilot, and memory-bank triad elements; supports clean bootstrap after Layer 1.
 ---
 
@@ -19,6 +19,7 @@ Do not restate or duplicate Layer-1 artifacts. Keep actions idempotent. Prefer a
 Brief: Establish predictable editor behavior and connect the triad so the agent can locate instructions, prompts, and chat modes.
 
 ### Procedure
+
 - Ensure `.vscode/` exists; create if missing.
 - Ensure `.vscode/settings.json` exists; create if missing, then **merge-append** keys below if not present:
   - `"github.copilot.chat.codeGeneration.useInstructionFiles": true`
@@ -38,6 +39,7 @@ Brief: Establish predictable editor behavior and connect the triad so the agent 
 Brief: Constrain Copilot with explicit standards and valid chat mode metadata so agent runs stay consistent.
 
 ### Procedure
+
 - Ensure `.github/` exists; create if missing.
 - `.github/copilot-instructions.md`:
   - IF missing → create with project guardrails:
@@ -58,6 +60,7 @@ Brief: Constrain Copilot with explicit standards and valid chat mode metadata so
 Brief: Create the triad folders and six persistent context files to anchor project memory and flow.
 
 ### Procedure
+
 - Ensure triad directories exist; create any missing:
   - `memory-bank/instructions/`
   - `memory-bank/prompts/`
@@ -79,6 +82,7 @@ Brief: Create the triad folders and six persistent context files to anchor proje
 Brief: Make the baseline expectations explicit without altering repo code.
 
 ### Procedure
+
 - Document in `copilot-instructions.md` or a workspace note:
   - Biome is the modern all-in-one toolchain for linting, formatting, and import organization.
   - Configuration is in `web/biome.json` with recommended rules enabled.
@@ -93,6 +97,7 @@ Brief: Make the baseline expectations explicit without altering repo code.
 Brief: Confirm Layer-2 readiness and idempotence.
 
 ### Procedure
+
 - `.vscode/settings.json` contains triad keys above.
 - `.github/copilot-instructions.md` exists with guardrails.
 - Triad directories exist with READMEs.

@@ -3,16 +3,16 @@ description: Cline's Memory Bank protocol must be ALWAYS followed by you, and al
 ---
 
 # Cline's Memory Bank
- 
+
 This document is the **cornerstone reference** for all agents and contributors. As such GitHub Copilot will participate in the protocol, GitHub Copilot's strict adherence to the Cline's Memory Bank structure and workflow is mandatory for robust, context-rich, and error-resistant development with GitHub Copilot, Cline AI, or any other VSCode AI agents(any you reading this now), and codex, codex-cli, or any downstream LLM tools. Every session, planning phase, and implementation must be anchored to the Memory Bank to ensure full project continuity.
 
 ---
 
 ## ⚡️ Absolute Principles
 
-* **ALWAYS read the entire Memory Bank at the start of every session or task**
-* **ALWAYS write back any changes, new knowledge, or results after planning, before/after implementation, and before declaring any task complete**
-* **NEVER execute or suggest code/actions without first syncing with the latest Memory Bank state**
+- **ALWAYS read the entire Memory Bank at the start of every session or task**
+- **ALWAYS write back any changes, new knowledge, or results after planning, before/after implementation, and before declaring any task complete**
+- **NEVER execute or suggest code/actions without first syncing with the latest Memory Bank state**
 
 ---
 
@@ -35,11 +35,11 @@ The Memory Bank is a version-controlled folder `/memory-bank/` at the project ro
 
 Create additional files/folders within `memory-bank/` to organize:
 
-* Complex feature documentation
-* Integration specs
-* API docs
-* Test strategies
-* Deployment procedures
+- Complex feature documentation
+- Integration specs
+- API docs
+- Test strategies
+- Deployment procedures
 
 > **Note:** Never duplicate facts between files. Reference, don't copy.
 
@@ -49,17 +49,17 @@ Create additional files/folders within `memory-bank/` to organize:
 
 ### Plan Mode
 
-* **Step 1:** Read all memory bank files before planning
-* **Step 2:** Develop/clarify plan, document rationale and decisions
-* **Step 3:** Write plan and decisions to `activeContext.md`, `progress.md`, or relevant files before coding
+- **Step 1:** Read all memory bank files before planning
+- **Step 2:** Develop/clarify plan, document rationale and decisions
+- **Step 3:** Write plan and decisions to `activeContext.md`, `progress.md`, or relevant files before coding
 
 > **Plan Mode Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
 ### Act Mode
 
-* **Step 1:** Check/refresh memory bank state before implementation
-* **Step 2:** Execute tasks as per plan
-* **Step 3:** Document all changes, new insights, and results in memory bank files *immediately after execution*
+- **Step 1:** Check/refresh memory bank state before implementation
+- **Step 2:** Execute tasks as per plan
+- **Step 3:** Document all changes, new insights, and results in memory bank files _immediately after execution_
 
 > **Act Mode Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
@@ -69,10 +69,10 @@ Create additional files/folders within `memory-bank/` to organize:
 
 Update Memory Bank:
 
-* On new patterns or architecture decisions
-* After significant code or design changes
-* When user requests (**update memory bank**) — review ALL files
-* When context/understanding needs clarification
+- On new patterns or architecture decisions
+- After significant code or design changes
+- When user requests (**update memory bank**) — review ALL files
+- When context/understanding needs clarification
 
 > **Documentation Update Process:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
@@ -82,52 +82,52 @@ Update Memory Bank:
 
 ## 🚦 Strict Codified Steps for All Agents
 
-* **\[MB-1]** At the start of any session, read all `/memory-bank/` files.
-* **\[MB-2]** Before planning, update memory bank with all new requirements or objectives.
-* **\[MB-3]** After planning, update `activeContext.md` and `progress.md` with planned actions and reasoning.
-* **\[MB-4]** Before and after implementation, record all changes, insights, and blockers.
-* **\[MB-5]** Before ending a task/session, ensure all knowledge is written and next steps are clear.
-* **\[MB-6]** Treat the memory bank as **authoritative**—never override or ignore it.
-* **\[MB-7]** Automate discipline—block or warn if not synced.
-* **\[MB-8]** Use clear, consistent markdown at all times.
-* **\[MB-9]** Continuously review and refine for better context management.
+- **\[MB-1]** At the start of any session, read all `/memory-bank/` files.
+- **\[MB-2]** Before planning, update memory bank with all new requirements or objectives.
+- **\[MB-3]** After planning, update `activeContext.md` and `progress.md` with planned actions and reasoning.
+- **\[MB-4]** Before and after implementation, record all changes, insights, and blockers.
+- **\[MB-5]** Before ending a task/session, ensure all knowledge is written and next steps are clear.
+- **\[MB-6]** Treat the memory bank as **authoritative**—never override or ignore it.
+- **\[MB-7]** Automate discipline—block or warn if not synced.
+- **\[MB-8]** Use clear, consistent markdown at all times.
+- **\[MB-9]** Continuously review and refine for better context management.
 
 ---
 
 ## 🛡️ Best Practices & Enforcement
 
-* **Formatting:** Use clear, consistent Markdown headings, lists, and references.
-* **Version Control:** All updates must be committed with descriptive commit messages.
-* **No Redundancy:** Every fact belongs in one place. Reference across files.
-* **Review Cycle:** Schedule audits for clarity, currency, and completeness.
-* **Automation:** Use scripts/hooks to block or warn if memory bank is stale.
-* **Collaboration:** Every team member and AI agent is responsible for memory hygiene.
+- **Formatting:** Use clear, consistent Markdown headings, lists, and references.
+- **Version Control:** All updates must be committed with descriptive commit messages.
+- **No Redundancy:** Every fact belongs in one place. Reference across files.
+- **Review Cycle:** Schedule audits for clarity, currency, and completeness.
+- **Automation:** Use scripts/hooks to block or warn if memory bank is stale.
+- **Collaboration:** Every team member and AI agent is responsible for memory hygiene.
 
 ---
 
 ## 🧩 Advanced Alignment & Statefulness
 
-* **Self-Interrogation:** Agents must confirm: "Is all new information documented?"
-* **Hash-based Syncing:** Use file hashing to detect unsynced updates.
-* **RAG Optimization:** Extract relevant context only, but always trace back to full memory.
-* **Hard Enforcement:** Tasks must not proceed without valid reads/writes to the memory bank.
+- **Self-Interrogation:** Agents must confirm: "Is all new information documented?"
+- **Hash-based Syncing:** Use file hashing to detect unsynced updates.
+- **RAG Optimization:** Extract relevant context only, but always trace back to full memory.
+- **Hard Enforcement:** Tasks must not proceed without valid reads/writes to the memory bank.
 
 ---
 
 ## Project Intelligence (`.github/copilot-instructions.md` — Learning Journal)
 
-The [`copilot-instructions.md`](../../.github/copilot-instructions.md) file (or folder) is a *living journal* per project. It captures intelligence that's tacit or inferred, ensuring long-term learnability and agent adaptability.
+The [`copilot-instructions.md`](../../.github/copilot-instructions.md) file (or folder) is a _living journal_ per project. It captures intelligence that's tacit or inferred, ensuring long-term learnability and agent adaptability.
 
 > **Project Intelligence Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
 **Capture in `.github/copilot-instructions.md`:**
 
-* Critical implementation paths
-* User preferences, naming/style, coding methods
-* Non-obvious insights from usage patterns
-* Known constraints or risks
-* Learning from past mistakes
-* Intentional deviations from convention
+- Critical implementation paths
+- User preferences, naming/style, coding methods
+- Non-obvious insights from usage patterns
+- Known constraints or risks
+- Learning from past mistakes
+- Intentional deviations from convention
 
 > Treat [`copilot-instructions.md`](../../.github/copilot-instructions.md) as the intelligence amplification layer.
 
@@ -145,7 +145,7 @@ Here is a revised and **precise set of instructions** for **GitHub Copilot** tha
 
 Keep all the instruction for your operation well organized inside of the root .github/copilot-instructions.md if any please read once and include in your tasks, make small changes as you are instructed to change your behaviour such as to keep a very well organised set of instructions.
 
-It must always be kept in mind that the  ['<root>`/.github/copilot-instructions.md`'](../../.github/copilot-instructions.md) document represents the definitive operational blueprint. Its therefor imperative that modifications must be executed with extreme precision and thoughtful consideration. modification shall be updated only when user asks clear actions that contredict the nature of the doccument for configurations and behaviours. Store user preference ithout removing anything this is your brain do not lobotomize it. Use it to remember what the user prefers when it is clear that it must be included for the entire lifecycle of this project.
+It must always be kept in mind that the ['<root>`/.github/copilot-instructions.md`'](../../.github/copilot-instructions.md) document represents the definitive operational blueprint. Its therefor imperative that modifications must be executed with extreme precision and thoughtful consideration. modification shall be updated only when user asks clear actions that contredict the nature of the doccument for configurations and behaviours. Store user preference ithout removing anything this is your brain do not lobotomize it. Use it to remember what the user prefers when it is clear that it must be included for the entire lifecycle of this project.
 
 ## Cline's Memory Bank
 
@@ -233,7 +233,9 @@ The Memory Bank consists of required core files and optional context files, all 
   > [`progress`](../../memory-bank/progress.md)
 
 #### Additional Context
+
 Create additional files/folders within memory-bank/ when they help organize:
+
 - Complex feature documentation
 - Integration specifications
 - API documentation
@@ -243,14 +245,17 @@ Create additional files/folders within memory-bank/ when they help organize:
 ### Core Workflows
 
 #### Plan Mode
+
 > **Plan Mode Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
 #### Act Mode
+
 > **Act Mode Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
 ### Documentation Updates
 
 Memory Bank updates occur when:
+
 1. Discovering new project patterns
 2. After implementing significant changes
 3. When user requests with **update memory bank** (MUST review ALL files)
@@ -267,6 +272,7 @@ The main [`copilot instructions`](../../.github/copilot-instructions.md) file is
 > **Project Intelligence Workflow:** See `memory-bank/systemPatterns.md#component--knowledge-relationships` for the authoritative workflow diagrams.
 
 #### What to Capture
+
 - Critical implementation paths
 - User preferences and workflow
 - Project-specific patterns

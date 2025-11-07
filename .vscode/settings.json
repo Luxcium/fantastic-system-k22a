@@ -26,8 +26,12 @@
 	"chat.instructionsFilesLocations": {
 		"memory-bank/instructions": true
 	},
+	"chat.promptFiles": true,
 	"chat.promptFilesLocations": {
 		"memory-bank/prompts": true
+	},
+	"chat.modeFilesLocations": {
+		"memory-bank/chatmodes": true
 	},
 	"github.copilot.chat.commitMessageGeneration.instructions": [
 		{

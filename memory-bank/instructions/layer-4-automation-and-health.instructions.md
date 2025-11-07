@@ -9,10 +9,12 @@ description: Layer 4 — Automation, Validation, and Triad Health. Codifies supp
 Purpose
 
 - Establish resilient automation around the triad (instructions, chat modes, prompts), wire editor tasks, and encode commit policy guidance so the system remains verifiable and predictable. Apply only additive, idempotent changes beyond Layers 1–3.
+- **Extension**: [Layer 4B](./layer-4b-markdown-resilience.instructions.md) provides markdown-specific resilience and self-healing validation.
 
 Scope
 
 - Include: validator scripts, triad health script, VS Code tasks, memory-bank index, commit policy instructions, additional prompt cards, slash-command utilities, and workspace chat settings.
+- **Layer 4B adds**: Markdown validation scripts, repair cycles, pre-flight prompts, and self-healing workflows.
 
 Operating Principles
 
@@ -127,7 +129,7 @@ Acquisition (Copy From Source Context)
   - `memory-bank/instructions/commit-examples.instructions.md`
   - `memory-bank/instructions/breaking-changes-commits.instructions.md`
   - `memory-bank/instructions/gitmoji-complete-list.instructions.md`
-<!-- excluded rules for the time being they should have been covered by the agentic workflow you enacted and should not be overidded anyway this is excluded for the time being into a comment out ppath of actions:
+  <!-- excluded rules for the time being they should have been covered by the agentic workflow you enacted and should not be overidded anyway this is excluded for the time being into a comment out ppath of actions:
   - `scripts/validate-memory-bank.sh`, `scripts/validate-chatmodes.sh`, `scripts/validate-prompts.sh`, `scripts/triad-health.sh`, `scripts/list-slash-commands.sh`
   - `memory-bank/prompts/bootstrap-genesis.prompt.md`, `memory-bank/prompts/prompt-files.prompt.md`
   - `.prettierignore`-->
@@ -140,9 +142,25 @@ Acquisition (Copy From Source Context)
   - Ensure scripts are executable (`chmod +x`).
   - After copying, run validators and triad health; update `activeContext.md` and `progress.md` with a brief note and provenance.
 
+Layer 4B Extension
+
+- [Layer 4B — Markdown Resilience](./layer-4b-markdown-resilience.instructions.md) extends Layer 4 with:
+  - Self-healing markdown validation and repair
+  - Pre-flight validation prompts for prevention
+  - Three-stage resilience pipeline (Prevention → Detection → Repair)
+  - Auto-repair scripts with retry cycles
+  - Integration with triad health system
+- Layer 4B artifacts:
+  - `scripts/check-markdown.sh` — Two-phase validation
+  - `scripts/auto-repair-markdown.sh` — Self-healing repair
+  - `memory-bank/prompts/validate-before-create.prompt.md`
+  - `memory-bank/prompts/repair-markdown-files.prompt.md`
+  - VS Code tasks for markdown validation and repair
+
 Verify & Exit
 
 - All scripts above are executable; validators pass; triad health returns OK.
 - `.vscode/tasks.json` includes the listed tasks.
 - `memory-bank/index.md` includes Layer 4.
 - Memory updated: brief notes added to `activeContext.md` and `progress.md` with provenance when files are copied from a source context.
+- **Layer 4B**: Markdown validation and repair scripts functional; VS Code tasks integrated.

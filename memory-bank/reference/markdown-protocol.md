@@ -217,11 +217,13 @@ As an AI agent working in this repository, you **MUST**:
 
 ```markdown
 <!-- ❌ Bad -->
+
 \`\`\`
 code here
 \`\`\`
 
 <!-- ✅ Good -->
+
 \`\`\`typescript
 code here
 \`\`\`
@@ -231,11 +233,15 @@ code here
 
 ```markdown
 <!-- ❌ Bad -->
+
 Some text
+
 ## Heading
+
 More text
 
 <!-- ✅ Good -->
+
 Some text
 
 ## Heading
@@ -247,9 +253,11 @@ More text
 
 ```markdown
 <!-- ❌ Bad -->
-Line with spaces at end  
+
+Line with spaces at end
 
 <!-- ✅ Good -->
+
 Line with no trailing spaces
 ```
 
@@ -257,9 +265,11 @@ Line with no trailing spaces
 
 ```markdown
 <!-- ❌ Bad -->
+
 Visit https://example.com
 
 <!-- ✅ Good -->
+
 Visit [example.com](https://example.com)
 or <https://example.com>
 ```

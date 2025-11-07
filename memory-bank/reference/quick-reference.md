@@ -1,6 +1,7 @@
 # 🚀 Genesis Utilities - Quick Reference
 
 ## 📍 Current Status
+
 ✅ Foundation Complete - Ready for setup and development
 
 ## ⚡ Quick Start (5 minutes)
@@ -36,6 +37,7 @@ Visit: http://localhost:3000
 ## 📋 Essential Commands
 
 ### Development
+
 ```bash
 pnpm dev          # Start dev server (http://localhost:3000)
 pnpm build        # Build for production
@@ -44,6 +46,7 @@ pnpm type-check   # Check types
 ```
 
 ### Database
+
 ```bash
 pnpm db:init      # Start Postgres (Docker)
 pnpm db:stop      # Stop Postgres
@@ -54,6 +57,7 @@ pnpm db:reset     # ⚠️ Reset DB (deletes all data)
 ```
 
 ### Testing
+
 ```bash
 pnpm test              # Unit tests
 pnpm test:coverage     # With coverage
@@ -61,6 +65,7 @@ pnpm test:e2e          # E2E tests (Playwright)
 ```
 
 ### Validation
+
 ```bash
 ./scripts/validate-setup.sh   # Check setup status
 ```
@@ -100,6 +105,7 @@ pnpm test:e2e          # E2E tests (Playwright)
 ## 📁 Key Files
 
 ### Configuration
+
 - `docker-compose.yml` - Database setup
 - `.env.local` - Environment variables
 - `prisma/schema.prisma` - Database schema
@@ -107,6 +113,7 @@ pnpm test:e2e          # E2E tests (Playwright)
 - `playwright.config.ts` - E2E test config
 
 ### Core Implementation
+
 - `src/middleware.ts` - Security & auth middleware
 - `src/lib/db/prisma.ts` - Database client
 - `src/lib/auth/auth-config.ts` - Auth configuration
@@ -115,11 +122,13 @@ pnpm test:e2e          # E2E tests (Playwright)
 - `src/lib/security/headers.ts` - Security headers
 
 ### API Routes
+
 - `src/app/api/health/route.ts` - Health check
 - `src/app/api/utilities/route.ts` - Utilities list
 - `src/app/api/utilities/[id]/route.ts` - Single utility
 
 ### Documentation
+
 - `README.md` - Complete guide
 - `SETUP.md` - Step-by-step setup
 - `../memory-bank/` - Project context
@@ -128,15 +137,18 @@ pnpm test:e2e          # E2E tests (Playwright)
 ## 🔍 Key Endpoints
 
 ### Public
+
 - `GET /` - Homepage
 - `GET /api/health` - System health
 
 ### Authentication
+
 - `POST /api/auth/signin` - Sign in
 - `POST /api/auth/signout` - Sign out
 - `GET /api/auth/session` - Current session
 
 ### Utilities (Protected)
+
 - `GET /api/utilities` - List utilities
 - `POST /api/utilities` - Create utility (admin)
 - `GET /api/utilities/[id]` - Get utility
@@ -157,17 +169,21 @@ pnpm test:e2e          # E2E tests (Playwright)
 ## 📊 Database Models
 
 ### Users & Auth
+
 - User, Account, Session, Password, VerificationToken
 
 ### Business Logic
+
 - Utility, UserUtility, UtilityUsageLog
 
 ### System
+
 - AuditLog, AppConfig
 
 ## 🧪 Testing
 
 ### Unit Tests (Vitest)
+
 ```bash
 pnpm test                    # Run all tests
 pnpm test src/lib/utils.test.ts  # Run specific file
@@ -176,6 +192,7 @@ pnpm test --coverage         # With coverage
 ```
 
 ### E2E Tests (Playwright)
+
 ```bash
 pnpm test:e2e                # Run all E2E tests
 pnpm test:e2e:ui             # Run with UI
@@ -183,6 +200,7 @@ pnpm test:e2e --headed       # Run in browser
 ```
 
 ### Coverage Targets
+
 - Lines: 70%
 - Functions: 70%
 - Branches: 70%
@@ -191,6 +209,7 @@ pnpm test:e2e --headed       # Run in browser
 ## 🚨 Common Issues
 
 ### Port 3000 in use
+
 ```bash
 lsof -ti:3000 | xargs kill -9
 # or
@@ -198,6 +217,7 @@ PORT=3001 pnpm dev
 ```
 
 ### Database won't start
+
 ```bash
 pnpm db:stop
 docker system prune -f
@@ -205,6 +225,7 @@ pnpm db:init
 ```
 
 ### Prisma errors
+
 ```bash
 pnpm db:generate
 # or
@@ -212,6 +233,7 @@ rm -rf node_modules && pnpm install
 ```
 
 ### Build errors
+
 ```bash
 rm -rf .next node_modules
 pnpm install
@@ -236,6 +258,7 @@ pnpm install
 ## ⚙️ Environment Variables
 
 ### Required
+
 ```env
 DATABASE_URL="postgresql://..."
 NEXTAUTH_URL="http://localhost:3000"
@@ -243,6 +266,7 @@ NEXTAUTH_SECRET="<32+ character secret>"
 ```
 
 ### Optional
+
 ```env
 GOOGLE_CLIENT_ID="..."
 GOOGLE_CLIENT_SECRET="..."

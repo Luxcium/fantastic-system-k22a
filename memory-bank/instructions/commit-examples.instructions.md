@@ -1,5 +1,5 @@
 ---
-description: 'Examples of conventional commit messages with gitmoji.'
+description: "Examples of conventional commit messages with gitmoji."
 ---
 
 # Commit Examples

@@ -5,12 +5,15 @@ This directory contains GitHub-specific configuration files.
 ## Files
 
 ### copilot-instructions.md
+
 Guardrails and instructions for GitHub Copilot interactions in the Genesis 22 workspace.
 
 ### .env.ci
+
 Environment variables for CI/CD environments to disable external service connections that may be blocked by firewalls.
 
 This configuration disables:
+
 - Prisma checkpoint and telemetry services
 - Next.js telemetry
 - Playwright browser download checks
@@ -30,6 +33,7 @@ To use these environment variables in GitHub Actions or other CI/CD pipelines:
 ```
 
 Or source them directly:
+
 ```bash
 source .github/.env.ci
 ```

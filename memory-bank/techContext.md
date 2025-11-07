@@ -1,6 +1,7 @@
 # Tech Context
 
 ## Stack Baseline
+
 - Node.js ≥ 20.9 runtime (22+ preferred).
 - TypeScript-first development with TSDoc annotations for documented APIs.
 - Biome (v2.2.0+) for linting, formatting, and import organization; configured in `web/biome.json`.
@@ -13,6 +14,7 @@
   - Enhanced server components
 
 ## Tooling
+
 - `scripts/init.sh` validates foundation files and handles git bootstrapping if needed.
 - VS Code workspace settings tie Copilot to the memory-bank triad for contextual responses.
 - **Screenshot Automation**: Playwright-based screenshot capture system in `web/src/utils/screenshot.ts` for agentic workflows
@@ -26,6 +28,7 @@
   - Cache helper utilities in `src/lib/cache.ts`
 
 ## Constraints
+
 - Avoid destructive operations; scripts must check for pre-existing files before creating new ones.
 - Network access may require explicit authorization; prefer offline resources when possible.
 - **Firewall-Restricted Environments**: Configuration in place to disable external service connections:

@@ -1,5 +1,4 @@
-description: Layer 3a — Custom Instructions Factory. Canonical authoring rules for *.instructions.md. Single source of truth and short atomic rules.
----
+## description: Layer 3a — Custom Instructions Factory. Canonical authoring rules for \*.instructions.md. Single source of truth and short atomic rules.
 
 <!-- memory-bank/instructions/layer-3a-custom-instructions-factory.instructions.md -->
 
@@ -19,6 +18,7 @@ The layer 2 gave you a place to move the instructions files used to generate thi
 - Prefer relative links for intra-repo references. External links are allowed when directly relevant and authoritative. No placeholders.
 
 ## Authoring Procedure
+
 - Path: `memory-bank/instructions/<topic>.instructions.md`
 - Front-matter:
   - `description: <concrete what/why>`
@@ -30,16 +30,28 @@ The layer 2 gave you a place to move the instructions files used to generate thi
 - Size target: 200–400 words. Split large topics.
 
 ## Verify & Bootstrap
+
 - Create missing file under `memory-bank/instructions/` only.
 - If overlap exists, replace duplication with a relative link.
 - Do not change existing `applyTo`.
 - Log brief changes in `memory-bank/progress.md`.
 
+## Markdown Resilience Integration
+
+Before creating any `.instructions.md` file:
+
+- Use [Layer 4B pre-flight checklist](./layer-4b-markdown-resilience.instructions.md) via [validate-before-create prompt](../prompts/validate-before-create.prompt.md)
+- Verify frontmatter, structure, and content compliance
+- After creation, run validation: `./scripts/check-markdown.sh`
+- If validation fails, run auto-repair: `./scripts/auto-repair-markdown.sh`
+
 ## Review Gate
+
 - `description` present and concrete.
 - No new or modified `applyTo` without explicit approval.
 - Links resolve. Prefer relative links for internal targets; allow external links when value-add and reputable.
 - No duplication. Within size target.
+- **Markdown compliance**: Pass validation before committing.
 
 ## Use custom instructions in VS Code
 
@@ -54,14 +66,14 @@ You can configure custom instructions to apply automatically to all chat request
 
 Only for your information and as a reminder, VS Code supports two types of Markdown-based instructions files, we use both in our projects:
 
-* A single `.github/copilot-instructions.md` file
-  * Automatically applies to all chat requests in the workspace
-  * Stored within the workspace
+- A single `.github/copilot-instructions.md` file
+  - Automatically applies to all chat requests in the workspace
+  - Stored within the workspace
 
-* One or more [`.instructions.md`](#use-instructions-files) files
-  * Created for specific tasks or files
-  * Use `applyTo` frontmatter to define what files the instructions should be applied to
-  * Stored in the workspace or user profile
+- One or more [`.instructions.md`](#use-instructions-files) files
+  - Created for specific tasks or files
+  - Use `applyTo` frontmatter to define what files the instructions should be applied to
+  - Stored in the workspace or user profile
 
 Whitespace between instructions is ignored, so the instructions can be written as a single paragraph, each on a new line, or separated by blank lines for legibility.
 
@@ -86,9 +98,10 @@ applyTo: "**"
 Use these global rules to ensure consistent naming, error handling, and baseline conventions across all code in this workspace.
 
 ## /rules
+
 - Use PascalCase for component names, interfaces, and type aliases.
 - Use camelCase for variables, functions, and methods.
-- Prefix private class members with underscore (_).
+- Prefix private class members with underscore (\_).
 - Use ALL_CAPS for constants.
 - Use try/catch blocks for async operations.
 - Implement proper error boundaries in React components.
@@ -112,6 +125,7 @@ applyTo: "**/*.ts,**/*.tsx"
 Apply the [general coding guidelines](./general-coding.instructions.md) and extend them here for TypeScript and React code paths.
 
 ## /rules
+
 - Use TypeScript for all new code.
 - Prefer interfaces for data structures; use type aliases for unions and intersections.
 - Prefer immutable data (const, readonly); use optional chaining (?.) and nullish coalescing (??).
@@ -139,6 +153,7 @@ applyTo: "docs/**/*.md"
 Write concise, consistent documentation that helps readers act quickly while maintaining a stable Markdown structure.
 
 ## /rules
+
 - Write clear and concise documentation; use consistent terminology and style.
 - Include code examples where applicable.
 - Use present tense and active voice; write in second person (you).
@@ -171,30 +186,32 @@ By using the `applyTo` frontmatter property in the instructions file header, you
 
 Alternatively, you can manually attach an instructions file to a specific chat prompt by using the **Add Context** > **Instructions** option in the Chat view.
 
-* **Workspace instructions files**: are only available within the workspace and are stored in the `.github/instructions` folder of the workspace.
-* **User instructions files**: are available across multiple workspaces and are stored in the current VS Code profile.
+- **Workspace instructions files**: are only available within the workspace and are stored in the `.github/instructions` folder of the workspace.
+- **User instructions files**: are available across multiple workspaces and are stored in the current VS Code profile.
 
 #### Instructions file format
 
-* **Header** (mandatory in our projects): YAML frontmatter
+- **Header** (mandatory in our projects): YAML frontmatter
 
-- Nothing above frontmatter. First line is `---`.
-- Allowed keys only:  
-  - `description` — required. Explains what does the instruction do and why/when to use it. Aids automated selection.  
+* Nothing above frontmatter. First line is `---`.
+* Allowed keys only:
+  - `description` — required. Explains what does the instruction do and why/when to use it. Aids automated selection.
   - `applyTo` — optional. Do not add unless explicitly requested. Preserve if present.
-- Remove any other keys.
-- Close with `---`, then exactly one blank line before the path/suggested path.
+* Remove any other keys.
+* Close with `---`, then exactly one blank line before the path/suggested path.
 
 ##### Path marker
+
 - After the blank line, insert the canonical path comment:
   `<!-- memory-bank/instructions/<filename>.instructions.md -->`
 - Then exactly one blank line.
 
 ##### Body structure (strict)
-1) Exactly one H1 title.  
-2) Exactly one or maximum two paragraphs under the H1 (no lists, no headings).  
-3) First H2 is the Slash Command block:
-Instructions files use the `.instructions.md` extension and have this structure:
+
+1. Exactly one H1 title.
+2. Exactly one or maximum two paragraphs under the H1 (no lists, no headings).
+3. First H2 is the Slash Command block:
+   Instructions files use the `.instructions.md` extension and have this structure:
 
 Example:
 
@@ -211,6 +228,7 @@ applyTo: "**/*.py"
 Use these standards to ensure consistent, readable, and maintainable Python code across the project.
 
 ## /rules
+
 - Follow the PEP 8 style guide.
 - Prioritize readability and clarity.
 - Write clear and concise comments and docstrings.
@@ -227,24 +245,25 @@ To create an 'instructions' file:
 1. Enter a meaningful name for your instructions file.
 
 2. Author the custom instructions by using our strict Markdown formatting rules.
-    > [!IMPORTANT]
-    > In our projects the instructions files should always have a description in the header.
 
-    Only the human user can specify the `applyTo` metadata property in the header to configure when the instructions should be applied automatically. As the ai agent you should never modify this property, neither remove it when there or removing it if present. For example, the user can specify `applyTo: "**/*.ts,**/*.tsx"` to apply the instructions only to TypeScript files, or ask you explicitly to do something.
+   > [!IMPORTANT]
+   > In our projects the instructions files should always have a description in the header.
 
-    To reference additional workspace files, use Markdown links (`[index]\(../index.ts)`). (without the escaping \\)
+   Only the human user can specify the `applyTo` metadata property in the header to configure when the instructions should be applied automatically. As the ai agent you should never modify this property, neither remove it when there or removing it if present. For example, the user can specify `applyTo: "**/*.ts,**/*.tsx"` to apply the instructions only to TypeScript files, or ask you explicitly to do something.
+
+   To reference additional workspace files, use Markdown links (`[index]\(../index.ts)`). (without the escaping \\)
 
 ### Specify custom instructions in settings
 
 When the user asks it clearly and explicitly, you can configure custom instructions for specialized scenarios by using VS Code workspace settings in `.vscode/settings.json`.
 
-| Type of instruction | Setting name |
-|---------------------|--------------|
-| Code review | `setting(github.copilot.chat.reviewSelection.instructions)` |
-| Commit message generation | `setting(github.copilot.chat.commitMessageGeneration.instructions)` |
+| Type of instruction                           | Setting name                                                                 |
+| --------------------------------------------- | ---------------------------------------------------------------------------- |
+| Code review                                   | `setting(github.copilot.chat.reviewSelection.instructions)`                  |
+| Commit message generation                     | `setting(github.copilot.chat.commitMessageGeneration.instructions)`          |
 | Pull request title and description generation | `setting(github.copilot.chat.pullRequestDescriptionGeneration.instructions)` |
-| Code generation (deprecated)* | `setting(github.copilot.chat.codeGeneration.instructions)` |
-| Test generation (deprecated)* | `setting(github.copilot.chat.testGeneration.instructions)` |
+| Code generation (deprecated)\*                | `setting(github.copilot.chat.codeGeneration.instructions)`                   |
+| Test generation (deprecated)\*                | `setting(github.copilot.chat.testGeneration.instructions)`                   |
 
 _\* The `codeGeneration` and `testGeneration` settings are deprecated as of VS Code 1.102. We recommend that you use instructions files instead (`.github/copilot-instructions.md` or `*.instructions.md`)._
 
@@ -254,25 +273,29 @@ The following code snippet shows how to define a set of instructions in the `set
 
 ```json
 {
-    "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
-        { "text": "Always include a list of key changes." }
-    ],
-    "github.copilot.chat.reviewSelection.instructions": [
-        { "file": "memory-bank/instructions/backend-review-guidelines.instructions.md" },
-        { "file": "memory-bank/instructions/frontend-review-guidelines.instructions.md" }
-    ]
+  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [
+    { "text": "Always include a list of key changes." }
+  ],
+  "github.copilot.chat.reviewSelection.instructions": [
+    {
+      "file": "memory-bank/instructions/backend-review-guidelines.instructions.md"
+    },
+    {
+      "file": "memory-bank/instructions/frontend-review-guidelines.instructions.md"
+    }
+  ]
 }
 ```
 
 ### Tips for defining custom instructions
 
-* Keep your instructions short and self-contained. Each instruction should be a single, simple statement. If you need to provide multiple pieces of information, use multiple instructions.
+- Keep your instructions short and self-contained. Each instruction should be a single, simple statement. If you need to provide multiple pieces of information, use multiple instructions.
 
-* For task or language-specific instructions, use multiple `*.instructions.md` files per topic and apply them selectively by using the `applyTo` property.
+- For task or language-specific instructions, use multiple `*.instructions.md` files per topic and apply them selectively by using the `applyTo` property.
 
-* Store project-specific instructions in your workspace to share them with other team members and include them in your version control.
+- Store project-specific instructions in your workspace to share them with other team members and include them in your version control.
 
-* Reuse and reference instructions files in your prompt files ([prompt files are described in our layer 3c](./layer-3c-prompt-files-factory.instructions.md)) and in your chat modes ([chat modes are described in our layer 3b](./layer-3b-chatmodes-factory.instructions.md)) to keep them clean and focused, remember to avoid duplicating instructions.
+- Reuse and reference instructions files in your prompt files ([prompt files are described in our layer 3c](./layer-3c-prompt-files-factory.instructions.md)) and in your chat modes ([chat modes are described in our layer 3b](./layer-3b-chatmodes-factory.instructions.md)) to keep them clean and focused, remember to avoid duplicating instructions.
 
 ### Related content — Fetch and Seek More
 
@@ -298,8 +321,9 @@ Use these tools to responsibly pull in external context when it materially impro
 
     Tools → github_repo
     - repo: "github/awesome-copilot"
-    - query: "chatmodes/*.chatmode.md"
+    - query: "chatmodes/\*.chatmode.md"
 
 Guidance:
+
 - Prefer internal sources first; add external links when they clarify or cite authoritative guidance.
 - Always cite the exact URLs you used in a short References list for traceability.

@@ -35,21 +35,25 @@ pnpm install
 ## 🎯 Common Tasks
 
 ### Lint files
+
 ```bash
 pnpm biome check
 ```
 
 ### Format files
+
 ```bash
 pnpm biome format --write .
 ```
 
 ### Organize imports
+
 ```bash
 pnpm biome check --write --organize-imports-enabled=true
 ```
 
 ### CI/CD mode (errors only)
+
 ```bash
 pnpm biome check --diagnostic-level=error
 ```
@@ -72,6 +76,7 @@ pnpm biome check --diagnostic-level=error
 Location: `web/biome.json`
 
 Currently enabled:
+
 - ✅ Recommended linting rules
 - ✅ React & Next.js specific rules
 - ✅ Automatic import organization
@@ -81,14 +86,17 @@ Currently enabled:
 ## 🐛 Troubleshooting
 
 ### Command not found?
+
 ```bash
 cd web && pnpm install
 ```
 
 ### VS Code not formatting?
+
 1. Check extension is installed
 2. Reload VS Code window
 3. Verify settings: `Cmd/Ctrl + ,` → search "default formatter"
 
 ### Need help?
+
 See the full documentation in `../instructions/biome-linting-formatting.instructions.md`
