@@ -220,47 +220,56 @@ Warnings:   2 checks ⚠️
 ## 📊 Technology Stack Summary
 
 ### Core Framework
+
 - **Next.js**: 15.5.4 (App Router, RSC)
 - **React**: 19.1.0 (Server & Client Components)
 - **TypeScript**: 5.x (Strict mode)
 - **Node.js**: 22+ recommended, 18+ supported
 
 ### Database & ORM
+
 - **PostgreSQL**: 16 (Docker)
 - **Prisma**: 6.17.1 (ORM)
 - **Zod**: 3.25.76 (Validation)
 
 ### Authentication
+
 - **NextAuth**: 5.0.0-beta.29
 - **JWT**: Session management
 - **bcryptjs**: Password hashing
 
 ### State Management
+
 - **Zustand**: 5.0.8 (Client state)
 - **TanStack Query**: 5.90.2 (Server state)
 
 ### Styling
+
 - **Tailwind CSS**: 4.1.13
 - **PostCSS**: 8.5.6
 - **Autoprefixer**: 10.4.21
 
 ### UI Components
+
 - **Radix UI**: Accessible primitives
 - **Lucide Icons**: 0.546.0
 - **Framer Motion**: 12.23.24 (Animations)
 - **Recharts**: 3.3.0 (Charts)
 
 ### Development Tools
+
 - **Biome**: 2.2.0 (Linting + Formatting)
 - **Husky**: 9.1.7 (Git hooks)
 - **lint-staged**: 16.2.5 (Pre-commit)
 
 ### Testing
+
 - **Vitest**: 2.1.9 (Unit tests)
 - **Playwright**: 1.56.0 (E2E tests)
 - **Testing Library**: React components
 
 ### Package Manager
+
 - **pnpm**: 10.18.3
 
 ## 📚 Documentation Created

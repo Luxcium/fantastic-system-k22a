@@ -61,27 +61,27 @@ pnpm screenshot --viewport mobile --theme dark --filename mobile-dark
 ### Basic Example
 
 ```typescript
-import { captureScreenshot, VIEWPORTS } from '@/utils/screenshot';
+import { captureScreenshot, VIEWPORTS } from "@/utils/screenshot";
 
 // Capture desktop screenshot in both themes
 const results = await captureScreenshot({
-  url: 'http://localhost:3022',
-  theme: 'both'
+  url: "http://localhost:3022",
+  theme: "both",
 });
 
-console.log('Screenshots captured:', results.length);
+console.log("Screenshots captured:", results.length);
 ```
 
 ### Mobile Screenshot
 
 ```typescript
-import { captureScreenshot, VIEWPORTS } from '@/utils/screenshot';
+import { captureScreenshot, VIEWPORTS } from "@/utils/screenshot";
 
 const results = await captureScreenshot({
   viewport: VIEWPORTS.mobile,
-  filename: 'home-mobile',
-  theme: 'dark',
-  outputDir: 'screenshots/mobile'
+  filename: "home-mobile",
+  theme: "dark",
+  outputDir: "screenshots/mobile",
 });
 ```
 
@@ -90,31 +90,31 @@ const results = await captureScreenshot({
 ```typescript
 const results = await captureScreenshot({
   fullPage: true,
-  filename: 'full-page',
-  theme: 'light'
+  filename: "full-page",
+  theme: "light",
 });
 ```
 
 ### Complete Suite
 
 ```typescript
-import { captureSuite } from '@/utils/screenshot';
+import { captureSuite } from "@/utils/screenshot";
 
 // Captures mobile, tablet, desktop × light & dark = 6 screenshots
 const results = await captureSuite({
-  url: 'http://localhost:3022',
-  outputDir: 'screenshots/suite'
+  url: "http://localhost:3022",
+  outputDir: "screenshots/suite",
 });
 ```
 
 ## Predefined Viewports
 
-| Name | Width | Height | DPR | Use Case |
-|------|-------|--------|-----|----------|
-| `mobile` | 375 | 667 | 2x | iPhone-like devices |
-| `tablet` | 768 | 1024 | 2x | iPad-like devices |
-| `desktop` | 1920 | 1080 | 1x | Standard desktop |
-| `desktop-hd` | 2560 | 1440 | 1x | High-res desktop |
+| Name         | Width | Height | DPR | Use Case            |
+| ------------ | ----- | ------ | --- | ------------------- |
+| `mobile`     | 375   | 667    | 2x  | iPhone-like devices |
+| `tablet`     | 768   | 1024   | 2x  | iPad-like devices   |
+| `desktop`    | 1920  | 1080   | 1x  | Standard desktop    |
+| `desktop-hd` | 2560  | 1440   | 1x  | High-res desktop    |
 
 ## Examples
 

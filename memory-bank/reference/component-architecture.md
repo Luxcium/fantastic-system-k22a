@@ -237,7 +237,7 @@ Single Responsibility Principle
     ├── Avatar: User representation
     └── Card: Content container
 
-Open/Closed Principle  
+Open/Closed Principle
 └── Components open for extension (props)
     └── Closed for modification (implementation)
 

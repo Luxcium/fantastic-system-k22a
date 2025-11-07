@@ -1,5 +1,5 @@
 ---
-description: 'Guide for documenting breaking changes in commits.'
+description: "Guide for documenting breaking changes in commits."
 ---
 
 # Breaking Changes Guide (Concise)

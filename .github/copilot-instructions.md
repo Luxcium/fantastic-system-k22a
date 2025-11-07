@@ -81,6 +81,7 @@ pnpm screenshot:desktop  # Desktop: 1920×1080
 ### Screenshot Deliverables
 
 Include in your work:
+
 1. Mobile viewport screenshots (both themes)
 2. Tablet viewport screenshots (both themes)
 3. Desktop viewport screenshots (both themes)

@@ -7,6 +7,7 @@ This document explains how to resolve firewall blocking issues when working in r
 When running development tools (Chromium/Playwright, Prisma) in firewall-restricted environments, you may encounter DNS blocking warnings for external services:
 
 **Blocked Services:**
+
 - Google domains (accounts.google.com, android.clients.google.com, etc.) - Used by Chromium for sync, autofill, updates
 - checkpoint.prisma.io - Used by Prisma for update checks and telemetry
 
@@ -45,13 +46,13 @@ The following Chromium arguments are now automatically included:
 
 ```javascript
 [
-  '--disable-sync',
-  '--disable-features=TranslateUI,OptimizationHints',
-  '--disable-component-update',
-  '--disable-background-networking',
-  '--disable-default-apps',
-  '--disable-extensions',
-]
+  "--disable-sync",
+  "--disable-features=TranslateUI,OptimizationHints",
+  "--disable-component-update",
+  "--disable-background-networking",
+  "--disable-default-apps",
+  "--disable-extensions",
+];
 ```
 
 ### Usage

@@ -19,6 +19,7 @@ Layer 1 is about reproducibility and restraint. Verify first, then add only what
 Brief: Determine if you are in a repo already and whether the foundation files are present. Decide between “augment existing” vs “bootstrap new”.
 
 ### Procedure
+
 - Detect git repo:
   - IF `.git/` exists → mark `repo_state=existing`.
   - ELSE → mark `repo_state=new`.
@@ -35,32 +36,44 @@ Brief: Determine if you are in a repo already and whether the foundation files a
 Brief: Each file is canonical in purpose. You verify presence. You only create what is missing. You never overwrite.
 
 ### B1. `.editorconfig`
+
 Context: Standardize line endings, charset, and indentation to prevent tool drift.
+
 - IF missing → create with UTF-8, LF, final newline, trim trailing spaces, 2-space default; include reasonable language overrides.
 - ELSE → do nothing.
 
 ### B2. `.gitattributes`
+
 Context: Normalize line endings and mark binaries for safe diffs.
+
 - IF missing → create with `* text=auto`, LF rules for Unix-style sources, CRLF for batch, binary patterns.
 - ELSE → do nothing.
 
 ### B3. `.gitignore`
+
 Context: Exclude OS junk, editor files, logs, env, builds, caches.
+
 - IF missing → create with a broad, language-agnostic set; keep `!.vscode/` meaning it MUST NOT BE ignored, it must be inside the repo files.
 - ELSE → do nothing.
 
 ### B4. `LICENSE`
+
 Context: Legal baseline. MIT by default unless instructed otherwise.
+
 - IF missing → create MIT license with correct copyright holder and year.
 - ELSE → do nothing.
 
 ### B5. `README.md`
+
 Context: Human entry point. Must outline purpose, features, quick start, docs, support.
+
 - IF missing → create with sections: Overview, Features, Quick Start, Documentation links, Contributing, License, Support, Acknowledgments.
 - ELSE → do nothing.
 
 ### B6. `VERSION`
+
 Context: Single-line semantic version seed.
+
 - IF missing → create with `0.0.1`.
 - ELSE → do nothing.
 
@@ -71,6 +84,7 @@ Context: Single-line semantic version seed.
 Brief: Scripts are language-agnostic and safe to run repeatedly.
 
 ### Procedure
+
 - Ensure `scripts/` directory exists; create if missing.
 - `scripts/README.md`:
   - IF missing → create explaining idempotence, usage, guidelines.
@@ -90,6 +104,7 @@ Brief: Scripts are language-agnostic and safe to run repeatedly.
 Brief: Initialize only if no repo exists.
 
 ### Procedure
+
 - IF `.git/` is absent:
   - Run `git init`.
   - Stage all: `git add .`.
@@ -104,6 +119,7 @@ Brief: Initialize only if no repo exists.
 Brief: Confirm a correct Layer 1 state.
 
 ### Procedure
+
 - Confirm presence of all 8 foundation artifacts:
   - `.editorconfig`, `.gitattributes`, `.gitignore`, `LICENSE`, `README.md`, `VERSION`, `scripts/README.md`, `scripts/init.sh`
 - Ensure `scripts/init.sh` is executable.

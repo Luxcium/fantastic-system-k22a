@@ -30,6 +30,7 @@ pnpm biome check
 ```
 
 This command:
+
 - Lints all files for errors and warnings
 - Checks formatting without modifying files
 - Reports issues with file paths and line numbers
@@ -124,13 +125,14 @@ The `.vscode/settings.json` configures Biome as the default formatter:
 
 - **Default formatter:** `biomejs.biome`
 - **Format on save:** Enabled
-- **Code actions on save:** 
+- **Code actions on save:**
   - `quickfix.biome`: Apply Biome quick fixes
   - `source.organizeImports.biome`: Organize imports with Biome
 
 ### Required VS Code Extension
 
 Install the official Biome extension:
+
 - **Extension ID:** `biomejs.biome`
 - **Name:** Biome
 
@@ -148,6 +150,7 @@ Convenient npm/pnpm scripts in `web/package.json`:
 ```
 
 Usage:
+
 ```bash
 cd web
 pnpm lint        # Check for issues
@@ -196,6 +199,7 @@ The `--diagnostic-level=error` flag ensures only errors (not warnings) cause CI 
 ### Biome Not Found
 
 If you get "biome: command not found":
+
 ```bash
 cd web
 pnpm install
@@ -210,6 +214,7 @@ pnpm install
 ### Formatting Issues
 
 If files aren't formatting as expected:
+
 ```bash
 cd web
 pnpm biome format --write --diagnostic-level=info .
@@ -220,6 +225,7 @@ The `--diagnostic-level=info` flag shows detailed information about what Biome i
 ## Best Practices
 
 1. **Run checks before committing:**
+
    ```bash
    cd web && pnpm biome check --write
    ```
