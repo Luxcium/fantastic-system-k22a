@@ -12,6 +12,7 @@ Before you begin, ensure you have the following installed:
 - **Git** - [Download here](https://git-scm.com/)
 
 Verify installations:
+
 ```bash
 node --version    # Should show v22.x.x or higher
 pnpm --version    # Should show 9.x.x or higher
@@ -32,6 +33,7 @@ pnpm install
 ```
 
 This will install all necessary packages including:
+
 - Next.js 15 and React 19
 - Prisma ORM and PostgreSQL client
 - NextAuth v5 for authentication
@@ -59,7 +61,8 @@ NEXTAUTH_SECRET="your-secret-key-minimum-32-characters-long-change-this"
 AUTH_TRUST_HOST=true
 ```
 
-### Generate a secure NEXTAUTH_SECRET:
+### Generate a secure NEXTAUTH_SECRET
+
 ```bash
 # Option 1: Using openssl (recommended)
 openssl rand -base64 32
@@ -82,7 +85,7 @@ GITHUB_CLIENT_ID="your-github-client-id"
 GITHUB_CLIENT_SECRET="your-github-client-secret"
 ```
 
-[How to get Google OAuth credentials](https://support.google.com/cloud/answer/6158849)  
+[How to get Google OAuth credentials](https://support.google.com/cloud/answer/6158849)
 [How to get GitHub OAuth credentials](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/creating-an-oauth-app)
 
 ## 🐳 Step 4: Start the Database
@@ -92,12 +95,14 @@ pnpm db:init
 ```
 
 This command:
+
 - Starts PostgreSQL 16 in a Docker container
 - Creates the `genesis_dev` database
 - Configures health checks
 - Sets up volume persistence
 
 **Verify the database is running:**
+
 ```bash
 docker ps
 ```
@@ -105,11 +110,13 @@ docker ps
 You should see a container named `genesis-postgres` with status "healthy".
 
 **Optional: Start pgAdmin** (database management UI):
+
 ```bash
 docker compose --profile tools up -d pgadmin
 ```
 
 Access pgAdmin at [http://localhost:5050](http://localhost:5050)
+
 - Email: `admin@genesis.local`
 - Password: `admin_password`
 
@@ -120,6 +127,7 @@ pnpm db:migrate
 ```
 
 This creates all the database tables:
+
 - users, accounts, sessions, passwords
 - verification_tokens
 - utilities, user_utilities, utility_usage_logs
@@ -135,8 +143,9 @@ pnpm db:seed
 ```
 
 This populates the database with:
-- **Admin user**: admin@genesis.local / admin123
-- **Test user**: user@genesis.local / user123
+
+- **Admin user**: <admin@genesis.local> / admin123
+- **Test user**: <user@genesis.local> / user123
 - **5 sample utilities**: JSON Formatter, Text Diff, URL Encoder, Base64 Converter, Hash Generator
 - **App configuration**: Feature flags and settings
 
@@ -159,7 +168,8 @@ pnpm dev
 The application should start on [http://localhost:3022](http://localhost:3022)
 
 **Expected output**:
-```
+
+```text
 ▲ Next.js 15.x.x
 - Local:        http://localhost:3022
 - Ready in X.Xs
@@ -168,13 +178,16 @@ The application should start on [http://localhost:3022](http://localhost:3022)
 ## ✅ Step 9: Verify the Installation
 
 ### Check the Homepage
+
 Visit [http://localhost:3022](http://localhost:3022)
+
 - You should see the Genesis Utilities homepage
 - Header with navigation
 - Theme toggle button
 - Sign in/Sign up buttons
 
 ### Test Authentication
+
 1. Click "Sign In"
 2. Use test credentials:
    - Email: `user@genesis.local`
@@ -182,9 +195,11 @@ Visit [http://localhost:3022](http://localhost:3022)
 3. You should be redirected to the dashboard
 
 ### Check the Health Endpoint
+
 Visit [http://localhost:3022/api/health](http://localhost:3022/api/health)
 
 You should see:
+
 ```json
 {
   "status": "healthy",
@@ -206,22 +221,25 @@ You should see:
 ## 🧪 Step 10: Run Tests
 
 ### Unit Tests
+
 ```bash
 pnpm test
 ```
 
 ### E2E Tests (requires the dev server to be running)
+
 ```bash
 # In a new terminal
 pnpm test:e2e
 ```
 
 ### Coverage Report
+
 ```bash
 pnpm test:coverage
 ```
 
-## 🎉 You're All Set!
+## 🎉 You're All Set
 
 The Genesis Utilities foundation is now fully set up and running.
 
@@ -236,6 +254,7 @@ The Genesis Utilities foundation is now fully set up and running.
 ## 🛠️ Common Commands Reference
 
 ### Development
+
 ```bash
 pnpm dev          # Start development server
 pnpm build        # Build for production
@@ -246,6 +265,7 @@ pnpm type-check   # Type check without building
 ```
 
 ### Database
+
 ```bash
 pnpm db:init      # Start database
 pnpm db:stop      # Stop database
@@ -256,6 +276,7 @@ pnpm db:reset     # Reset database (⚠️ deletes all data)
 ```
 
 ### Testing
+
 ```bash
 pnpm test              # Run unit tests
 pnpm test:ui           # Run tests with UI
@@ -267,6 +288,7 @@ pnpm test:e2e:ui       # Run E2E tests with Playwright UI
 ## 🆘 Troubleshooting
 
 ### Port 3000 already in use
+
 ```bash
 # Kill the process using port 3022
 lsof -ti:3022 | xargs kill -9
@@ -276,6 +298,7 @@ PORT=3001 pnpm dev
 ```
 
 ### Port 5432 already in use (PostgreSQL)
+
 ```bash
 # Stop any existing PostgreSQL services
 sudo systemctl stop postgresql
@@ -284,6 +307,7 @@ sudo systemctl stop postgresql
 ```
 
 ### Docker permission denied
+
 ```bash
 # Add your user to the docker group
 sudo usermod -aG docker $USER
@@ -292,6 +316,7 @@ sudo usermod -aG docker $USER
 ```
 
 ### Database connection errors
+
 ```bash
 # Check if database is running
 docker ps
@@ -304,6 +329,7 @@ docker logs genesis-postgres
 ```
 
 ### Prisma Client not generated
+
 ```bash
 # Generate Prisma Client manually
 pnpm db:generate
@@ -314,6 +340,7 @@ pnpm install
 ```
 
 ### Build errors
+
 ```bash
 # Clean build cache
 rm -rf .next
@@ -324,6 +351,7 @@ pnpm install
 ```
 
 ### Test failures
+
 ```bash
 # Clear test cache
 pnpm test --clearCache
@@ -356,4 +384,6 @@ Before deploying to production:
 
 ---
 
-**Congratulations! You've successfully set up the Genesis Utilities foundation system! 🎊**
+## Success
+
+Congratulations! You've successfully set up the Genesis Utilities foundation system! 🎊

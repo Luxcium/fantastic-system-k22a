@@ -1,0 +1,52 @@
+# Markdown Lint Ignore File
+# Files and directories to exclude from markdown linting
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+.next/
+**/.next/
+dist/
+**/dist/
+build/
+**/build/
+out/
+**/out/
+
+# Test coverage
+coverage/
+**/coverage/
+.nyc_output/
+
+# Git
+.git/
+**/.git/
+
+# Vendor
+vendor/
+**/vendor/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# Generated files
+**/prisma/generated/**
+**/.turbo/**
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# IDE
+.vscode/
+.idea/
+
+# Special markdown files that have strict formatting requirements
+# These files use front-matter with specific formatting that may not conform to all rules
+*.prompt.md
+*.chatmode.md

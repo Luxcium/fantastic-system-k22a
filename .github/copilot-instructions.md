@@ -95,6 +95,44 @@ Include in your work:
 - Full automation support for CI/CD pipelines
 - Documentation: `web/docs/SCREENSHOT-AUTOMATION.md`
 
+## 📝 Markdown Protocol Requirements
+
+**MANDATORY**: AI agents must follow strict markdown linting and validation protocols.
+
+### Validation Workflow
+
+1. **After ANY markdown changes**, run validation:
+
+   ```bash
+   cd web
+   pnpm markdown:validate
+   ```
+
+2. **If validation fails**:
+   - Review errors and fix violations
+   - Use `pnpm markdown:fix` for auto-fixable issues
+   - Re-run validation until clean
+
+3. **Report validation status** in progress updates
+
+### Key Rules Enforced
+
+- ✅ ATX-style headings with blank lines around them
+- ✅ Consistent list formatting (dashes, 2-space indent)
+- ✅ No trailing spaces or hard tabs
+- ✅ Language specified for all code blocks
+- ✅ Alt text required for images
+- ✅ No bare URLs - use proper markdown links
+- ✅ Files end with single newline
+
+### Documentation
+
+- Full protocol: `memory-bank/reference/markdown-protocol.md`
+- Available commands: `markdown:lint`, `markdown:fix`, `markdown:validate`
+- Integrated with pre-commit hooks via lint-staged
+
+**NEVER commit markdown files with linting errors!**
+
 ## CRITICAL MEMORY BANK PROTOCOL (keeping it stateful, ingesting previous context)
 
 **IMPERATIVE REQUIREMENT**: NOW MUST synchronize memory bank AND on EVERY task execution:

@@ -43,13 +43,46 @@ Extended autonomous operation: Your A.I. Agent can work independently for hours 
 - Linting: ESLint (flat config in new projects), run fixers on save.
 - TypeScript: modern Node target, `src/` → `dist/`, source maps and declarations.
 - Scripts: `dev`, `build`, `start`, `lint(:fix)`, `format(:check)`, `typecheck`.
+- **Markdown**: Strict linting with markdownlint-cli2 (see Markdown Protocol below).
+
+## Markdown Protocol for AI Agents
+
+**MANDATORY**: All AI agents must validate markdown after changes.
+
+### Quick Commands
+
+```bash
+cd web
+pnpm markdown:validate  # Full validation (use this!)
+pnpm markdown:fix       # Auto-fix issues
+pnpm markdown:lint      # Show errors only
+```
+
+### Validation Requirements
+
+1. Run `pnpm markdown:validate` after any markdown edits
+2. Fix all reported violations before committing
+3. Report validation status in progress updates
+4. Never commit markdown with linting errors
+
+### Key Rules
+
+- ATX-style headings with blank lines
+- Dashes for lists, 2-space indent
+- No trailing spaces/tabs
+- Code blocks must specify language
+- Images need alt text
+- No bare URLs
+- Files end with newline
+
+Full documentation: `memory-bank/reference/markdown-protocol.md`
 
 ## Standard Task Flow
 
 1. Read Memory Bank files and the target subproject.
 2. Outline planned changes; keep them minimal and focused.
 3. Implement changes with clear, reviewable diffs.
-4. Validate locally (typecheck, lint). Do not add CI.
+4. Validate locally (typecheck, lint, **markdown validation if applicable**).
 5. Update Memory Bank (active context + progress) with what changed and why.
 
 ## Session-Sticky Preferences (Codex CLI)
