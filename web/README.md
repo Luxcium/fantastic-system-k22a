@@ -19,7 +19,7 @@ This is a production-ready Next.js 15 application built with the App Router, fea
 
 ## 📁 Project Structure
 
-```
+```text
 web/
 ├── .key/                   # Key management (gitignored, for sensitive keys)
 ├── docker/                 # Docker configuration files
@@ -65,35 +65,43 @@ web/
 ### Installation
 
 1. **Install dependencies**:
+
 ```bash
 pnpm install
 ```
 
 2. **Set up environment variables**:
+
 ```bash
 cp .env.example .env.local
 ```
+
 Edit `.env.local` and update the `NEXTAUTH_SECRET`:
+
 ```bash
 openssl rand -base64 32
 ```
 
 3. **Start the database**:
+
 ```bash
 pnpm db:init
 ```
 
 4. **Run migrations**:
+
 ```bash
 pnpm db:migrate
 ```
 
 5. **Seed the database** (optional):
+
 ```bash
 pnpm db:seed
 ```
 
 6. **Start development server**:
+
 ```bash
 pnpm dev
 # Starts the dev server and launches your default browser when possible
@@ -116,16 +124,19 @@ For detailed setup instructions, see [SETUP.md](./SETUP.md).
 ## 📜 Available Scripts
 
 ### Development
+
 - `pnpm dev` - Start development server on port 3022
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
 - `pnpm type-check` - Type check without building
 
 ### Code Quality
+
 - `pnpm lint` - Lint and auto-fix with Biome
 - `pnpm format` - Format code with Biome
 
 ### Testing
+
 - `pnpm test` - Run unit tests (Vitest)
 - `pnpm test:ui` - Run tests with UI
 - `pnpm test:coverage` - Generate coverage report
@@ -133,6 +144,7 @@ For detailed setup instructions, see [SETUP.md](./SETUP.md).
 - `pnpm test:e2e:ui` - Run E2E tests with UI
 
 ### Database
+
 - `pnpm db:init` - Start PostgreSQL container
 - `pnpm db:stop` - Stop all containers
 - `pnpm db:migrate` - Run database migrations
@@ -145,7 +157,9 @@ For detailed setup instructions, see [SETUP.md](./SETUP.md).
 ## 🏗️ Architecture
 
 ### App Router Structure
+
 We use Next.js 15 App Router with the following conventions:
+
 - `page.tsx` - Route pages
 - `layout.tsx` - Shared layouts
 - `loading.tsx` - Loading states
@@ -153,17 +167,21 @@ We use Next.js 15 App Router with the following conventions:
 - `route.ts` - API routes
 
 ### Component Organization
+
 - **Base UI Components** (`src/components/ui/`): Reusable, styled components (Button, Card, Badge, etc.)
 - **Feature Components** (`src/features/`): Domain-specific components organized by feature
 - **Page Components** (`src/app/`): Page-level components and layouts
 
 ### State Management
+
 - **Server State**: TanStack Query for data fetching and caching
 - **Client State**: Zustand for global client state
 - **Form State**: React Hook Form with Zod validation
 
 ### Database Schema
+
 See `prisma/schema.prisma` for the complete schema. Key models:
+
 - **User, Account, Session**: Authentication and user management
 - **Utility, UserUtility**: Utility management and user preferences
 - **AuditLog**: Audit trail for all actions
@@ -172,17 +190,20 @@ See `prisma/schema.prisma` for the complete schema. Key models:
 ## 🧪 Testing Strategy
 
 ### Unit Tests (Vitest)
+
 - Test utilities, hooks, and pure functions
 - Mock external dependencies
 - Fast execution with hot reload
 - Located alongside source files or in `src/test/`
 
 ### E2E Tests (Playwright)
+
 - Test critical user flows
 - Test across browsers (Chromium, Firefox, WebKit)
 - Located in `e2e/` directory
 
 ### Coverage Goals
+
 - Utilities: 90%+
 - Components: 80%+
 - API Routes: 80%+
@@ -190,31 +211,37 @@ See `prisma/schema.prisma` for the complete schema. Key models:
 ## 🔒 Security
 
 ### Authentication
+
 - NextAuth.js v5 with JWT sessions
 - Multiple providers: Credentials, Google, GitHub
 - Secure password hashing with bcryptjs
 - Session management with Prisma adapter
 
 ### Environment Variables
+
 - Never commit `.env.local` or `.key/` directory
 - Use strong secrets (32+ characters)
 - Rotate keys regularly
 - Use different secrets per environment
 
 ### Git Hooks
+
 - Pre-commit: Lint staged files with Biome
 - Prevents committing code with linting errors
 
 ## 🎨 Styling
 
 ### Tailwind CSS v4
+
 - Utility-first CSS framework
 - Custom design tokens in `globals.css`
 - Dark mode support via `next-themes`
 - Responsive design with mobile-first approach
 
 ### Component Variants
+
 We use `class-variance-authority` for type-safe component variants:
+
 ```typescript
 const buttonVariants = cva(
   "base-classes",
@@ -230,9 +257,11 @@ const buttonVariants = cva(
 ## 📦 Dependencies
 
 For detailed dependency information and update policies, see:
+
 - [memory-bank/dependencies.md](../memory-bank/dependencies.md)
 
 ### Key Dependencies
+
 - **Next.js 15.5.4**: React framework
 - **React 19.1.0**: UI library
 - **Prisma 6.17.1**: Database ORM
@@ -244,30 +273,35 @@ For detailed dependency information and update policies, see:
 ## 🐳 Docker Services
 
 ### PostgreSQL
+
 - Port: 5433 (mapped to container's 5432)
 - User: genesis
 - Database: genesis_dev
 - Volume: Persistent data storage
 
 ### pgAdmin (optional)
+
 - Port: 5050
-- Access: http://localhost:5050
+- Access: <http://localhost:5050>
 - Start with: `docker compose --profile tools up -d pgadmin`
 
 ## 🔧 Configuration Files
 
 ### TypeScript (`tsconfig.json`)
+
 - Strict mode enabled
 - Path aliases: `@/*` → `./src/*`
 - Target: ES2017
 
 ### Biome (`biome.json`)
+
 - Replaces ESLint + Prettier
 - 10-100x faster linting
 - Auto-fix on save
 - Organizes imports
 
 ### Next.js (`next.config.ts`)
+
 - TypeScript configuration
 - Build optimizations
 - Environment variables
@@ -275,12 +309,14 @@ For detailed dependency information and update policies, see:
 ## 📖 Documentation
 
 ### Project Documentation
+
 - [SETUP.md](./SETUP.md) - Detailed setup instructions
 - [memory-bank/](../memory-bank/) - Project context and decisions
 - [memory-bank/dependencies.md](../memory-bank/dependencies.md) - Dependency tracking
 - [memory-bank/progress.md](../memory-bank/progress.md) - Development progress
 
 ### External Resources
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Prisma Documentation](https://www.prisma.io/docs)
 - [NextAuth Documentation](https://next-auth.js.org)
@@ -290,12 +326,14 @@ For detailed dependency information and update policies, see:
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Kill process on port 3022
 lsof -ti:3022 | xargs kill -9
 ```
 
 ### Database Connection Issues
+
 ```bash
 # Check if database is running
 docker ps
@@ -308,6 +346,7 @@ docker logs genesis-postgres
 ```
 
 ### Prisma Client Errors
+
 ```bash
 # Regenerate Prisma Client
 pnpm db:generate
@@ -318,6 +357,7 @@ pnpm db:generate
 ```
 
 ### Type Errors
+
 ```bash
 # Clean build
 rm -rf .next
@@ -327,6 +367,7 @@ pnpm type-check
 ## 🤝 Contributing
 
 ### Code Style
+
 - Use TypeScript strict mode
 - Follow SOLID principles
 - Write TSDoc comments for public APIs
@@ -334,6 +375,7 @@ pnpm type-check
 - Use functional components with hooks
 
 ### Git Workflow
+
 1. Create feature branch
 2. Make changes
 3. Run tests: `pnpm test && pnpm test:e2e`
@@ -343,7 +385,9 @@ pnpm type-check
 7. Push and create PR
 
 ### Commit Messages
+
 Follow conventional commits:
+
 - `feat:` New feature
 - `fix:` Bug fix
 - `docs:` Documentation
@@ -355,6 +399,7 @@ Follow conventional commits:
 ## 📄 License
 
 MIT License - See [LICENSE](../LICENSE) for details
+
 ## Screenshot Automation
 
 This project includes a comprehensive screenshot automation system for agentic workflows, documentation, and testing.
@@ -392,12 +437,14 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 ## Available Scripts
 
 ### Development
-- `pnpm dev` - Start dev server with browser (auto-opens Chrome at http://localhost:3022)
+
+- `pnpm dev` - Start dev server with browser (auto-opens Chrome at <http://localhost:3022>)
 - `pnpm dev:no-browser` - Start dev server only (no browser auto-launch)
 - `pnpm build` - Build for production
 - `pnpm start` - Start production server
 
 ### Testing
+
 - `pnpm test` - Run unit tests
 - `pnpm test:ui` - Run tests with UI
 - `pnpm test:coverage` - Run tests with coverage
@@ -405,6 +452,7 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 - `pnpm test:e2e:ui` - Run E2E tests with UI
 
 ### Screenshots
+
 - `pnpm screenshot` - Capture desktop (1920×1080) screenshot in both themes
 - `pnpm screenshot:suite` - Capture all viewports and themes (6 screenshots)
 - `pnpm screenshot:mobile` - Mobile viewport (375×667)
@@ -412,11 +460,13 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 - `pnpm screenshot:desktop` - Desktop viewport (1920×1080)
 
 ### Code Quality
+
 - `pnpm lint` - Lint and fix code with Biome
 - `pnpm format` - Format code with Biome
 - `pnpm type-check` - Check TypeScript types
 
 ### Database
+
 - `pnpm db:init` - Start PostgreSQL container
 - `pnpm db:stop` - Stop database
 - `pnpm db:migrate` - Run migrations
@@ -431,6 +481,7 @@ See [docs/SCREENSHOT-AUTOMATION.md](docs/SCREENSHOT-AUTOMATION.md) for full docu
 ## 🙏 Acknowledgments
 
 Built with the Genesis 22 template and best practices from:
+
 - Next.js team
 - Vercel
 - Prisma team

@@ -1,5 +1,20 @@
 # Active Context
 
+- Timestamp: 2025-11-06T21:53:31Z
+- Current focus: 📝 Strict markdown linting protocol for AI agents
+- Implementation status:
+  - ✅ Installed markdownlint-cli2 v0.18.1 with comprehensive rule configuration
+  - ✅ Created validation scripts and npm commands (markdown:lint, markdown:fix, markdown:validate)
+  - ✅ Updated lint-staged integration for pre-commit hooks
+  - ✅ Fixed all 165 markdown violations across 58 repository files
+  - ✅ Documented complete protocol in memory-bank/reference/markdown-protocol.md
+  - ✅ Updated AI agent instructions in .github/copilot-instructions.md and AGENTS.md
+- Immediate next action: AI agents must now run `pnpm markdown:validate` after any markdown changes
+- Notes:
+  - All markdown files must pass strict validation before committing
+  - Auto-fix handles simple issues (spacing, indentation), manual fixes needed for semantic issues (bare URLs, code languages)
+  - Configuration enforces CommonMark/GFM standards with practical flexibility (no line length limit, flexible list numbering)
+- Project Status: ✅ Markdown protocol fully implemented and validated
 - Timestamp: 2025-11-06T16:15:00-04:00
 - Current focus: ✅ Complete resolution - All hydration, chart, TypeScript, and linting errors fixed
 - Implementation status:
