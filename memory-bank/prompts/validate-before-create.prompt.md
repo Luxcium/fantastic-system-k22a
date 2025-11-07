@@ -7,9 +7,11 @@ tools: ['codebase']
 
 # Pre-Creation Markdown Validation
 
-## /validate-ready
-
 Validate markdown content BEFORE file creation to ensure compliance with Layer 4B resilience protocol.
+
+## Slash Command: /validate-ready - Pre-flight markdown validation checklist
+
+Run this checklist before creating any markdown file to ensure compliance.
 
 ### Pre-Flight Checklist
 
@@ -64,7 +66,7 @@ Before creating any `.md`, `.instructions.md`, `.prompt.md`, or `.chatmode.md` f
 ### Common Pitfalls to Avoid
 
 - ❌ Missing language on code fences (`` ```bash `` not just `` ``` ``)
-- ❌ Bare URLs instead of links (`<http://example.com>` or `[text](url)`)
+- ❌ Bare URLs instead of links (wrap in angle brackets or convert to proper markdown links)
 - ❌ Multiple H1 headings in one file
 - ❌ Trailing spaces at end of lines
 - ❌ Hard tabs instead of spaces

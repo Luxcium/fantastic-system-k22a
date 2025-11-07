@@ -7,9 +7,11 @@ tools: ['codebase', 'editFiles']
 
 # Markdown Repair and Compliance Protocol
 
-## /repair-markdown
-
 Automatically detect and repair markdown validation failures before they block workflows.
+
+## Slash Command: /repair-markdown - Auto-repair markdown validation failures
+
+Run this command to detect and automatically fix markdown validation issues using the resilience protocol.
 
 ### Repair Workflow
 
@@ -142,15 +144,10 @@ code here
 
 **Fix**: Wrap in angle brackets or make proper link
 
-```markdown
-<!-- Before -->
-See http://example.com for details
-
-<!-- After - Option 1 -->
-See <http://example.com> for details
-
-<!-- After - Option 2 -->
-See [example site](http://example.com) for details
+```text
+Before: Bare URL in text
+Fix Option 1: Wrap in angle brackets
+Fix Option 2: Convert to proper markdown link with descriptive text
 ```
 
 #### Pattern: Heading Spacing
