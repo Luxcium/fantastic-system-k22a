@@ -49,8 +49,7 @@
       "maximum": 1
     },
 
-    // MD013 - Line length (flexible for markdown, 120 chars)
-    // Set to warning only, not error, for better flexibility
+    // MD013 - Line length (disabled for flexibility)
     "line-length": false,
 
     // MD014 - Dollar signs used before commands without showing output
