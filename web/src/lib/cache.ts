@@ -11,9 +11,9 @@
  */
 
 import {
-	revalidateTag as nextRevalidateTag,
-	revalidatePath,
-	unstable_expireTag,
+  revalidateTag as nextRevalidateTag,
+  revalidatePath,
+  unstable_expireTag,
 } from "next/cache";
 
 /**
@@ -32,7 +32,7 @@ import {
  * ```
  */
 export function revalidateByTag(tag: string): void {
-	nextRevalidateTag(tag);
+  nextRevalidateTag(tag);
 }
 
 /**
@@ -56,7 +56,7 @@ export function revalidateByTag(tag: string): void {
  * ```
  */
 export function expireTagImmediate(tag: string): void {
-	unstable_expireTag(tag);
+  unstable_expireTag(tag);
 }
 
 /**
@@ -77,31 +77,31 @@ export function expireTagImmediate(tag: string): void {
  * ```
  */
 export function revalidateByPath(path: string, type?: "page" | "layout"): void {
-	revalidatePath(path, type);
+  revalidatePath(path, type);
 }
 
 /**
  * Common cache tag patterns for consistency
  */
 export const CacheTags = {
-	// User-related tags
-	user: (id: string) => `user-${id}`,
-	userProfile: (id: string) => `user-profile-${id}`,
-	userPosts: (id: string) => `user-posts-${id}`,
+  // User-related tags
+  user: (id: string) => `user-${id}`,
+  userProfile: (id: string) => `user-profile-${id}`,
+  userPosts: (id: string) => `user-posts-${id}`,
 
-	// Post-related tags
-	post: (id: string) => `post-${id}`,
-	posts: "posts",
-	postComments: (postId: string) => `post-comments-${postId}`,
+  // Post-related tags
+  post: (id: string) => `post-${id}`,
+  posts: "posts",
+  postComments: (postId: string) => `post-comments-${postId}`,
 
-	// Collection tags
-	collection: (type: string) => `collection-${type}`,
-	list: (name: string) => `list-${name}`,
+  // Collection tags
+  collection: (type: string) => `collection-${type}`,
+  list: (name: string) => `list-${name}`,
 
-	// Dynamic content tags
-	feed: "feed",
-	trending: "trending",
-	featured: "featured",
+  // Dynamic content tags
+  feed: "feed",
+  trending: "trending",
+  featured: "featured",
 } as const;
 
 /**
@@ -119,8 +119,8 @@ export const CacheTags = {
  * ```
  */
 export function revalidateMultipleTags(tags: string[]): void {
-	tags.map((tag) => revalidateByTag(tag));
-	return;
+  tags.map((tag) => revalidateByTag(tag));
+  return;
 }
 
 /**
@@ -143,9 +143,9 @@ export type CacheLife = "short" | "medium" | "long" | "indefinite";
  * ```
  */
 export function revalidateTagWithLife(tag: string, _life?: CacheLife): void {
-	// Life parameter is for documentation purposes
-	// Next.js handles actual cache timing
-	revalidateByTag(tag);
+  // Life parameter is for documentation purposes
+  // Next.js handles actual cache timing
+  revalidateByTag(tag);
 }
 
 /**
@@ -165,7 +165,7 @@ export function revalidateTagWithLife(tag: string, _life?: CacheLife): void {
  * ```
  */
 export function updateTagImmediate(tag: string): void {
-	expireTagImmediate(tag);
+  expireTagImmediate(tag);
 }
 
 /**
@@ -184,5 +184,5 @@ export function updateTagImmediate(tag: string): void {
  * ```
  */
 export function refreshPage(path = "/"): void {
-	revalidateByPath(path);
+  revalidateByPath(path);
 }
